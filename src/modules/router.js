@@ -1,7 +1,21 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router';
+const User = {
+  template: '<div>User {{ $route.params.id }}</div>',
+};
 
-const history = createWebHistory()
+const routes = [
+  {
+    path: '/user/:id',
+    name: 'userProfile',
+    component: User,
+  },
+];
 
-export const router = createRouter({
-    history
-})
+const history = createWebHashHistory();
+
+const router = createRouter({
+  history,
+  routes,
+});
+
+export { router };
