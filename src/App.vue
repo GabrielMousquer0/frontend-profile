@@ -1,7 +1,5 @@
 <script setup>
 import HeaderBar from './components/HeaderBar.vue';
-import InputLogin from './components/login/InputsLogin.vue';
-
 
 </script>
 
@@ -9,7 +7,7 @@ import InputLogin from './components/login/InputsLogin.vue';
     <div>
         <HeaderBar />
         <span class="row justify-center fixed-center">
-            <InputLogin/>
+                <router-view></router-view>
         </span>
     </div>
 </template>

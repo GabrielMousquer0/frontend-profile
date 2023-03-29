@@ -1,13 +1,29 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-const User = {
-  template: '<div>User {{ $route.params.id }}</div>',
-};
+import ProfileUser from '../views/user/ProfileUser.vue';
+import Login from '../views/login/InputsLogin.vue';
+import RegisterUser from '../views/login/RegisterUser.vue';
 
 const routes = [
   {
+    path: '/',
+    name: 'Login',
+    components: {
+      default: Login,
+    },
+  },
+  {
     path: '/user/:id',
-    name: 'userProfile',
-    component: User,
+    name: 'ProfileUser',
+    components: {
+      default: ProfileUser,
+    },
+    props: true,
+  },
+  {
+    path: '/register',
+    components: {
+      default: RegisterUser,
+    },
   },
 ];
 
