@@ -11,6 +11,7 @@
   "dependencies": {
     "@quasar/extras": "^1.16.1",
     "dotenv": "^16.0.3",
+    "pinia": "^2.0.33",
     "quasar": "^2.11.9",
     "villus": "^3.0.0",
     "vue": "^3.2.47",

@@ -4,7 +4,7 @@ import { Quasar, Notify } from 'quasar';
 import '@quasar/extras/material-icons/material-icons.css';
 import 'quasar/src/css/index.sass';
 import App from './App.vue';
-import { villus, router } from './modules/';
+import { villus, router, pinia } from './modules/';
 
 createApp(App)
   .use(Quasar, {
@@ -14,4 +14,5 @@ createApp(App)
   })
   .use(villus)
   .use(router)
+  .use(pinia)
   .mount('#app');
