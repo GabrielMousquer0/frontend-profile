@@ -10,9 +10,6 @@ const auth = `
 mutation Auth($email: String!, $password: String!) {
   auth(email: $email, password: $password) {
     password
-    username
-    created_at
-    role
     id
     email
   }
@@ -22,8 +19,8 @@ mutation Auth($email: String!, $password: String!) {
 const { execute } = useMutation(auth)
 function submitInput(email, password) {
   execute({
-    email: `${email}`,
-    password: `${password}`
+    email: email,
+    password: password
   }).then(({ data }) => {
     if (!data) {
       return Notify.create({
