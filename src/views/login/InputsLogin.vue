@@ -1,5 +1,11 @@
 <script setup>
-import { useMutation, ref, Notify, useRouter } from '../../utils/'
+import {
+	useMutation,
+	ref,
+	Notify,
+	useRouter
+}
+from '../../utils/'
 
 const pswVisibility = ref(true)
 const router = useRouter()
@@ -16,28 +22,36 @@ mutation Auth($email: String!, $password: String!) {
 }
 `
 
-const { execute } = useMutation(auth)
+const {
+	execute
+} = useMutation(auth)
+
 function submitInput(email, password) {
-  execute({
-    email: email,
-    password: password
-  }).then(({ data }) => {
-    if (!data) {
-      return Notify.create({
-        message: "Usuario não encontrado",
-        color: 'negative',
-        icon: 'warning',
-        timeout: 3000
-      })
-    };
-    return router.push({
-      name: 'ProfileUser',
-      params: { id: data.auth.id }
-    })
-  }).catch((e) => {
-    return;
-  });
+	execute({
+		email: email,
+		password: password
+	}).then(({
+		data
+	}) => {
+		if(!data) {
+			return Notify.create({
+				message: "Usuario não encontrado",
+				color: 'negative',
+				icon: 'warning',
+				timeout: 3000
+			})
+		};
+		return router.push({
+			name: 'ProfileUser',
+			params: {
+				id: data.auth.id
+			}
+		})
+	}).catch((e) => {
+		return;
+	});
 };
+
 </script>
 
 <template>

@@ -1,6 +1,11 @@
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, useMutation, Notify, useRouter } from '../../utils/'
+import {
+	ref,
+	useMutation,
+	Notify,
+	useRouter
+}
+from '../../utils/'
 
 const pswVisibility = ref(true)
 const emailInput = ref('')
@@ -16,48 +21,55 @@ mutation Register($email: String!, $username: String!, $password: String!, $id: 
 }
 `
 
-const { execute } = useMutation(register)
+const {
+	execute
+} = useMutation(register)
+
 function submitRegister(email, username, password, confirmPassword) {
-    if(!email || !username || !password || !confirmPassword) {
-        return Notify.create({
-        message: "Você deve preencher todos os campos",
-        color: 'negative',
-        icon: 'warning',
-        timeout: 3000
-      })
-    }
-    if(password !== confirmPassword) {
-        return Notify.create({
-        message: "Suas senhas não são iguais!",
-        color: 'negative',
-        icon: 'warning',
-        timeout: 3000
-      })
-    }
-execute({
-email: email,
-username: username,
-password: confirmPassword,
-id: Math.floor(Math.random() * 10000000)
-}).then(({ data }) => {
-if(data.register === true) {
-    return Notify.create({
-        message: "Esse usuario ja existe",
-        color: 'negative',
-        icon: 'warning',
-        timeout: 3000
-    })
-}
-Notify.create({
-        message: "Conta criada, faça seu login",
-        color: 'positive',
-        icon: 'check',
-        timeout: 3000
-})
-return router.push({ name: 'Login' })
-}).catch(() => {
-    return;
-})
+	if(!email || !username || !password || !confirmPassword) {
+		return Notify.create({
+			message: "Você deve preencher todos os campos",
+			color: 'negative',
+			icon: 'warning',
+			timeout: 3000
+		})
+	}
+	if(password !== confirmPassword) {
+		return Notify.create({
+			message: "Suas senhas não são iguais!",
+			color: 'negative',
+			icon: 'warning',
+			timeout: 3000
+		})
+	}
+	execute({
+		email: email,
+		username: username,
+		password: confirmPassword,
+		id: Math.floor(Math.random() * 10000000)
+	}).then(({
+		data
+	}) => {
+		if(data.register === true) {
+			return Notify.create({
+				message: "Esse usuario ja existe",
+				color: 'negative',
+				icon: 'warning',
+				timeout: 3000
+			})
+		}
+		Notify.create({
+			message: "Conta criada, faça seu login",
+			color: 'positive',
+			icon: 'check',
+			timeout: 3000
+		})
+		return router.push({
+			name: 'Login'
+		})
+	}).catch(() => {
+		return;
+	})
 }
 
 </script>

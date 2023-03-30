@@ -4,7 +4,7 @@
             <q-header elevated>
                 <q-toolbar class="q-ma-md justify-center">
                     <q-avatar size="100px" icon="person" />
-                    <span class="textStyle text-h1">Login</span>
+                    <span class="textStyle text-h1">User Profile</span>
                 </q-toolbar>
             </q-header>
         </q-layout> 
