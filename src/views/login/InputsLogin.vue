@@ -8,7 +8,9 @@ import {
 }
 from '../../utils/'
 import { auth } from '../../schemas/'
+import { useUserStore } from '../../store/UserStore.js'
 
+const store = useUserStore()
 const pswVisibility = ref(false)
 const router = useRouter()
 const passwordText = ref('')
@@ -44,6 +46,11 @@ function submitInput(email, password) {
 				timeout: 3000
 			})
 		};
+	store.user_username = data.auth.username
+	store.user_email = data.auth.email
+	store.user_password = data.auth.password
+	store.user_role = data.auth.role
+	store.user_id = data.auth.id
 		return router.push({
 			name: 'ProfileUser',
 			params: {
