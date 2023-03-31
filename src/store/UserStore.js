@@ -7,6 +7,7 @@ export const useUserStore = defineStore('useUserStore', {
     user_email: '',
     user_role: '',
     user_password: '',
+    user_avatar: '',
   }),
   getters: {
     getId: (state) => {
@@ -23,6 +24,9 @@ export const useUserStore = defineStore('useUserStore', {
     },
     getPassword: (state) => {
       return state.user_password;
+    },
+    getAvatar: (state) => {
+      return state.user_avatar;
     },
   },
   persist: true,
