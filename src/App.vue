@@ -7,7 +7,7 @@ import HeaderBar from './components/HeaderBar.vue';
     <div>
         <HeaderBar />
         <span class="row justify-center fixed-center">
-                <router-view></router-view>
+                <router-view />
         </span>
     </div>
 </template>
