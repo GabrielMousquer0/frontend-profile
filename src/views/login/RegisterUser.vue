@@ -51,8 +51,7 @@ function submitRegister(email, username, password, confirmPassword) {
 	execute({
 		email,
 		username,
-		password: confirmPassword,
-		id: Math.floor(Math.random() * 10000000)
+		password: confirmPassword
 	}).then(({
 		data
 	}) => {
