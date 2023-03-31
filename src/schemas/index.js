@@ -9,8 +9,8 @@ mutation Auth($email: String!, $password: String!) {
 `;
 
 const register = `
-mutation Register($email: String!, $username: String!, $password: String!, $id: ID!) {
-    register(email: $email, username: $username, password: $password, id: $id)
+mutation Register($email: String!, $username: String!, $password: String!) {
+    register(email: $email, username: $username, password: $password)
 }
 `;
 
