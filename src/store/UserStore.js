@@ -24,6 +24,6 @@ export const useUserStore = defineStore('useUserStore', {
     getPassword: (state) => {
       return state.user_password;
     },
-    persist: true,
   },
+  persist: true,
 });
