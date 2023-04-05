@@ -8,6 +8,15 @@ export const useUserStore = defineStore('useUserStore', {
     user_role: '',
     user_password: '',
     user_avatar: '',
+    user_createdat: '',
+    user_description: '',
+    user_languages: [
+      {
+        javascript: '',
+        typescript: '',
+        python: '',
+      },
+    ],
   }),
   getters: {
     getId: (state) => {
@@ -27,6 +36,15 @@ export const useUserStore = defineStore('useUserStore', {
     },
     getAvatar: (state) => {
       return state.user_avatar;
+    },
+    getCreatedAt: (state) => {
+      return state.user_createdat;
+    },
+    getDescription: (state) => {
+      return state.user_description;
+    },
+    getLanguages: (state) => {
+      return state.user_languages;
     },
   },
   persist: true,

@@ -1,5 +1,7 @@
 import { auth } from './auth';
 import { register } from './register';
+import { description } from './user';
+import { languages } from './user';
 import {
   EmailUpdate,
   UsernameUpdate,
@@ -14,4 +16,6 @@ export {
   UsernameUpdate,
   PasswordUpdate,
   AvatarUpdate,
+  description,
+  languages,
 };
