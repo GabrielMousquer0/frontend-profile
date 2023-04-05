@@ -7,6 +7,7 @@ mutation Auth($email: String!, $password: String!) {
     avatar
     id
     email
+    created_at
   }
 }
 `;
