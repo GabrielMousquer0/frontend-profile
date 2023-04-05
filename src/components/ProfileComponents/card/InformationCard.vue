@@ -11,11 +11,11 @@ const { notify } = useQuasar()
 const { execute } = useMutation(AvatarUpdate)
 
 function iconSend(avatar, id) {
+    if(!avatar) return notify({message: 'Você deve me dar uma url', icon: 'warning', color: 'negative'})
     execute({
         avatar,
         id
     }).then(({data}) => {
-
         store.user_avatar = data.editAvatar.avatar
         return notify({message: 'Foto de perfil alterada com sucesso', icon: 'check', color: 'positive'})
     }).catch((e) => {
@@ -39,7 +39,7 @@ function iconSend(avatar, id) {
 <style scoped>
 .iconSend {
     position: absolute;
-    left: 155px;
+    left: 141px;
 }
 
 .myUsername {
