@@ -52,6 +52,7 @@ function submitInput(email, password) {
 	store.user_role = data.auth.role
 	store.user_id = data.auth.id
 	store.user_avatar = data.auth.avatar
+	store.user_createdat = data.auth.created_at
 		return router.push({
 			name: 'ProfileUser',
 			params: {
