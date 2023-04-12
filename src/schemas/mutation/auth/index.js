@@ -8,6 +8,7 @@ mutation Auth($email: String!, $password: String!) {
     id
     email
     created_at
+    description
   }
 }
 `;

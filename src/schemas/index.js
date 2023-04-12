@@ -1,14 +1,14 @@
-import { auth } from './auth';
-import { register } from './register';
-import { description } from './user';
-import { languages } from './user';
+import { auth } from './mutation/auth';
+import { register } from './mutation/register';
+import { description } from './mutation/user';
+import { editLanguages } from './mutation/user';
 import {
   EmailUpdate,
   UsernameUpdate,
   PasswordUpdate,
   AvatarUpdate,
-} from './edit';
-
+} from './mutation/edit';
+import { userLanguages } from './query';
 export {
   auth,
   register,
@@ -17,5 +17,6 @@ export {
   PasswordUpdate,
   AvatarUpdate,
   description,
-  languages,
+  editLanguages,
+  userLanguages,
 };
