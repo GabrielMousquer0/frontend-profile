@@ -1,13 +1,14 @@
 <script setup>
 import {
 	useMutation,
+	useQuery,
 	ref,
 	useQuasar,
 	computed,
 	useRouter
 }
 from '../../utils/'
-import { auth } from '../../schemas/'
+import { auth, userLanguages } from '../../schemas/'
 import { useUserStore } from '../../store/UserStore.js'
 
 const store = useUserStore()
@@ -33,9 +34,9 @@ const {
 
 function submitInput(email, password) {
 	execute({
-		email: email,
-		password: password
-	}).then(({
+		email,
+		password
+	}).then(async ({
 		data
 	}) => {
 		if(!data) {
@@ -46,6 +47,19 @@ function submitInput(email, password) {
 				timeout: 3000
 			})
 		};
+		const queryLanguage = await useQuery({
+			query: userLanguages,
+			variables: { id: data.auth.id },
+			tags: ['all_languages']
+		})
+		const proxy = queryLanguage.data.value.languagesUser.languages
+		const newValue = proxy.map((value) => value = {
+			name: value.name,
+			id: value.id,
+			icon: value.id,
+			status: true
+		})
+	store.user_languages = newValue
 	store.user_username = data.auth.username
 	store.user_email = data.auth.email
 	store.user_password = data.auth.password
@@ -53,6 +67,7 @@ function submitInput(email, password) {
 	store.user_id = data.auth.id
 	store.user_avatar = data.auth.avatar
 	store.user_createdat = data.auth.created_at
+	store.user_description = data.auth.description
 		return router.push({
 			name: 'ProfileUser',
 			params: {
