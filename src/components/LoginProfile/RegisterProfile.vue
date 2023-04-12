@@ -8,7 +8,9 @@ import {
 }
 from '../../utils/'
 import { register } from '../../schemas/'
+import { routerStore } from '../../store/RouterStore'
 
+const routerDefine = routerStore() 
 const pswVisibility = ref(false)
 const emailInput = ref('')
 const usernameInput = ref('')
@@ -16,6 +18,7 @@ const passwordInput = ref('')
 const confirmPasswordInput = ref('')
 const router = useRouter()
 const { notify } = useQuasar()
+routerDefine.router_name = 'Register'
 const config = {
 	true: {
 		v1: 'visibility',

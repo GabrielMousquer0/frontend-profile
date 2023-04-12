@@ -10,13 +10,16 @@ import {
 from '../../utils/'
 import { auth, userLanguages } from '../../schemas/'
 import { useUserStore } from '../../store/UserStore.js'
+import { routerStore } from '../../store/RouterStore'
 
+const routerDefine = routerStore() 
 const store = useUserStore()
 const pswVisibility = ref(false)
 const router = useRouter()
 const passwordText = ref('')
 const userText = ref('')
 const { notify } = useQuasar()
+routerDefine.router_name = 'Login'
 const config = {
 	true: {
 		v1: 'visibility',
