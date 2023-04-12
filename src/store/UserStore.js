@@ -12,9 +12,10 @@ export const useUserStore = defineStore('useUserStore', {
     user_description: '',
     user_languages: [
       {
-        javascript: '',
-        typescript: '',
-        python: '',
+        id: '',
+        name: '',
+        icon: '',
+        status: '',
       },
     ],
   }),
