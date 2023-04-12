@@ -1,70 +1,62 @@
 <script setup>
-import {
-    ref,
-    useMutation,
-    useQuasar
-} from '../../../../utils';
-import {
-    useUserStore
-} from '../../../../store/UserStore';
-import {
-    languages
-} from '../../../../schemas';
+import { useMutation, useQuery, ref, useQuasar } from '../../../../utils';
+import { useUserStore } from '../../../../store/UserStore';
+import { editLanguages, userLanguages } from '../../../../schemas'
 
 const store = useUserStore()
 const { notify } = useQuasar()
-const js = ref(store.getLanguages.javascript ? true : false)
-const ts = ref(store.getLanguages.typescript ? true : false)
-const py = ref(store.getLanguages.python ? true : false)
-const myLangJs = store.getLanguages.javascript === '' ? '/none.png' : store.getLanguages.javascript.replace("javascript", "/js.png")
-const myLangTs = store.getLanguages.typescript === '' ? '/none.png' : store.getLanguages.typescript.replace("typescript", "/typescript.png")
-const myLangPy = store.getLanguages.python === '' ? '/none.png' : store.getLanguages.python.replace("python", "/python.png")
-const arrayLangs = [myLangJs, myLangTs, myLangPy]
+const languages = store.getLanguages
+let js = ref(languages[languages.findIndex((a)=>  a.id == 1)] ? true:false)
+let py = ref(languages[languages.findIndex((a)=>  a.id == 2)] ? true:false)
+let ts = ref(languages[languages.findIndex((a)=>  a.id == 3)] ? true:false)
+const imgs = languages.map((a)=>  a.icon.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png') )
 
-const { execute } = useMutation(languages)
+const { execute } = useMutation(editLanguages, {
+    refetchTags: ['all_languages']
+})
 
 function languagesEdit(id) {
-    const langJs = js.value ? 'javascript' : ''
-    const langTs = ts.value ? 'typescript' : ''
-    const langPy = py.value ? 'python' : ''
-
-    execute({
-        id,
-        LanguageInput: {
-            javascript: langJs,
-            typescript: langTs,
-            python: langPy,
-        }
-    }).then(({
-        data
-    }) => {
-        store.user_languages = data.languages
-        return notify({
-            message: 'Suas Linguagens foram atualizadas, Atualize a pagina para vê-las',
-            icon: 'check',
-            color: 'positive'
-        })
-    })
+const langs = [js.value ? 1 : 0, py.value ? 2 : 0, ts.value ? 3 : 0]
+execute({
+id,
+languages: langs
+}).then(async ({data}) => {
+    const queryLanguage = await useQuery({
+			query: userLanguages,
+			variables: { id },
+			tags: ['all_languages']
+		})
+		const proxy = queryLanguage.data.value.languagesUser.languages
+		const newValue = proxy.map((value) => value = {
+			name: value.name,
+			id: value.id,
+			icon: value.id,
+			status: true
+		})
+        store.user_languages = newValue;
+    return notify({message: 'Linguagens Atualizadas com sucesso, atualize a pagina para mostrar suas linguagens', color: 'positive', icon: 'check'})
+})
 }
 </script>
 
 <template>
 
 <div class="tecs">
+    
         <span class="title-tecs text-h1">Tecnologias</span>
         <q-separator color="black" />
         <q-card class="tecCard">
             <q-card-section>
-                <q-checkbox color="yellow" label="JavaScript" v-model="js" checked-icon="task_alt" unchecked-icon="highlight_off" />
+                <q-checkbox color= "black" label="JavaScript" v-model="js" checked-icon="task_alt" unchecked-icon="highlight_off" />
             </q-card-section>
             <q-card-section>
-                <q-checkbox color="blue" label="TypeScript" v-model="ts" checked-icon="task_alt" unchecked-icon="highlight_off" />
+                <q-checkbox color="black" label="TypeScript" v-model="ts" checked-icon="task_alt" unchecked-icon="highlight_off" />
             </q-card-section>
             <q-card-section>
-                <q-checkbox color="red" label="Python" v-model="py" checked-icon="task_alt" unchecked-icon="highlight_off" />
+                <q-checkbox color="black" label="Python" v-model="py" checked-icon="task_alt" unchecked-icon="highlight_off" />
             </q-card-section>
             <q-card-section>
-                <q-avatar v-for="n in arrayLangs" :key="n" size="40px"> <img :src="n"> </q-avatar>
+                <q-avatar v-for="n in imgs" :key="n" size="40px"> <img :src="n"> </q-avatar>
             </q-card-section>
             <q-btn @click="languagesEdit(store.getId)" color="primary" label="salvar" icon="save" />
         </q-card>
