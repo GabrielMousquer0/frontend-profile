@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import ProfileUser from '../views/user/ProfileUser.vue';
 import Login from '../views/login/InputsLogin.vue';
 import RegisterUser from '../views/login/RegisterUser.vue';
+import UsersList from '../views/user/ListUser.vue';
+import UserProfile from '../views/user/ViewProfile.vue';
 
 const routes = [
   {
@@ -23,6 +25,19 @@ const routes = [
     path: '/register',
     components: {
       default: RegisterUser,
+    },
+  },
+  {
+    path: '/list',
+    components: {
+      default: UsersList,
+    },
+  },
+  {
+    path: '/view/:id',
+    name: 'viewUser',
+    components: {
+      default: UserProfile,
     },
   },
 ];
