@@ -1,5 +1,5 @@
 <script setup>
-import LoginProfile from '../../components/LoginProfile/LoginProfile.vue'
+import LoginProfile from '../../components/Login/LoginProfile.vue'
 </script>
 
 <template>

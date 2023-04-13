@@ -3,13 +3,13 @@ import {
     ref,
     useMutation,
     useQuasar
-} from '../../../../utils';
+} from '../../utils';
 import {
     useUserStore
-} from '../../../../store/UserStore.js';
+} from '../../store';
 import {
     description,
-} from '../../../../schemas';
+} from '../../schemas';
 
 const store = useUserStore()
 const descriptionRef = ref(store.getDescription)

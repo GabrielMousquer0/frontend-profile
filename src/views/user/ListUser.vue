@@ -1,5 +1,5 @@
 <script setup>
-import UsersList from '../../components/ProfileComponents/user/search/UsersList.vue';
+import UsersList from '../../components/Search/UsersList.vue';
 </script>
 <template>
     <UsersList/>

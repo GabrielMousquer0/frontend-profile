@@ -1,7 +1,7 @@
 <script setup>
-import { useQuery, moment, ms, useRouter } from '../../../../utils'
-import { users } from '../../../../schemas'
-import { viewUserStore } from '../../../../store/viewUserStore';
+import { useQuery, moment, ms, useRouter } from '../../utils'
+import { users } from '../../schemas'
+import { viewUserStore } from '../../store';
 
 const store = viewUserStore()
 const router = useRouter()

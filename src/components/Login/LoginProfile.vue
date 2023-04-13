@@ -9,8 +9,7 @@ import {
 }
 from '../../utils/'
 import { auth, userLanguages } from '../../schemas/'
-import { useUserStore } from '../../store/UserStore.js'
-import { routerStore } from '../../store/RouterStore'
+import { useUserStore, routerStore } from '../../store'
 
 const routerDefine = routerStore() 
 const store = useUserStore()

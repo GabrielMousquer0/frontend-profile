@@ -1,7 +1,7 @@
 <script setup>
-import { useUserStore } from '../../../store/UserStore';
-import { EmailUpdate, PasswordUpdate, UsernameUpdate } from '../../../schemas/'
-import { ref, useQuasar, useMutation } from '../../../utils/'
+import { useUserStore } from '../../store';
+import { EmailUpdate, PasswordUpdate, UsernameUpdate } from '../../schemas/'
+import { ref, useQuasar, useMutation } from '../../utils/'
 
 const store = useUserStore()
 const usernameEdit = ref('')

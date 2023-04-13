@@ -1,6 +1,6 @@
 <script setup>
-import { useUserStore } from '../../../../store/UserStore';
-import { ms, moment, ref } from '../../../../utils';
+import { useUserStore } from '../../store';
+import { ms, moment, ref } from '../../utils';
 
 const store = useUserStore()
 const date = moment(ms(store.getCreatedAt, {

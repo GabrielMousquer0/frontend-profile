@@ -1,5 +1,5 @@
 <script setup>
-import { routerStore} from '../store/RouterStore';
+import { routerStore} from '../store';
 
 const store = routerStore()
 

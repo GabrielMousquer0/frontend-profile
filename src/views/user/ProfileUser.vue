@@ -1,7 +1,7 @@
 <script setup>
-import ProfileCard from '../../components/ProfileComponents/card/InformationCard.vue'
-import InformationCard from '../../components/ProfileComponents/card/ConfigureCard.vue'
-import UserInformation from '../../components/ProfileComponents/user/UserInformations.vue'
+import ProfileCard from '../../components/Card/InformationCard.vue'
+import InformationCard from '../../components/Card/ConfigureCard.vue'
+import UserInformation from '../../components/Profile/UserInformations.vue'
 </script>
 
 <template>

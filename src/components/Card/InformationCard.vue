@@ -1,7 +1,7 @@
 <script setup>
-import { useUserStore } from '../../../store/UserStore.js';
-import { ref, useMutation, useQuasar } from '../../../utils/';
-import { AvatarUpdate } from '../../../schemas';
+import { useUserStore } from '../../store';
+import { ref, useMutation, useQuasar } from '../../utils/';
+import { AvatarUpdate } from '../../schemas';
 
 const store = useUserStore()
 const username = store.getUsername.length < 10 ? store.getUsername : store.getUsername.slice(0, 10) + '...';

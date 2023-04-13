@@ -1,5 +1,5 @@
 <script setup>
-import UserProfile from '../../components/ProfileComponents/user/search/ViewUser.vue'
+import UserProfile from '../../components/Search/ViewUser.vue'
 </script>
 
 <template>

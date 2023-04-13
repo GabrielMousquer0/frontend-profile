@@ -1,7 +1,7 @@
 <script setup>
-import { useMutation, useQuery, ref, useQuasar } from '../../../../utils';
-import { useUserStore } from '../../../../store/UserStore';
-import { editLanguages, userLanguages } from '../../../../schemas'
+import { useMutation, useQuery, ref, useQuasar } from '../../utils';
+import { useUserStore } from '../../store';
+import { editLanguages, userLanguages } from '../../schemas'
 
 const store = useUserStore()
 const { notify } = useQuasar()

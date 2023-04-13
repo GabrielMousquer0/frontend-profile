@@ -8,7 +8,7 @@ import {
 }
 from '../../utils/'
 import { register } from '../../schemas/'
-import { routerStore } from '../../store/RouterStore'
+import { routerStore } from '../../store'
 
 const routerDefine = routerStore() 
 const pswVisibility = ref(false)

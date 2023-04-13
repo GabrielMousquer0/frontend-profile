@@ -1,6 +1,6 @@
 <script setup>
-import { useRouter } from '../../../../utils';
-import { useUserStore } from '../../../../store/UserStore';
+import { useRouter } from '../../utils';
+import { useUserStore } from '../../store';
 
 const store = useUserStore()
 const router = useRouter()
