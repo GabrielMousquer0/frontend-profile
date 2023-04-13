@@ -1,13 +1,15 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
-import { useQuery, moment, ms, useRouter } from '../../utils'
-import { users } from '../../schemas'
+import { useQuery, moment, ms, useRouter } from '../../utils';
 import { viewUserStore } from '../../store';
+import { searchUser } from '../../schemas';
 
-const store = viewUserStore()
 const router = useRouter()
+const store = viewUserStore()
+
 const { data } = useQuery({
-    query: users,
+  query: searchUser,
+  variables: { username: store.getUsername }
 })
 
 function viewUser(id) {
@@ -22,9 +24,9 @@ function viewUser(id) {
 </script>
 
 <template>
-    <div v-if="data" class="list-user">
+  <div v-if="data" class="list-user">
         <input-search/>
-    <q-list v-for="todo in data.users" :key="todo">
+    <q-list v-for="todo in data.searchUser" :key="todo">
         <q-separator spaced color="black" class="separator"/>
         <q-item>
             <q-item-section>
@@ -74,7 +76,7 @@ function viewUser(id) {
 .list-user {
     position: absolute;
     right: 800px;
-    bottom: 0px;
+    bottom: 10px;
 }
 
 .id {

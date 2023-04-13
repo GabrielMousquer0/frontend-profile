@@ -8,7 +8,7 @@ import {
   editLanguages,
   register,
 } from './mutation';
-import { userLanguages, users, viewUser } from './query';
+import { userLanguages, users, viewUser, searchUser } from './query';
 
 export {
   auth,
@@ -22,4 +22,5 @@ export {
   userLanguages,
   users,
   viewUser,
+  searchUser,
 };

@@ -4,6 +4,7 @@ import Login from '../views/login/InputsLogin.vue';
 import RegisterUser from '../views/login/RegisterUser.vue';
 import UsersList from '../views/user/ListUser.vue';
 import UserProfile from '../views/user/ViewProfile.vue';
+import SearchUser from '../views/user/SearchUser.vue';
 
 const routes = [
   {
@@ -39,6 +40,15 @@ const routes = [
     components: {
       default: UserProfile,
     },
+    props: true,
+  },
+  {
+    path: '/search/:username',
+    name: 'searchUser',
+    components: {
+      default: SearchUser,
+    },
+    props: true,
   },
 ];
 

@@ -9,8 +9,6 @@ const { data } = useQuery({
     variables: { id: store.getId }
 })
 
-
-
 </script>
 
 <template>
