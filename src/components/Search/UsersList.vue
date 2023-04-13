@@ -23,47 +23,49 @@ function viewUser(id) {
 
 <template>
     <div v-if="data" class="list-user">
+        <div class="row full-width justify-end">
         <input-search/>
-    <q-list v-for="todo in data.users" :key="todo">
-        <q-separator spaced color="black" class="separator"/>
-        <q-item>
-            <q-item-section>
-                <q-item-label class="avatar">
-                    <q-avatar> <img :src="todo.avatar" alt=""> </q-avatar>
-                </q-item-label>
-            </q-item-section>
-            <q-separator />
-            <q-item-section>
-                <q-item-label>
-                    <span class="text-subtitle1">User: {{ todo.username }}</span>
-                </q-item-label>
-            </q-item-section>
-            <q-separator/>
-            <q-item-section>
-                <q-item-label class="id">
-                    <span class="text-subtitle1">Id: {{ todo.id }}</span>
-                </q-item-label>
-            </q-item-section>
-            <q-separator/>
-            <q-item-section>
-                <q-item-label class="role">
-                    <span class="text-subtitle1">Cargo: {{ todo.role }}</span>
-                </q-item-label>
-            </q-item-section>
-            <q-separator/>
-            <q-item-section>
-                <q-item-label class="created">
-                    <span class="text-subtitle1">Criou: {{ moment(ms(todo.created_at)).format('DD/MM/YYYY') }}</span>
-                </q-item-label>
-            </q-item-section>
-            <q-item-section class="button">
-                <q-item-label>
-                    <q-btn icon="search" color="primary" @click="viewUser(todo.id)"/>
-                </q-item-label>
-            </q-item-section>
-        </q-item>
-    </q-list>
-</div>
+    </div>
+        <q-list v-for="todo in data.users" :key="todo">
+            <q-separator spaced color="black" class="separator" />
+            <q-item>
+                <q-item-section>
+                    <q-item-label class="avatar">
+                        <q-avatar> <img :src="todo.avatar" alt=""> </q-avatar>
+                    </q-item-label>
+                </q-item-section>
+                <q-separator />
+                <q-item-section>
+                    <q-item-label>
+                        <span class="text-subtitle1">User: {{ todo.username }}</span>
+                    </q-item-label>
+                </q-item-section>
+                <q-separator/>
+                <q-item-section>
+                    <q-item-label class="id">
+                        <span class="text-subtitle1">Id: {{ todo.id }}</span>
+                    </q-item-label>
+                </q-item-section>
+                <q-separator/>
+                <q-item-section>
+                    <q-item-label class="role">
+                        <span class="text-subtitle1">Cargo: {{ todo.role }}</span>
+                    </q-item-label>
+                </q-item-section>
+                <q-separator/>
+                <q-item-section>
+                    <q-item-label class="created">
+                        <span class="text-subtitle1">Criou: {{ moment(ms(todo.created_at)).format('DD/MM/YYYY') }}</span>
+                    </q-item-label>
+                </q-item-section>
+                <q-item-section class="button">
+                    <q-item-label class="row full-width justify-end">
+                        <q-btn icon="search" color="primary" @click="viewUser(todo.id)" />
+                    </q-item-label>
+                </q-item-section>
+            </q-item>
+        </q-list>
+    </div>
 </template>
 
 <style scoped>
@@ -72,33 +74,10 @@ function viewUser(id) {
 }
 
 .list-user {
-    position: absolute;
-    right: 800px;
-    bottom: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100vw;
 }
 
-.id {
-    position: absolute;
-    left: 100px;
-}
 
-.avatar {
-    position: absolute;
-    right: 70px;
-}
-
-.role {
-    position: absolute;
-    left: 150px;
-}
-
-.created {
-    position: absolute;
-    left: 250px;
-}
-
-.button {
-    position: absolute;
-    left: 1700px;
-}
 </style>
