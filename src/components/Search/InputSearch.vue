@@ -30,9 +30,7 @@ store.search_user_username = username
 
 <style scoped>
 .search-input {
-    position: absolute;
-    bottom: 280px;
-    left: 1400px;
-    width: 300px;
+  width: 16rem;
+  
 }
 </style>
