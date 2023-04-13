@@ -8,7 +8,7 @@ import {
   PasswordUpdate,
   AvatarUpdate,
 } from './mutation/edit';
-import { userLanguages } from './query';
+import { userLanguages, users, viewUser } from './query';
 export {
   auth,
   register,
@@ -19,4 +19,6 @@ export {
   description,
   editLanguages,
   userLanguages,
+  users,
+  viewUser,
 };
