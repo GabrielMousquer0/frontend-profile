@@ -25,7 +25,9 @@ function viewUser(id) {
 
 <template>
   <div v-if="data" class="list-user">
+    <div class="row full-width justify-end">
         <input-search/>
+    </div>
     <q-list v-for="todo in data.searchUser" :key="todo">
         <q-separator spaced color="black" class="separator"/>
         <q-item>
@@ -66,6 +68,9 @@ function viewUser(id) {
         </q-item>
     </q-list>
 </div>
+<div v-show="!data">
+ Não foi possivel encontrar nenhum usuario <router-link to="/list">Clique Aqui</router-link>
+</div>
 </template>
 
 <style scoped>
@@ -74,33 +79,8 @@ function viewUser(id) {
 }
 
 .list-user {
-    position: absolute;
-    right: 800px;
-    bottom: 10px;
-}
-
-.id {
-    position: absolute;
-    left: 100px;
-}
-
-.avatar {
-    position: absolute;
-    right: 70px;
-}
-
-.role {
-    position: absolute;
-    left: 150px;
-}
-
-.created {
-    position: absolute;
-    left: 250px;
-}
-
-.button {
-    position: absolute;
-    left: 1700px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100vw;
 }
 </style>
