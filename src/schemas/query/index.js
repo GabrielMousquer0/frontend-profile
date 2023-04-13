@@ -1,12 +1,5 @@
-const userLanguages = `
-query LanguageUser($id: ID!) {
-    languagesUser(id: $id) {
-       languages {
-        id
-        name
-       }
-    }
-}
-`;
+import { users } from './users';
+import { userLanguages } from './userLanguages';
+import { viewUser } from './viewUser';
 
-export { userLanguages };
+export { users, userLanguages, viewUser };
