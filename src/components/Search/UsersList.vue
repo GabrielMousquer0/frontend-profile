@@ -24,7 +24,7 @@ function viewUser(id) {
 
 <template>
     <div class="row full-width justify-rigth">
-        <q-btn label="voltar" icon="chevron_left" color="primary" @click="router.push({ name: 'ProfileUser', params: { id: user.getId } })"/>
+        <q-btn label="voltar" icon="chevron_left" color="primary" @click="router.push({ name: 'ProfileUser', params: { id: user.getId } })" />
     </div>
     <div v-if="data" class="list-user">
         <div class="row full-width justify-end">
