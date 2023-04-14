@@ -1,10 +1,9 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
 import { useQuery, moment, ms, useRouter } from '../../utils';
-import { viewUserStore, useUserStore } from '../../store';
+import { viewUserStore } from '../../store';
 import { searchUser } from '../../schemas';
 
-const user = useUserStore()
 const router = useRouter()
 const store = viewUserStore()
 
@@ -13,7 +12,7 @@ const { data } = useQuery({
     variables: { username: store.getUsername }
 })
 
-function viewUser(id) {
+async function viewUser(id) {
     store.view_user_id = id
     return router.push({
         name: 'viewUser',
@@ -33,7 +32,7 @@ function viewUser(id) {
             <input-search/>
         </div>
         <q-list v-for="todo in data.searchUser" :key="todo">
-            <q-separator spaced color="black" class="separator"/>
+            <q-separator spaced color="black" class="separator" />
             <q-item>
                 <q-item-section>
                     <q-item-label class="avatar">
@@ -71,10 +70,6 @@ function viewUser(id) {
                 </q-item-section>
             </q-item>
         </q-list>
-    </div>
-    <div v-show="!data">
-        Não foi possivel encontrar nenhum usuario
-        <router-link to="/list">Clique Aqui</router-link>
     </div>
 </template>
 
