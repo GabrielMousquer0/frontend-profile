@@ -61,15 +61,17 @@ function submitInput(email, password) {
 			icon: value.id,
 			status: true
 		})
-	store.user_languages = newValue
-	store.user_username = data.auth.username
-	store.user_email = data.auth.email
-	store.user_password = data.auth.password
-	store.user_role = data.auth.role
-	store.user_id = data.auth.id
-	store.user_avatar = data.auth.avatar
-	store.user_createdat = data.auth.created_at
-	store.user_description = data.auth.description
+store.$patch({
+	user_languages: newValue,
+	user_username: data.auth.username,
+	user_email: data.auth.email,
+	user_password: data.auth.password,
+	user_role: data.auth.role,
+	user_id: data.auth.id,
+	user_avatar: data.auth.avatar,
+	user_createdat: data.auth.created_at,
+	user_description: data.auth.description,
+})
 		return router.push({
 			name: 'ProfileUser',
 			params: {
