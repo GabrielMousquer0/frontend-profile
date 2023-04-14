@@ -9,7 +9,7 @@ const languages = store.getLanguages
 let js = ref(languages[languages.findIndex((a)=>  a.id == 1)] ? true:false)
 let py = ref(languages[languages.findIndex((a)=>  a.id == 2)] ? true:false)
 let ts = ref(languages[languages.findIndex((a)=>  a.id == 3)] ? true:false)
-const imgs = languages.map((a)=>  a.icon.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png') )
+const imgs = languages.map((a)=>  a.icon.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png').replace('0', '/transparent.webp') )
 
 const { execute } = useMutation(editLanguages, {
     refetchTags: ['all_languages']
@@ -24,9 +24,9 @@ languages: langs
     const queryLanguage = await useQuery({
 			query: userLanguages,
 			variables: { id },
-			tags: ['all_languages']
 		})
 		const proxy = queryLanguage.data.value.languagesUser.languages
+        console.log(proxy)
 		const newValue = proxy.map((value) => value = {
 			name: value.name,
 			id: value.id,

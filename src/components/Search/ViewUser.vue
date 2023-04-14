@@ -57,7 +57,7 @@ const languages = useQuery({
                             <q-item-label>
                                 <q-btn-dropdown icon="lang" label="Ver">
                                     <q-list v-for="lang in languages.data.value.languagesUser.languages" :key="lang">
-                                        <q-item-section v-if="lang">
+                                        <q-item-section v-if="lang.name !== ''">
                                             <q-btn color="grey">
                                                 <q-icon><img :src="lang.id.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png')"></q-icon>{{ lang.name }}</q-btn>
                                         </q-item-section>
