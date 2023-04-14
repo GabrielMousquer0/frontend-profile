@@ -1,2 +1,3 @@
-export * from './villus.js'
-export * from './router.js'
+export * from './villus';
+export * from './router';
+export * from './pinia';

@@ -1,7 +1,8 @@
-import { createClient } from "villus";
+import { createClient } from 'villus';
+const URL = import.meta.env.VITE_URL_SERVER;
 
 const villus = createClient({
-    url: ''
-})
+  url: URL,
+});
 
-export { villus }
+export { villus };

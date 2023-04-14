@@ -1,15 +1,18 @@
-import { createApp } from 'vue'
-import { Quasar } from 'quasar'
-import { villus, router } from './modules'
+import { createApp } from 'vue';
+import { Quasar, Notify } from 'quasar';
 
-import '@quasar/extras/material-icons/material-icons.css'
-import 'quasar/src/css/index.sass'
-import App from './App.vue'
+import '@quasar/extras/material-icons/material-icons.css';
+import 'quasar/src/css/index.sass';
+import App from './App.vue';
+import { villus, router, pinia } from './modules/';
 
 createApp(App)
-.use(Quasar, {
-  plugins: {}, 
-})
-.use(villus)
-.use(router)
-.mount('#app')
+  .use(Quasar, {
+    plugins: {
+      Notify,
+    },
+  })
+  .use(villus)
+  .use(router)
+  .use(pinia)
+  .mount('#app');
