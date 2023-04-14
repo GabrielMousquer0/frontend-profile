@@ -2,8 +2,9 @@
 import InputSearch from './InputSearch.vue';
 import { useQuery, moment, ms, useRouter } from '../../utils'
 import { users } from '../../schemas'
-import { viewUserStore } from '../../store';
+import { viewUserStore, useUserStore } from '../../store';
 
+const user = useUserStore()
 const store = viewUserStore()
 const router = useRouter()
 const { data } = useQuery({
@@ -22,10 +23,13 @@ function viewUser(id) {
 </script>
 
 <template>
+    <div class="row full-width justify-rigth">
+        <q-btn label="voltar" icon="chevron_left" color="primary" @click="router.push({ name: 'ProfileUser', params: { id: user.getId } })"/>
+    </div>
     <div v-if="data" class="list-user">
         <div class="row full-width justify-end">
-        <input-search/>
-    </div>
+            <input-search/>
+        </div>
         <q-list v-for="todo in data.users" :key="todo">
             <q-separator spaced color="black" class="separator" />
             <q-item>
@@ -78,6 +82,4 @@ function viewUser(id) {
     overflow-x: hidden;
     width: 100vw;
 }
-
-
 </style>
