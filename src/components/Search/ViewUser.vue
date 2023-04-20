@@ -1,6 +1,7 @@
 <script setup>
 import { useQuery, moment, ms, useRouter } from '../../utils';
-import { viewUser, userLanguages } from '../../schemas';
+import viewUser from '../../schemas/query/viewUser.gql';
+import LanguageUser from '../../schemas/query/userLanguages.gql'
 import { viewUserStore } from '../../store';
 
 const router = useRouter()
@@ -10,7 +11,7 @@ const { data } = useQuery({
     variables: { id: store.getId }
 })
 const languages = useQuery({
-    query: userLanguages,
+    query: LanguageUser,
     variables: { id: store.getId }
 })
 </script>

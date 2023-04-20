@@ -7,16 +7,16 @@ import { routerStore, useUserStore } from '../../store'
 import { useRouter } from '../../utils';
 
 const userStore = useUserStore()
-const store = routerStore() 
+const store = routerStore()
 const router = useRouter()
 store.router_name = 'User'
 
 
-if(!userStore.getId) {
-			router.push({
-				path: '/'
-			})
-		}
+if (!userStore.getId) {
+    router.push({
+        path: '/'
+    })
+}
 </script>
 
 <template>

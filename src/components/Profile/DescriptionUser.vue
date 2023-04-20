@@ -7,15 +7,13 @@ import {
 import {
     useUserStore
 } from '../../store';
-import {
-    description,
-} from '../../schemas';
+import DescriptionUser from '../../schemas/mutation/description.gql';
 
 const store = useUserStore()
 const descriptionRef = ref(store.getDescription)
 const { notify } = useQuasar()
 
-const { execute } = useMutation(description)
+const { execute } = useMutation(DescriptionUser)
 
 function descriptionEdit(description, id) {
     if (!description) return notify({
@@ -38,7 +36,6 @@ function descriptionEdit(description, id) {
         })
     })
 }
-
 </script>
 
 <template>
@@ -51,7 +48,6 @@ function descriptionEdit(description, id) {
 </template>
 
 <style scoped>
-
 .description {
     position: absolute;
     top: 150px;
@@ -60,10 +56,10 @@ function descriptionEdit(description, id) {
     padding: 0;
 }
 
-
 .title-description {
     font-size: 80px;
 }
+
 .inputDescription {
     position: absolute;
     top: 150px;

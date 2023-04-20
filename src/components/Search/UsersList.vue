@@ -1,7 +1,7 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
 import { useQuery, moment, ms, useRouter } from '../../utils'
-import { users } from '../../schemas'
+import users from '../../schemas/query/users.gql'
 import { viewUserStore, useUserStore } from '../../store';
 
 const user = useUserStore()

@@ -8,10 +8,11 @@ import {
 	useRouter
 }
 from '../../utils/'
-import { auth, userLanguages } from '../../schemas/'
+import Auth from '../../schemas/mutation/auth.gql'
+import LanguageUser from '../../schemas/query/userLanguages.gql'
 import { useUserStore, routerStore } from '../../store'
 
-const routerDefine = routerStore() 
+const routerDefine = routerStore()
 const store = useUserStore()
 const pswVisibility = ref(false)
 const router = useRouter()
@@ -32,7 +33,7 @@ const config = {
 
 const {
 	execute
-} = useMutation(auth)
+} = useMutation(Auth)
 
 function submitInput(email, password) {
 	execute({
@@ -41,7 +42,7 @@ function submitInput(email, password) {
 	}).then(async ({
 		data
 	}) => {
-		if(!data) {
+		if (!data) {
 			return notify({
 				message: "Usuario não encontrado",
 				color: 'negative',
@@ -50,7 +51,7 @@ function submitInput(email, password) {
 			})
 		};
 		const queryLanguage = await useQuery({
-			query: userLanguages,
+			query: LanguageUser,
 			variables: { id: data.auth.id },
 			tags: ['all_languages']
 		})
@@ -61,17 +62,17 @@ function submitInput(email, password) {
 			icon: value.id,
 			status: true
 		})
-store.$patch({
-	user_languages: newValue,
-	user_username: data.auth.username,
-	user_email: data.auth.email,
-	user_password: data.auth.password,
-	user_role: data.auth.role,
-	user_id: data.auth.id,
-	user_avatar: data.auth.avatar,
-	user_createdat: data.auth.created_at,
-	user_description: data.auth.description,
-})
+		store.$patch({
+			user_languages: newValue,
+			user_username: data.auth.username,
+			user_email: data.auth.email,
+			user_password: data.auth.password,
+			user_role: data.auth.role,
+			user_id: data.auth.id,
+			user_avatar: data.auth.avatar ? data.auth.avatar : '/default_avatar.webp',
+			user_createdat: data.auth.created_at,
+			user_description: data.auth.description,
+		})
 		return router.push({
 			name: 'ProfileUser',
 			params: {
@@ -82,38 +83,35 @@ store.$patch({
 };
 
 function iconEvent() {
-pswVisibility.value = !pswVisibility.value
+	pswVisibility.value = !pswVisibility.value
 }
 const type = computed(() => config[pswVisibility.value])
 </script>
 
 <template>
-
-        <q-input class="inputLogin" type="email" label="E-mail" stack-label v-model="userText"/>
-        <q-input class="inputLogin" :type="type.v2" label="Senha" stack-label v-model="passwordText"/>           
-        <q-icon :name="type.v1" class="pointer" @click="iconEvent()"/>
-        <q-btn class="btnLogin" icon="login" color="primary" label="Login" @click="submitInput(userText, passwordText)"/>
-          <span class="registerText text-subtitle1">Não possui conta? <router-link to="/register">Cadastre-se</router-link></span>
-
+	<q-input class="inputLogin" type="email" label="E-mail" stack-label v-model="userText" />
+	
+	<q-input class="inputLogin" :type="type.v2" label="Senha" stack-label v-model="passwordText" />
+	<q-icon :name="type.v1" class="pointer" @click="iconEvent()" />
+	<q-btn class="btnLogin" icon="login" color="primary" label="Login" @click="submitInput(userText, passwordText)" />
+	<span class="registerText text-subtitle1">Não possui conta? <router-link to="/register">Cadastre-se</router-link></span>
 </template>
 
 <style scoped>
 .inputLogin {
-    height: 80px;
-    width: 320px;
+	height: 80px;
+	width: 320px;
 }
 
 .pointer {
-  position: absolute;
-    left: 300px;
-    bottom: 70px;
+	position: absolute;
+	left: 300px;
+	bottom: 70px;
 }
 
-
-
 .registerText {
-  position: absolute;
-  top: 200px;
-  left: 86px;
+	position: absolute;
+	top: 200px;
+	left: 86px;
 }
 </style>

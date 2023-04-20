@@ -1,9 +1,9 @@
 <script setup>
-import { routerStore} from '../store';
+import { routerStore } from '../store';
 
 const store = routerStore()
-
 </script>
+
 <template>
     <div>
         <q-layout view="lHh lpr lFf">
@@ -13,7 +13,7 @@ const store = routerStore()
                     <span class="textStyle text-h1">{{ store.getName }} Profile</span>
                 </q-toolbar>
             </q-header>
-        </q-layout> 
+        </q-layout>
     </div>
 </template>
 

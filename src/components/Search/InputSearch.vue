@@ -1,7 +1,7 @@
 <script setup>
 import { ref, useQuasar, useRouter, useQuery } from '../../utils'
 import { viewUserStore } from '../../store';
-import { searchUser } from '../../schemas'
+import searchUser from '../../schemas/query/searchUser.gql';
 
 const searchInput = ref('')
 const { notify } = useQuasar()
@@ -16,7 +16,7 @@ async function searchBtn(username) {
         query: searchUser,
         variables: { username }
     })
-    if (data.value.searchUser.find((a) => a.id == 0)) {
+    if (data.value.searchUser.length == 0) {
         return notify({ message: 'Nenhum user encontrado!', icon: 'warning', color: 'negative' })
     }
 
@@ -31,7 +31,7 @@ async function searchBtn(username) {
 <template>
     <q-input v-model="searchInput" filled type="search" label="Procure por um username" class="search-input">
         <template v-slot:append>
-                  <q-icon name="search" @click="searchBtn(searchInput)"/>
+                      <q-icon name="search" @click="searchBtn(searchInput)"/>
 </template>
         </q-input>
 

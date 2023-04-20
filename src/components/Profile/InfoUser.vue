@@ -55,7 +55,7 @@ const simple = [{
 </script>
 
 <template>
- <div class="tableColumn">
+    <div class="tableColumn">
         <q-tree :nodes="simple" no-connectors node-key="label" v-model:expanded="expanded" class="tree-column" default-expand-all/>
     </div>
 </template>
