@@ -1,0 +1,5 @@
+  mutation editEmail($email: String, $id: ID!) {
+    editEmail(email: $email, id: $id) {
+      email
+    }
+  }

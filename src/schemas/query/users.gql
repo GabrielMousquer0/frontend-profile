@@ -1,0 +1,9 @@
+  query users {
+    users {
+      username
+      id
+      avatar
+      created_at
+      role
+    }
+  }
