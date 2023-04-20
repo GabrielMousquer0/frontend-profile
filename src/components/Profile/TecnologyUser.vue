@@ -27,7 +27,6 @@ function languagesEdit(id) {
             variables: { id },
         })
         const proxy = queryLanguage.data.value.languagesUser.languages
-        console.log(proxy)
         const newValue = proxy.map((value) => value = {
             name: value.name,
             id: value.id,

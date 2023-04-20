@@ -1,52 +1,84 @@
 <script setup>
 import { useUserStore } from '../../store';
-import EditEmail from '../../schemas/mutation/editEmail.gql'
-import EditUsername from '../../schemas/mutation/editUsername.gql'
-import EditPassword from '../../schemas/mutation/editPassword.gql'
-import { ref, useQuasar, useMutation } from '../../utils/'
+import EditEmail from '../../schemas/mutation/editEmail.gql';
+import EditUsername from '../../schemas/mutation/editUsername.gql';
+import EditPassword from '../../schemas/mutation/editPassword.gql';
+import { ref, useQuasar, useMutation } from '../../utils/';
 
-const store = useUserStore()
-const usernameEdit = ref('')
-const emailEdit = ref('')
-const passwordEdit = ref('')
-const { notify } = useQuasar()
+const store = useUserStore();
+const usernameEdit = ref('');
+const emailEdit = ref('');
+const passwordEdit = ref('');
+const { notify } = useQuasar();
 
-const emailUp = useMutation(EditEmail)
-const usernameUp = useMutation(EditUsername)
-const passwordUp = useMutation(EditPassword)
+const emailUp = useMutation(EditEmail);
+const usernameUp = useMutation(EditUsername);
+const passwordUp = useMutation(EditPassword);
 
 function eUsername(username, id) {
-    if (!username) return notify({ message: 'Preencha o campo', icon: 'warning', color: 'warning' })
-    usernameUp.execute({
-        username,
-        id
-    }).then(({ data }) => {
-        store.user_username = username
-        return notify({ message: `User alterado para: ${username}, atualize a pagina!`, icon: 'check', color: 'positive' })
+  if (!username)
+    return notify({
+      message: 'Preencha o campo',
+      icon: 'warning',
+      color: 'warning',
+    });
+  usernameUp
+    .execute({
+      username,
+      id,
     })
-
+    .then(({ data }) => {
+      store.user_username = username;
+      return notify({
+        message: `User alterado para: ${username}, atualize a pagina!`,
+        icon: 'check',
+        color: 'positive',
+      });
+    });
 }
 
 function eEmail(email, id) {
-    if (!email) return notify({ message: 'Preencha o campo', icon: 'warning', color: 'warning' })
-    emailUp.execute({
-        email,
-        id
-    }).then(({ data }) => {
-        return notify({ message: `E-mail alterado para: ${email}`, icon: 'check', color: 'positive' })
+  if (!email)
+    return notify({
+      message: 'Preencha o campo',
+      icon: 'warning',
+      color: 'warning',
+    });
+  emailUp
+    .execute({
+      email,
+      id,
     })
-
+    .then(({ data }) => {
+      return notify({
+        message: `E-mail alterado para: ${email}`,
+        icon: 'check',
+        color: 'positive',
+      });
+    });
 }
 
 function ePassword(password, id) {
-    if (!password) return notify({ message: 'Preencha o campo', icon: 'warning', color: 'warning' })
-    passwordUp.execute({
-        password,
-        id
-    }).then(({ data }) => {
-        return notify({ message: `Senha alterado para: ${password}`, icon: 'check', color: 'positive' })
+  if (!password)
+    return notify({
+      message: 'Preencha o campo',
+      icon: 'warning',
+      color: 'warning',
+    });
+  passwordUp
+    .execute({
+      password,
+      id,
     })
+    .then(({ data }) => {
+      return notify({
+        message: `Senha alterado para: ${password}`,
+        icon: 'check',
+        color: 'positive',
+      });
+    });
 }
+
 </script>
 
 <template>

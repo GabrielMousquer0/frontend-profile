@@ -1,91 +1,89 @@
 <script setup>
 import {
-	useMutation,
-	useQuery,
-	ref,
-	useQuasar,
-	computed,
-	useRouter
-}
-from '../../utils/'
-import Auth from '../../schemas/mutation/auth.gql'
-import LanguageUser from '../../schemas/query/userLanguages.gql'
-import { useUserStore, routerStore } from '../../store'
+  useMutation,
+  useQuery,
+  ref,
+  useQuasar,
+  computed,
+  useRouter,
+} from '../../utils/';
+import Auth from '../../schemas/mutation/auth.gql';
+import LanguageUser from '../../schemas/query/userLanguages.gql';
+import { useUserStore, routerStore } from '../../store';
 
-const routerDefine = routerStore()
-const store = useUserStore()
-const pswVisibility = ref(false)
-const router = useRouter()
-const passwordText = ref('')
-const userText = ref('')
-const { notify } = useQuasar()
-routerDefine.router_name = 'Login'
+const routerDefine = routerStore();
+const store = useUserStore();
+const pswVisibility = ref(false);
+const router = useRouter();
+const passwordText = ref('');
+const userText = ref('');
+const { notify } = useQuasar();
+routerDefine.router_name = 'Login';
 const config = {
-	true: {
-		v1: 'visibility',
-		v2: 'text'
-	},
-	false: {
-		v1: 'visibility_off',
-		v2: 'password'
-	}
-}
-
-const {
-	execute
-} = useMutation(Auth)
-
-function submitInput(email, password) {
-	execute({
-		email,
-		password
-	}).then(async ({
-		data
-	}) => {
-		if (!data) {
-			return notify({
-				message: "Usuario não encontrado",
-				color: 'negative',
-				icon: 'warning',
-				timeout: 3000
-			})
-		};
-		const queryLanguage = await useQuery({
-			query: LanguageUser,
-			variables: { id: data.auth.id },
-			tags: ['all_languages']
-		})
-		const proxy = queryLanguage.data.value.languagesUser.languages
-		const newValue = proxy.map((value) => value = {
-			name: value.name,
-			id: value.id,
-			icon: value.id,
-			status: true
-		})
-		store.$patch({
-			user_languages: newValue,
-			user_username: data.auth.username,
-			user_email: data.auth.email,
-			user_password: data.auth.password,
-			user_role: data.auth.role,
-			user_id: data.auth.id,
-			user_avatar: data.auth.avatar ? data.auth.avatar : '/default_avatar.webp',
-			user_createdat: data.auth.created_at,
-			user_description: data.auth.description,
-		})
-		return router.push({
-			name: 'ProfileUser',
-			params: {
-				id: data.auth.id
-			}
-		})
-	});
+  true: {
+    v1: 'visibility',
+    v2: 'text',
+  },
+  false: {
+    v1: 'visibility_off',
+    v2: 'password',
+  },
 };
 
-function iconEvent() {
-	pswVisibility.value = !pswVisibility.value
+const { execute } = useMutation(Auth);
+
+function submitInput(email, password) {
+  execute({
+    email,
+    password,
+  }).then(async ({ data }) => {
+    if (!data) {
+      return notify({
+        message: 'Usuario não encontrado',
+        color: 'negative',
+        icon: 'warning',
+        timeout: 3000,
+      });
+    }
+    const queryLanguage = await useQuery({
+      query: LanguageUser,
+      variables: { id: data.auth.id },
+      tags: ['all_languages'],
+    });
+    const proxy = queryLanguage.data.value.languagesUser.languages;
+    const newValue = proxy.map(
+      (value) =>
+        (value = {
+          name: value.name,
+          id: value.id,
+          icon: value.id,
+          status: true,
+        }),
+    );
+    store.$patch({
+      user_languages: newValue,
+      user_username: data.auth.username,
+      user_email: data.auth.email,
+      user_password: data.auth.password,
+      user_role: data.auth.role,
+      user_id: data.auth.id,
+      user_avatar: data.auth.avatar ? data.auth.avatar : '/default_avatar.webp',
+      user_createdat: data.auth.created_at,
+      user_description: data.auth.description,
+    });
+    return router.push({
+      name: 'ProfileUser',
+      params: {
+        id: data.auth.id,
+      },
+    });
+  });
 }
-const type = computed(() => config[pswVisibility.value])
+
+function iconEvent() {
+  pswVisibility.value = !pswVisibility.value;
+}
+const type = computed(() => config[pswVisibility.value]);
 </script>
 
 <template>

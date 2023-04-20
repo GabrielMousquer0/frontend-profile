@@ -7,7 +7,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended"
+    "plugin:vue/vue3-strongly-recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -16,7 +16,9 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [],
+  "plugins": [
+    "vue"
+  ],
   "rules": {
     "no-unused-vars": [
       "error",

@@ -1,41 +1,35 @@
 <script setup>
-import {
-    ref,
-    useMutation,
-    useQuasar
-} from '../../utils';
-import {
-    useUserStore
-} from '../../store';
+import { ref, useMutation, useQuasar } from '../../utils';
+import { useUserStore } from '../../store';
 import DescriptionUser from '../../schemas/mutation/description.gql';
 
-const store = useUserStore()
-const descriptionRef = ref(store.getDescription)
-const { notify } = useQuasar()
+const store = useUserStore();
+const descriptionRef = ref(store.getDescription);
+const { notify } = useQuasar();
 
-const { execute } = useMutation(DescriptionUser)
+const { execute } = useMutation(DescriptionUser);
 
 function descriptionEdit(description, id) {
-    if (!description) return notify({
-        message: 'Deve digitar algo',
-        icon: 'warning',
-        color: 'orange'
-    })
+  if (!description)
+    return notify({
+      message: 'Deve digitar algo',
+      icon: 'warning',
+      color: 'orange',
+    });
 
-    execute({
-        description,
-        id
-    }).then(({
-        data
-    }) => {
-        store.user_description = description
-        return notify({
-            message: 'Sua descrição foi atualizada',
-            icon: 'check',
-            color: 'positive'
-        })
-    })
+  execute({
+    description,
+    id,
+  }).then(({ data }) => {
+    store.user_description = description;
+    return notify({
+      message: 'Sua descrição foi atualizada',
+      icon: 'check',
+      color: 'positive',
+    });
+  });
 }
+
 </script>
 
 <template>

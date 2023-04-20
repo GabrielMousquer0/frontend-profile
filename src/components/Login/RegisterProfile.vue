@@ -1,88 +1,77 @@
 <script setup>
-import {
-	ref,
-	useMutation,
-	useQuasar,
-	computed,
-	useRouter
-}
-from '../../utils/'
-import Register from '../../schemas/mutation/register.gql'
-import { routerStore } from '../../store'
+import { ref, useMutation, useQuasar, computed, useRouter } from '../../utils/';
+import Register from '../../schemas/mutation/register.gql';
+import { routerStore } from '../../store';
 
-const routerDefine = routerStore()
-const pswVisibility = ref(false)
-const emailInput = ref('')
-const usernameInput = ref('')
-const passwordInput = ref('')
-const confirmPasswordInput = ref('')
-const router = useRouter()
-const { notify } = useQuasar()
-routerDefine.router_name = 'Register'
+const routerDefine = routerStore();
+const pswVisibility = ref(false);
+const emailInput = ref('');
+const usernameInput = ref('');
+const passwordInput = ref('');
+const confirmPasswordInput = ref('');
+const router = useRouter();
+const { notify } = useQuasar();
+routerDefine.router_name = 'Register';
 const config = {
-	true: {
-		v1: 'visibility',
-		v2: 'text'
-	},
-	false: {
-		v1: 'visibility_off',
-		v2: 'password'
-	}
-}
+  true: {
+    v1: 'visibility',
+    v2: 'text',
+  },
+  false: {
+    v1: 'visibility_off',
+    v2: 'password',
+  },
+};
 
-const {
-	execute
-} = useMutation(Register)
+const { execute } = useMutation(Register);
 
 function submitRegister(email, username, password, confirmPassword) {
-	if (!email || !username || !password || !confirmPassword) {
-		return notify({
-			message: "Você deve preencher todos os campos",
-			color: 'negative',
-			icon: 'warning',
-			timeout: 3000
-		})
-	}
-	if (password !== confirmPassword) {
-		return notify({
-			message: "Suas senhas não são iguais!",
-			color: 'negative',
-			icon: 'warning',
-			timeout: 3000
-		})
-	}
-	execute({
-		email,
-		username,
-		password: confirmPassword
-	}).then(({
-		data
-	}) => {
-		if (data.register === true) {
-			return notify({
-				message: "Esse usuario ja existe",
-				color: 'negative',
-				icon: 'warning',
-				timeout: 3000
-			})
-		}
-		notify({
-			message: "Conta criada, faça seu login",
-			color: 'positive',
-			icon: 'check',
-			timeout: 3000
-		})
-		return router.push({
-			name: 'Login'
-		})
-	})
+  if (!email || !username || !password || !confirmPassword) {
+    return notify({
+      message: 'Você deve preencher todos os campos',
+      color: 'negative',
+      icon: 'warning',
+      timeout: 3000,
+    });
+  }
+  if (password !== confirmPassword) {
+    return notify({
+      message: 'Suas senhas não são iguais!',
+      color: 'negative',
+      icon: 'warning',
+      timeout: 3000,
+    });
+  }
+  execute({
+    email,
+    username,
+    password: confirmPassword,
+  }).then(({ data }) => {
+    if (data.register === true) {
+      return notify({
+        message: 'Esse usuario ja existe',
+        color: 'negative',
+        icon: 'warning',
+        timeout: 3000,
+      });
+    }
+    notify({
+      message: 'Conta criada, faça seu login',
+      color: 'positive',
+      icon: 'check',
+      timeout: 3000,
+    });
+    return router.push({
+      name: 'Login',
+    });
+  });
 }
 
 function iconEvent() {
-	pswVisibility.value = !pswVisibility.value
+  pswVisibility.value = !pswVisibility.value;
 }
 
-const type = computed(() => config[pswVisibility.value])
+const type = computed(() => config[pswVisibility.value]);
 </script>
 
 <template>
@@ -105,7 +94,7 @@ const type = computed(() => config[pswVisibility.value])
 			<q-input v-model="confirmPasswordInput" type="password" label="Confirmar Senha" stack-label />
 		</q-card-section>
 		<q-card-section>
-			<q-btn class="btnRegister" color="primary" label="Registrar" icon="edit" @click="submitRegister(emailInput, usernameInput, passwordInput, confirmPasswordInput)" />
+			<q-btn class="btnRegister" color="primary" label="Registrar" icon="edit" @click="submitRegister(emailInput.trim(), usernameInput.trim(), passwordInput.trim(), confirmPasswordInput.trim())" />
 			<span class="my-text text-subtitle1">Ja possui conta?<router-link :to="{ name: 'Login' }"> Clique Aqui</router-link></span>
 		</q-card-section>
 	</q-card>
