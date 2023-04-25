@@ -16,9 +16,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "vue"
-  ],
+  "plugins": [],
   "rules": {
     "no-unused-vars": [
       "error",
