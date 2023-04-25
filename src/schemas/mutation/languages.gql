@@ -1,3 +1,8 @@
-  mutation LanguageUpdate($languages: [ID!], $id: ID!) {
-    editLanguages(languages: $languages, id: $id)
+mutation LanguageUpdate($languages: [ID!], $id: ID!) {
+    insertLanguages(languages: $languages, id: $id) {
+    languages {
+        name
+        id
+      }
+    }
   }

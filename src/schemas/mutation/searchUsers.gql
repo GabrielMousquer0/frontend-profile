@@ -1,0 +1,16 @@
+mutation SearchUsers($username: String!) {
+    searchUsers(username: $username) {
+        username
+        id
+        infos {
+            role
+            avatar
+            description
+            created_at
+        }
+        languages {
+            name
+            id
+        }
+    }
+}

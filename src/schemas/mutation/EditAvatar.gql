@@ -1,5 +1,7 @@
 mutation EditAvatar($avatar: String, $id: ID!) {
     editAvatar(avatar: $avatar, id: $id) {
-      avatar
+      info {
+        avatar
+      }
     }
   }

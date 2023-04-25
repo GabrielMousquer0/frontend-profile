@@ -1,9 +1,19 @@
-  query users {
+  query Users {
     users {
-      username
       id
+      username
+    languages {
+      name
+      id
+      icon
+      status
+    }
+    infos {
       avatar
-      created_at
+      description
       role
+      created_at
+    }
+    email
     }
   }
