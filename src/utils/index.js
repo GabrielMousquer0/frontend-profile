@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useMutation, useQuery } from 'villus';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
@@ -16,4 +16,5 @@ export {
   storeToRefs,
   moment,
   ms,
+  onMounted,
 };
