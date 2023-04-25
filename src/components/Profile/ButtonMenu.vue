@@ -29,13 +29,3 @@ function logout() {
         </q-list>
     </q-btn-dropdown>
 </template>
-
-<style scoped>
-.btnMenu {
-    width: 126px;
-    height: 10px;
-    position: absolute;
-    top: 200px;
-    right: 520px;
-}
-</style>

@@ -63,30 +63,3 @@ async function languagesEdit(id) {
         </q-card>
     </div>
 </template>
-
-<style scoped>
-.text-info {
-    position: absolute;
-    top: 130px;
-    font-size: 50px;
-    right: 400px;
-}
-
-.tecCard {
-    position: absolute;
-    top: 150px;
-    width: 400px;
-}
-
-.tecs {
-    position: absolute;
-    top: 500px;
-    left: 400px;
-    margin: 0;
-    padding: 0;
-}
-
-.title-tecs {
-    font-size: 80px;
-}
-</style>

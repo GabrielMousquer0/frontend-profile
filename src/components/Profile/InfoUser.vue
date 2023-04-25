@@ -61,13 +61,3 @@ const simple = [{
         <q-tree :nodes="simple" no-connectors node-key="label" v-model:expanded="expanded" class="tree-column" default-expand-all/>
     </div>
 </template>
-
-<style scoped>
-.tableColumn {
-    position: absolute;
-    top: 350px;
-    right: 400px;
-    margin: 0;
-    padding: 0;
-}
-</style>

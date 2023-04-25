@@ -12,7 +12,7 @@ const emailEdit = ref('');
 const passwordEdit = ref('');
 const { notify } = useQuasar();
 
-async function eUsername(username, id) {
+async function editName(username, id) {
     if (!username)
         return notify({
             message: 'Preencha o campo',
@@ -35,7 +35,7 @@ async function eUsername(username, id) {
     }
 }
 
-async function eEmail(email, id) {
+async function editEmail(email, id) {
     if (!email)
         return notify({
             message: 'Preencha o campo',
@@ -58,7 +58,7 @@ async function eEmail(email, id) {
     }
 }
 
-async function ePassword(password, id) {
+async function editPassword(password, id) {
     if (!password)
         return notify({
             message: 'Preencha o campo',
@@ -83,56 +83,34 @@ async function ePassword(password, id) {
 </script>
 
 <template>
-    <span class="my-configs h1-text">Configs</span>
-    <q-input v-model="usernameEdit" rounded outlined class="configUsername" label="Username" />
-    <q-btn @click="eUsername(usernameEdit, store.getId)" class="btnUsername" round icon="edit" color="transparent" />
-    <q-input v-model="emailEdit" rounded outlined class="configEmail" label="E-mail" />
-    <q-btn @click="eEmail(emailEdit, store.getId)" class="btnEmail" round icon="edit" color="transparent" />
-    <q-input v-model="passwordEdit" rounded outlined class="configPassword" label="Senha" />
-    <q-btn @click="ePassword(passwordEdit, store.getId)" class="btnPassword" round icon="edit" color="transparent" />
+    <div>
+        <span class="text h1-text">Configs</span>
+        <div class="row q-pa-md">
+            <q-input v-model="usernameEdit" rounded outlined class="input" id="inputEdit" label="Username" />
+            <q-btn @click="editName(usernameEdit, store.getId)" class="button buttonEdit" round icon="edit" color="transparent" />
+        </div>
+        <div class="row q-pa-md">
+            <q-input v-model="emailEdit" rounded outlined class="input" id="inputEdit" label="E-mail" />
+            <q-btn @click="editEmail(emailEdit, store.getId)" round icon="edit" class="button buttonEdit" color="transparent" />
+        </div>
+        <div class="row q-pa-md">
+            <q-input v-model="passwordEdit" rounded outlined class="input" id="inputEdit" label="Senha" />
+            <q-btn @click="editPassword(passwordEdit, store.getId)" class="button buttonEdit" round icon="edit" color="transparent" />
+        </div>
+    </div>
 </template>
 
 <style scoped>
-.my-configs {
-    position: absolute;
-    top: 470px;
-    left: 0;
+.input {
+    margin-bottom: 2rem;
+}
+
+.button {
+    height: 10px;
+    margin-left: 10px;
+}
+
+.text {
     font-size: 40px;
-}
-
-.configUsername {
-    position: absolute;
-    top: 550px;
-    left: 20px;
-}
-
-.configEmail {
-    position: absolute;
-    top: 630px;
-    left: 20px;
-}
-
-.configPassword {
-    position: absolute;
-    top: 710px;
-    left: 20px;
-}
-
-.btnUsername {
-    position: absolute;
-    top: 560px;
-    left: 230px;
-}
-
-.btnEmail {
-    position: absolute;
-    top: 640px;
-    left: 230px;
-}
-
-.btnPassword {
-    position: absolute;
-    top: 720px;
-    left: 230px;
 }
 </style>

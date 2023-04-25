@@ -29,7 +29,7 @@ async function searchBtn(username) {
 <template>
     <q-input v-model="searchInput" filled type="search" label="Procure por um username" class="search-input">
         <template v-slot:append>
-                              <q-icon name="search" @click="searchBtn(searchInput)"/>
+                                  <q-icon name="search" @click="searchBtn(searchInput)"/>
 </template>
         </q-input>
 

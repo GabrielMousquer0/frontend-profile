@@ -1,11 +1,13 @@
 <script setup>
 import LoginProfile from '../../components/Login/LoginProfile.vue'
+import HeaderBar from '../../components/HeaderBar.vue';
 </script>
 
 <template>
-    <span class="row justify-center fixed-center">
-		<LoginProfile />
-    </span>
+    <HeaderBar/>
+    <span class="row fixed-center">
+    		<LoginProfile />
+        </span>
 </template>
 
 <style scoped>
@@ -15,17 +17,15 @@ import LoginProfile from '../../components/Login/LoginProfile.vue'
 }
 
 .pointer {
-  position: absolute;
+    position: absolute;
     left: 300px;
     bottom: 70px;
 }
 
-
-
 .registerText {
-  position: absolute;
-  top: 200px;
-  left: 86px;
+    position: absolute;
+    top: 200px;
+    left: 86px;
 }
 </style>
  

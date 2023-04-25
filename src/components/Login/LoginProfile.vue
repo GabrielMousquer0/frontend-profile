@@ -72,29 +72,21 @@ const type = computed(() => config[pswVisibility.value]);
 </script>
 
 <template>
-    <q-input class="inputLogin" type="email" label="E-mail" stack-label v-model="userText" />
-    
-    <q-input class="inputLogin" :type="type.v2" label="Senha" stack-label v-model="passwordText" />
-    <q-icon :name="type.v1" class="pointer" @click="iconEvent()" />
+    <div class="column">
+        <q-input class="inputLogin" type="email" label="E-mail" stack-label v-model="userText" />
+        <q-input class="inputLogin" :type="type.v2" label="Senha" stack-label v-model="passwordText"> <template #append>
+            <q-icon :name="type.v1" class="pointer" @click="iconEvent()" />
+</template>
+
+</q-input>
     <q-btn class="btnLogin" icon="login" color="primary" label="Login" @click="submitInput(userText, passwordText)" />
     <span class="registerText text-subtitle1">Não possui conta? <router-link to="/register">Cadastre-se</router-link></span>
+    </div>
 </template>
 
 <style scoped>
 .inputLogin {
     height: 80px;
     width: 320px;
-}
-
-.pointer {
-    position: absolute;
-    left: 300px;
-    bottom: 70px;
-}
-
-.registerText {
-    position: absolute;
-    top: 200px;
-    left: 86px;
 }
 </style>

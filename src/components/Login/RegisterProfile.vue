@@ -93,9 +93,9 @@ const type = computed(() => config[pswVisibility.value]);
         <q-card-section>
             <q-input v-model="confirmPasswordInput" type="password" label="Confirmar Senha" stack-label />
         </q-card-section>
-        <q-card-section>
+        <q-card-section class="column">
             <q-btn class="btnRegister" color="primary" label="Registrar" icon="edit" @click="submitRegister(emailInput.trim(), usernameInput.trim(), passwordInput.trim(), confirmPasswordInput.trim())" />
-            <span class="my-text text-subtitle1">Ja possui conta?<router-link :to="{ name: 'Login' }"> Clique Aqui</router-link></span>
+            <span class="my-text text-subtitle1 row justify-end">Ja possui conta?<router-link :to="{ name: 'Login' }"> Clique Aqui</router-link></span>
         </q-card-section>
     </q-card>
 </template>
@@ -107,20 +107,9 @@ const type = computed(() => config[pswVisibility.value]);
 }
 
 .my-card {
+    margin-top: 5rem;
     background-color: rgb(190, 189, 189);
     width: 600px;
     height: 700px;
-}
-
-.btnRegister {
-    position: absolute;
-    left: 40%;
-    top: 20px;
-}
-
-.my-text {
-    position: absolute;
-    left: 300px;
-    top: 60px;
 }
 </style>

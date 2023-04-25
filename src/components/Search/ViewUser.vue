@@ -14,18 +14,17 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="row">
+    <div class="q-pa-md">
         <q-btn class="btn" label="voltar" icon="chevron_left" color="primary" @click="router.push({ path: '/list' })" />
     </div>
     
-    <q-card class="card">
-        <q-separator spaced color="black" />
-        <q-card-section class="avatar">
+    <q-card class="card column fixed-center">
+        <q-card-section class="information">
             <q-avatar size="130px"> <img :src="store.getUser.infos.avatar"> </q-avatar><span class="text-h1">Informações</span>
         </q-card-section>
         <q-list>
             <q-item-section>
-                <q-item-label class="username">
+                <q-item-label class="information">
                     <span class="text-h4"> <q-icon name="person"/> Username:</span>
                     <q-item-label>
                         <span class="text-h5"> {{ store.getUser.username }} </span>
@@ -33,7 +32,7 @@ onMounted(async () => {
                 </q-item-label>
             </q-item-section>
             <q-item-section>
-                <q-item-label class="role">
+                <q-item-label class="information">
                     <span class="text-h4"><q-icon name="leaderboard"/> Cargo:</span>
                     <q-item-label>
                         <span class="text-h5"> {{ store.getUser.infos.role }} </span>
@@ -41,7 +40,7 @@ onMounted(async () => {
                 </q-item-label>
             </q-item-section>
             <q-item-section>
-                <q-item-label class="created">
+                <q-item-label class="information">
                     <span class="text-h4"><q-icon name="calendar_month"/> Criado Em:</span>
                     <q-item-label>
                         <span class="text-h5"> {{ moment(ms(store.getUser.infos.created_at)).format('DD/MM/YYYY') }} </span>
@@ -50,7 +49,7 @@ onMounted(async () => {
             </q-item-section>
             <q-item-section>
                 <q-item-section>
-                    <q-item-label class="langs">
+                    <q-item-label class="information">
                         <span class="text-h4">Linguagens: </span>
                         <q-item-label>
                             <q-btn-dropdown icon="lang" label="Ver">
@@ -67,7 +66,7 @@ onMounted(async () => {
                         </q-item-label>
                     </q-item-label>
                 </q-item-section>
-                <q-item-label class="description">
+                <q-item-label class="information">
                     <span class="text-h4"><q-icon name="description"/> Descrição:</span>
                     <q-item-label>
                         <q-input v-model="store.getUser.infos.description" class="inputDesc" type="textarea"></q-input>
@@ -84,44 +83,17 @@ onMounted(async () => {
     width: 780px;
 }
 
+.button {
+    margin-: 1rem;
+}
+
 .card {
-    background-color: gray;
-    width: 800px;
-    height: 1000px;
+    background-color: #acacac;
+    margin-top: 9rem;
+    height: 100%;
 }
 
-.avatar {
-    position: absolute;
-    top: 200px;
-}
-
-.username {
-    position: absolute;
-    top: 400px;
-    left: 10px;
-}
-
-.role {
-    position: absolute;
-    top: 500px;
-    left: 10px;
-}
-
-.created {
-    position: absolute;
-    top: 600px;
-    left: 10px;
-}
-
-.langs {
-    position: absolute;
-    top: 680px;
-    left: 10px;
-}
-
-.description {
-    position: absolute;
-    top: 780px;
-    left: 10px;
+.information {
+    margin-bottom: 2rem;
 }
 </style>

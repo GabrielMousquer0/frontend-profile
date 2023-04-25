@@ -35,35 +35,10 @@ async function descriptionEdit(description, id) {
 </script>
 
 <template>
-    <div class="description">
+    <div class="description column ">
         <span class="title-description text-h1">Descrição</span>
         <q-separator color="black" />
         <q-input class="inputDescription" v-model="descriptionRef" type="textarea" outlined/>
         <q-btn class="btnDescription" @click="descriptionEdit(descriptionRef, store.getId)" icon="edit" label="Editar" color="primary" />
     </div>
 </template>
-
-<style scoped>
-.description {
-    position: absolute;
-    top: 150px;
-    left: 400px;
-    margin: 0;
-    padding: 0;
-}
-
-.title-description {
-    font-size: 80px;
-}
-
-.inputDescription {
-    position: absolute;
-    top: 150px;
-    width: 700px;
-}
-
-.btnDescription {
-    position: absolute;
-    top: 285px;
-}
-</style>

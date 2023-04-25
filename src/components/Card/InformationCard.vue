@@ -12,7 +12,7 @@ const username =
 const avatarURL = ref('');
 const { notify } = useQuasar();
 
-async function iconSend(avatar, id) {
+async function urlSend(avatar, id) {
     if (!avatar)
         return notify({
             message: 'Você deve me dar uma url',
@@ -28,7 +28,7 @@ async function iconSend(avatar, id) {
         });
     } catch {
         return notify({
-            message: 'error: Me dê uma url menor!',
+            message: 'Me dê uma url valida!',
             icon: 'warning',
             color: 'orange',
         });
@@ -37,38 +37,27 @@ async function iconSend(avatar, id) {
 </script>
 
 <template>
-    <q-avatar rounded class="myIcon" size="200px"> <img :src="store.getAvatar"> </q-avatar>
-    <q-btn class="btnPassword" round icon="edit" color="primary">
-        <q-popup-edit v-model="avatarURL" v-slot="scope">
-            <q-input v-model="avatarURL" hint="Me dê uma URL de alguma imagem" rounded dense @keyup.enter="scope.set">
-                <q-btn class="iconSend" flat @click="iconSend(avatarURL, store.getId)" icon="add" /> </q-input>
-        </q-popup-edit>
-    </q-btn>
-    <span class="myUsername h1-text">{{ username }}</span>
+    <div class="avatar row justify-center">
+        <q-avatar rounded class="myIcon" size="200px"> <img :src="store.getAvatar"> </q-avatar>
+        <div class="row column justify-end">
+            <q-btn class="button" round icon="edit" color="primary">
+                <q-popup-edit v-model="avatarURL" v-slot="scope">
+                    <q-input v-model="avatarURL" hint="Me dê uma URL de alguma imagem" rounded dense @keyup.enter="scope.set">
+                        <q-btn class="iconSend" flat @click="urlSend(avatarURL, store.getId)" icon="add" /> </q-input>
+                </q-popup-edit>
+            </q-btn>
+        </div>
+    </div>
 </template>
 
 <style scoped>
-.iconSend {
-    position: absolute;
-    left: 141px;
+.avatar {
+    margin-top: 4rem;
+    margin-bottom: 8.7rem;
 }
 
-.myUsername {
-    position: absolute;
-    top: 400px;
-    left: 130px;
-    font-size: 60px;
-}
-
-.myIcon {
-    position: absolute;
-    top: 200px;
-    left: 25%;
-}
-
-.btnPassword {
-    position: absolute;
-    top: 350px;
-    left: 55%;
+.button {
+    height: 1rem;
+    width: 10px;
 }
 </style>
