@@ -1,46 +1,39 @@
 <script setup>
 import { useUserStore } from '../../store';
-import { ref, useMutation, useQuasar } from '../../utils/';
+import { ref, useQuasar } from '../../utils/';
 import { EditAvatar } from '../../schemas/mutation/EditAvatar.gql';
+import { runMutation, runQuery } from '../../helpers/graphql';
 
 const store = useUserStore();
 const username =
-  store.getUsername.length < 10
-    ? store.getUsername
-    : store.getUsername.slice(0, 10) + '...';
+    store.getUsername.length < 10 ?
+    store.getUsername :
+    store.getUsername.slice(0, 10) + '...';
 const avatarURL = ref('');
 const { notify } = useQuasar();
 
-const { execute } = useMutation(EditAvatar);
-
-function iconSend(avatar, id) {
-  if (!avatar)
-    return notify({
-      message: 'Você deve me dar uma url',
-      icon: 'warning',
-      color: 'negative',
-    });
-  execute({
-    avatar,
-    id,
-  })
-    .then(({ data }) => {
-      store.user_avatar = data.editAvatar.avatar;
-      return notify({
-        message: 'Foto de perfil alterada com sucesso',
-        icon: 'check',
-        color: 'positive',
-      });
-    })
-    .catch((e) => {
-      return notify({
-        message: 'error: Me dê uma url menor!',
-        icon: 'warning',
-        color: 'orange',
-      });
-    });
+async function iconSend(avatar, id) {
+    if (!avatar)
+        return notify({
+            message: 'Você deve me dar uma url',
+            icon: 'warning',
+            color: 'negative',
+        });
+    try {
+        const { editAvatar } = await runMutation(EditAvatar, { avatar, id })
+        return notify({
+            message: 'Foto de perfil alterada com sucesso',
+            icon: 'check',
+            color: 'positive',
+        });
+    } catch {
+        return notify({
+            message: 'error: Me dê uma url menor!',
+            icon: 'warning',
+            color: 'orange',
+        });
+    }
 }
-
 </script>
 
 <template>

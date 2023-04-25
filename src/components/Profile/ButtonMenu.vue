@@ -6,16 +6,16 @@ const store = useUserStore();
 const router = useRouter();
 
 function viewUsers() {
-  router.push({
-    path: '/list',
-  });
+    router.push({
+        path: '/list',
+    });
 }
 
 function logout() {
-  store.$reset();
-  router.push({
-    path: '/',
-  });
+    store.$reset();
+    router.push({
+        path: '/',
+    });
 }
 </script>
 

@@ -1,8 +1,8 @@
 <script setup>
-import { useMutation, useQuery, ref, useQuasar } from '../../utils';
+import { ref, useQuasar } from '../../utils';
 import { useUserStore } from '../../store';
 import LanguageUpdate from '../../schemas/mutation/languages.gql'
-import LanguageUser from '../../schemas/query/userLanguages.gql'
+import { runMutation, runQuery } from '../../helpers/graphql';
 
 const store = useUserStore()
 const { notify } = useQuasar()
@@ -12,30 +12,32 @@ let py = ref(languages[languages.findIndex((a) => a.id == 2)] ? true : false)
 let ts = ref(languages[languages.findIndex((a) => a.id == 3)] ? true : false)
 const imgs = languages.map((a) => a.icon.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png'))
 
-const { execute } = useMutation(LanguageUpdate, {
-    refetchTags: ['all_languages']
-})
-
-function languagesEdit(id) {
+async function languagesEdit(id) {
     const langs = [js.value ? 1 : 0, py.value ? 2 : 0, ts.value ? 3 : 0]
-    execute({
-        id,
-        languages: langs
-    }).then(async ({ data }) => {
-        const queryLanguage = await useQuery({
-            query: LanguageUser,
-            variables: { id },
-        })
-        const proxy = queryLanguage.data.value.languagesUser.languages
-        const newValue = proxy.map((value) => value = {
-            name: value.name,
-            id: value.id,
-            icon: value.id,
-            status: true
-        })
-        store.user_languages = newValue;
-        return notify({ message: 'Linguagens Atualizadas com sucesso, atualize a pagina para mostrar suas linguagens', color: 'positive', icon: 'check' })
-    })
+    try {
+        const { insertLanguages } = await runMutation(LanguageUpdate, { languages: langs, id })
+        const newLangs = insertLanguages.languages.map(
+            (value) =>
+            (value = {
+                name: value.name,
+                id: value.id,
+                icon: value.id,
+            }),
+        );
+        store.user_languages = newLangs
+        return notify({
+            message: 'Suas linguagens foi atualizada, Atualize a pagina',
+            icon: 'check',
+            color: 'positive',
+        });
+    } catch {
+        return notify({
+            message: 'Um erro ocorreu e não foi possivel alterar suas linguagens',
+            icon: 'error',
+            color: 'negative',
+        });
+    }
+
 }
 </script>
 

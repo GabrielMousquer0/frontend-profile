@@ -1,19 +1,20 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
-import { useQuery, moment, ms, useRouter } from '../../utils';
+import { moment, ms, useRouter, onMounted } from '../../utils';
 import { viewUserStore } from '../../store';
-import searchUser from '../../schemas/query/searchUser.gql';
+import SearchUsers from '../../schemas/mutation/searchUsers.gql';
+import { runMutation } from '../../helpers/graphql';
 
 const router = useRouter()
 const store = viewUserStore()
 
-const { data } = useQuery({
-    query: searchUser,
-    variables: { username: store.getUsername }
+onMounted(async () => {
+    const { searchUsers } = await runMutation(SearchUsers, { username: store.getUsername })
+    store.users_username = searchUsers
 })
 
 async function viewUser(id) {
-    store.view_user_id = id
+    store.user_id = id
     return router.push({
         name: 'viewUser',
         params: {
@@ -24,19 +25,19 @@ async function viewUser(id) {
 </script>
 
 <template>
-    <div v-if="data" class="list-user">
+    <div v-if="store.getUsersUsername" class="list-user">
         <div>
             <q-btn label="voltar" icon="chevron_left" color="primary" @click="router.push({ path: '/list' })" />
         </div>
         <div class="row full-width justify-end">
             <input-search/>
         </div>
-        <q-list v-for="todo in data.searchUser" :key="todo">
+        <q-list v-for="todo in store.getUsersUsername" :key="todo">
             <q-separator spaced color="black" class="separator" />
             <q-item>
                 <q-item-section>
                     <q-item-label class="avatar">
-                        <q-avatar> <img :src="todo.avatar" alt=""> </q-avatar>
+                        <q-avatar> <img :src="todo.infos.avatar" alt=""> </q-avatar>
                     </q-item-label>
                 </q-item-section>
                 <q-separator />
@@ -54,13 +55,13 @@ async function viewUser(id) {
                 <q-separator/>
                 <q-item-section>
                     <q-item-label class="role">
-                        <span class="text-subtitle1">Cargo: {{ todo.role }}</span>
+                        <span class="text-subtitle1">Cargo: {{ todo.infos.role }}</span>
                     </q-item-label>
                 </q-item-section>
                 <q-separator/>
                 <q-item-section>
                     <q-item-label class="created">
-                        <span class="text-subtitle1">Criou: {{ moment(ms(todo.created_at)).format('DD/MM/YYYY') }}</span>
+                        <span class="text-subtitle1">Criou: {{ moment(ms(todo.infos.created_at)).format('DD/MM/YYYY') }}</span>
                     </q-item-label>
                 </q-item-section>
                 <q-item-section class="button">

@@ -3,7 +3,8 @@ import { useUserStore } from '../../store';
 import EditEmail from '../../schemas/mutation/editEmail.gql';
 import EditUsername from '../../schemas/mutation/editUsername.gql';
 import EditPassword from '../../schemas/mutation/editPassword.gql';
-import { ref, useQuasar, useMutation } from '../../utils/';
+import { ref, useQuasar } from '../../utils/';
+import { runMutation } from '../../helpers/graphql';
 
 const store = useUserStore();
 const usernameEdit = ref('');
@@ -11,74 +12,74 @@ const emailEdit = ref('');
 const passwordEdit = ref('');
 const { notify } = useQuasar();
 
-const emailUp = useMutation(EditEmail);
-const usernameUp = useMutation(EditUsername);
-const passwordUp = useMutation(EditPassword);
-
-function eUsername(username, id) {
-  if (!username)
-    return notify({
-      message: 'Preencha o campo',
-      icon: 'warning',
-      color: 'warning',
-    });
-  usernameUp
-    .execute({
-      username,
-      id,
-    })
-    .then(({ data }) => {
-      store.user_username = username;
-      return notify({
-        message: `User alterado para: ${username}, atualize a pagina!`,
-        icon: 'check',
-        color: 'positive',
-      });
-    });
+async function eUsername(username, id) {
+    if (!username)
+        return notify({
+            message: 'Preencha o campo',
+            icon: 'warning',
+            color: 'warning',
+        });
+    try {
+        const { editUsername } = await runMutation(EditUsername, { username, id })
+        return notify({
+            message: `User alterado para: ${username}, atualize a pagina!`,
+            icon: 'check',
+            color: 'positive',
+        });
+    } catch {
+        return notify({
+            message: `Um erro ocorreu ao fazer a mudança de username`,
+            icon: 'error',
+            color: 'negative',
+        });
+    }
 }
 
-function eEmail(email, id) {
-  if (!email)
-    return notify({
-      message: 'Preencha o campo',
-      icon: 'warning',
-      color: 'warning',
-    });
-  emailUp
-    .execute({
-      email,
-      id,
-    })
-    .then(({ data }) => {
-      return notify({
-        message: `E-mail alterado para: ${email}`,
-        icon: 'check',
-        color: 'positive',
-      });
-    });
+async function eEmail(email, id) {
+    if (!email)
+        return notify({
+            message: 'Preencha o campo',
+            icon: 'warning',
+            color: 'warning',
+        });
+    try {
+        const { editEmail } = await runMutation(EditEmail, { email, id })
+        return notify({
+            message: `Email alterado para: ${email}, atualize a pagina!`,
+            icon: 'check',
+            color: 'positive',
+        });
+    } catch {
+        return notify({
+            message: `Um erro ocorreu ao fazer a mudança de email`,
+            icon: 'error',
+            color: 'negative',
+        });
+    }
 }
 
-function ePassword(password, id) {
-  if (!password)
-    return notify({
-      message: 'Preencha o campo',
-      icon: 'warning',
-      color: 'warning',
-    });
-  passwordUp
-    .execute({
-      password,
-      id,
-    })
-    .then(({ data }) => {
-      return notify({
-        message: `Senha alterado para: ${password}`,
-        icon: 'check',
-        color: 'positive',
-      });
-    });
+async function ePassword(password, id) {
+    if (!password)
+        return notify({
+            message: 'Preencha o campo',
+            icon: 'warning',
+            color: 'warning',
+        });
+    try {
+        const { editPassword } = await runMutation(EditPassword, { password, id })
+        return notify({
+            message: `Senha alterada para: ${password}, atualize a pagina!`,
+            icon: 'check',
+            color: 'positive',
+        });
+    } catch {
+        return notify({
+            message: `Um erro ocorreu ao fazer a mudança de senha`,
+            icon: 'error',
+            color: 'negative',
+        });
+    }
 }
-
 </script>
 
 <template>

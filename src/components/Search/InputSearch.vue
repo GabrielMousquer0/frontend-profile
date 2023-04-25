@@ -1,7 +1,8 @@
 <script setup>
 import { ref, useQuasar, useRouter, useQuery } from '../../utils'
 import { viewUserStore } from '../../store';
-import searchUser from '../../schemas/query/searchUser.gql';
+import SearchUsers from '../../schemas/mutation/searchUsers.gql';
+import { runMutation } from '../../helpers/graphql';
 
 const searchInput = ref('')
 const { notify } = useQuasar()
@@ -12,15 +13,12 @@ const store = viewUserStore()
 async function searchBtn(username) {
     if (!username) return notify({ message: 'Me dê um username', color: 'orange', icon: 'warning' })
 
-    const { data } = await useQuery({
-        query: searchUser,
-        variables: { username }
-    })
-    if (data.value.searchUser.length == 0) {
+    const { searchUsers } = await runMutation(SearchUsers, { username })
+    if (searchUsers.length == 0) {
         return notify({ message: 'Nenhum user encontrado!', icon: 'warning', color: 'negative' })
     }
 
-    store.search_user_username = username
+    store.user_username = username
     return router.push({
         name: 'searchUser',
         params: { username }
@@ -31,7 +29,7 @@ async function searchBtn(username) {
 <template>
     <q-input v-model="searchInput" filled type="search" label="Procure por um username" class="search-input">
         <template v-slot:append>
-                      <q-icon name="search" @click="searchBtn(searchInput)"/>
+                              <q-icon name="search" @click="searchBtn(searchInput)"/>
 </template>
         </q-input>
 
