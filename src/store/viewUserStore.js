@@ -2,16 +2,43 @@ import { defineStore } from 'pinia';
 
 export const viewUserStore = defineStore('viewUserStore', {
   state: () => ({
-    view_user_id: '',
-    search_user_username: '',
+    user_id: '',
+    user_username: '',
+    users_username: [],
+    users: [],
+    user: {
+      id: '',
+      username: '',
+      email: '',
+      infos: {
+        created_at: '',
+        role: '',
+        description: '',
+        avatar: '',
+      },
+      languages: {
+        name: '',
+        id: '',
+        icon: '',
+      }
+    }
   }),
   getters: {
     getId: (state) => {
-      return state.view_user_id;
+      return state.user_id;
     },
     getUsername: (state) => {
-      return state.search_user_username;
+      return state.user_username;
     },
+    getUsers: (state) => {
+      return state.users;
+    },
+    getUsersUsername: (state) => {
+      return state.users_username
+    },
+    getUser: (state) => {
+      return state.user;
+    }
   },
   persist: true,
 });
