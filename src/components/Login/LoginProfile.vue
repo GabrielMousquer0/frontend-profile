@@ -11,11 +11,13 @@ import { useUserStore, routerStore } from '../../store';
 
 const routerDefine = routerStore();
 const store = useUserStore();
-const pswVisibility = ref(false);
 const router = useRouter();
+const { notify } = useQuasar();
+
+const pswVisibility = ref(false);
 const passwordText = ref('');
 const userText = ref('');
-const { notify } = useQuasar();
+
 routerDefine.router_name = 'Login';
 const config = {
     true: {
@@ -28,7 +30,7 @@ const config = {
     },
 };
 
-async function submitInput(email, password) {
+async function submitLogin(email, password) {
     try {
         const { auth } = await runMutation(Auth, { email, password })
         const newValue = auth.languages.map(
@@ -79,7 +81,7 @@ const type = computed(() => config[pswVisibility.value]);
 </template>
 
 </q-input>
-    <q-btn class="btnLogin" icon="login" color="primary" label="Login" @click="submitInput(userText, passwordText)" />
+    <q-btn class="btnLogin" icon="login" color="primary" label="Login" @click="submitLogin(userText, passwordText)" />
     <span class="registerText text-subtitle1">Não possui conta? <router-link to="/register">Cadastre-se</router-link></span>
     </div>
 </template>

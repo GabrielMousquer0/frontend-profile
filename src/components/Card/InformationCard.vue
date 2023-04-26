@@ -2,7 +2,7 @@
 import { useUserStore } from '../../store';
 import { ref, useQuasar } from '../../utils/';
 import { EditAvatar } from '../../schemas/mutation/EditAvatar.gql';
-import { runMutation, runQuery } from '../../helpers/graphql';
+import { runMutation } from '../../helpers/graphql';
 
 const store = useUserStore();
 const username =
@@ -39,7 +39,7 @@ async function urlSend(avatar, id) {
 <template>
     <div class="avatar row justify-center">
         <q-avatar rounded class="myIcon" size="200px"> <img :src="store.getAvatar"> </q-avatar>
-        <div class="row column justify-end">
+        <div class="column justify-end">
             <q-btn class="button" round icon="edit" color="primary">
                 <q-popup-edit v-model="avatarURL" v-slot="scope">
                     <q-input v-model="avatarURL" hint="Me dê uma URL de alguma imagem" rounded dense @keyup.enter="scope.set">

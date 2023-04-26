@@ -8,7 +8,7 @@ const router = useRouter()
 const store = viewUserStore()
 
 onMounted(async () => {
-    const { user } = await runQuery(User, { id: store.getId })
+    const user = await runQuery(User, { id: store.getId })
     store.user = user
 })
 </script>
@@ -81,10 +81,6 @@ onMounted(async () => {
 .inputDesc {
     background-color: white;
     width: 780px;
-}
-
-.button {
-    margin-: 1rem;
 }
 
 .card {

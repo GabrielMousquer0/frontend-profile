@@ -6,6 +6,6 @@ import RegisterProfile from '../../components/Login/RegisterProfile.vue'
 <template>
 	<HeaderBar/>
 	<span class="row fixed-center">
-			<RegisterProfile />
-		</span>
+		<RegisterProfile />
+	</span>
 </template>
