@@ -1,5 +1,4 @@
 import { ref, computed, onMounted } from 'vue';
-import { useMutation, useQuery } from 'villus';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
@@ -9,8 +8,6 @@ import ms from 'ms';
 export {
   ref,
   computed,
-  useMutation,
-  useQuery,
   useQuasar,
   useRouter,
   storeToRefs,
