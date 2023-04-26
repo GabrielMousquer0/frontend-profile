@@ -1,14 +1,11 @@
-import { useMutation, useQuery } from '../utils';
+import { useMutation, useQuery } from '@vue/apollo-composable';
 
-export async function runQuery(query, variables) {
-    const { data } = await useQuery({
-        query,
-        variables,
-    }).execute()
-        return data;
+export function runQuery(query, variables) {
+    const { result } = useQuery(query, variables)
+        return result.value;
 }
 
 export async function runMutation(query, variables) {
-    const { data } = await useMutation(query).execute(variables)
+    const { data } =  await useMutation(query).mutate(variables)
         return data;
 }
