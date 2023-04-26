@@ -4,8 +4,8 @@ import HeaderBar from '../../components/HeaderBar.vue';
 </script>
 
 <template>
-    <HeaderBar/>
-    <div class="fixed-center">
-        <UsersList/>
-    </div>
+  <HeaderBar />
+  <div class="fixed-center">
+    <UsersList />
+  </div>
 </template>

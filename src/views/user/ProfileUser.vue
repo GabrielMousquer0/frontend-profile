@@ -1,49 +1,49 @@
 <script setup>
-import ProfileCard from '../../components/Card/InformationCard.vue'
-import InformationCard from '../../components/Card/ConfigureCard.vue'
+import ProfileCard from '../../components/Card/InformationCard.vue';
+import InformationCard from '../../components/Card/ConfigureCard.vue';
 import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
 import InfoUser from '../../components/Profile/InfoUser.vue';
 import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
 import ButtonMenu from '../../components/Profile/ButtonMenu.vue';
 import HeaderBar from '../../components/HeaderBar.vue';
-import { routerStore, useUserStore } from '../../store'
+import { routerStore, useUserStore } from '../../store';
 import { useRouter } from '../../utils';
 
-const userStore = useUserStore()
-const store = routerStore()
-const router = useRouter()
-store.router_name = 'User'
+const userStore = useUserStore();
+const store = routerStore();
+const router = useRouter();
+store.router_name = 'User';
 
 
 if (!userStore.getId) {
-    router.push({
-        path: '/'
-    })
+  router.push({
+    path: '/'
+  });
 }
 </script>
 
 <template>
-    <HeaderBar/>
-    <div class="row">
-        <div class="myCard q-pa-md">
-            <div class="row justify-end">
-                <ButtonMenu/>
-            </div>
-            <ProfileCard />
-            <InformationCard/>
-        </div>
-        <div>
-            <div class="infoUser row fixed-start">
-                <InfoUser/>
-            </div>
-            <div class="description column fixed-top">
-                <DescriptionUser/>
-            </div>
-            <div class="techs column fixed-top">
-                <TecnologyUser/>
-            </div>
-        </div>
+  <HeaderBar />
+  <div class="row">
+    <div class="myCard q-pa-md">
+      <div class="row justify-end">
+        <ButtonMenu />
+      </div>
+      <ProfileCard />
+      <InformationCard />
     </div>
+    <div>
+      <div class="infoUser row fixed-start">
+        <InfoUser />
+      </div>
+      <div class="description column fixed-top">
+        <DescriptionUser />
+      </div>
+      <div class="techs column fixed-top">
+        <TecnologyUser />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>

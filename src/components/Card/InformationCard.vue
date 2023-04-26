@@ -5,49 +5,71 @@ import { EditAvatar } from '../../schemas/mutation/EditAvatar.gql';
 import { runMutation } from '../../helpers/graphql';
 
 const store = useUserStore();
-const username =
-    store.getUsername.length < 10 ?
-    store.getUsername :
-    store.getUsername.slice(0, 10) + '...';
 const avatarURL = ref('');
 const { notify } = useQuasar();
 
 async function urlSend(avatar, id) {
-    if (!avatar)
-        return notify({
-            message: 'Você deve me dar uma url',
-            icon: 'warning',
-            color: 'negative',
-        });
-    try {
-        const { editAvatar } = await runMutation(EditAvatar, { avatar, id })
-        return notify({
-            message: 'Foto de perfil alterada com sucesso',
-            icon: 'check',
-            color: 'positive',
-        });
-    } catch {
-        return notify({
-            message: 'Me dê uma url valida!',
-            icon: 'warning',
-            color: 'orange',
-        });
-    }
+  if (!avatar)
+    return notify({
+      message: 'Você deve me dar uma url',
+      icon: 'warning',
+      color: 'negative',
+    });
+  try {
+    await runMutation(EditAvatar, { avatar, id });
+    return notify({
+      message: 'Foto de perfil alterada com sucesso',
+      icon: 'check',
+      color: 'positive',
+    });
+  } catch {
+    return notify({
+      message: 'Me dê uma url valida!',
+      icon: 'warning',
+      color: 'orange',
+    });
+  }
 }
 </script>
 
 <template>
-    <div class="avatar row justify-center">
-        <q-avatar rounded class="myIcon" size="200px"> <img :src="store.getAvatar"> </q-avatar>
-        <div class="column justify-end">
-            <q-btn class="button" round icon="edit" color="primary">
-                <q-popup-edit v-model="avatarURL" v-slot="scope">
-                    <q-input v-model="avatarURL" hint="Me dê uma URL de alguma imagem" rounded dense @keyup.enter="scope.set">
-                        <q-btn class="iconSend" flat @click="urlSend(avatarURL, store.getId)" icon="add" /> </q-input>
-                </q-popup-edit>
-            </q-btn>
-        </div>
+  <div class="avatar row justify-center">
+    <q-avatar
+      rounded
+      class="myIcon"
+      size="200px"
+    >
+      <img :src="store.getAvatar">
+    </q-avatar>
+    <div class="column justify-end">
+      <q-btn
+        class="button"
+        round
+        icon="edit"
+        color="primary"
+      >
+        <q-popup-edit
+          v-model="avatarURL"
+          v-slot="scope"
+        >
+          <q-input
+            v-model="avatarURL"
+            hint="Me dê uma URL de alguma imagem"
+            rounded
+            dense
+            @keyup.enter="scope.set"
+          >
+            <q-btn
+              class="iconSend"
+              flat
+              @click="urlSend(avatarURL, store.getId)"
+              icon="add"
+            />
+          </q-input>
+        </q-popup-edit>
+      </q-btn>
     </div>
+  </div>
 </template>
 
 <style scoped>

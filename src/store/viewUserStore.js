@@ -34,7 +34,7 @@ export const viewUserStore = defineStore('viewUserStore', {
       return state.users;
     },
     getUsersUsername: (state) => {
-      return state.users_username
+      return state.users_username;
     },
     getUser: (state) => {
       return state.user;
