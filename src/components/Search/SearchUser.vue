@@ -1,9 +1,8 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
-import { moment, ms, useRouter, onMounted } from '../../utils';
+import { moment, ms, useRouter, onMounted, runMutation } from '../../utils';
 import { viewUserStore } from '../../store';
 import SearchUsers from '../../schemas/mutation/searchUsers.gql';
-import { runMutation } from '../../helpers/graphql';
 
 const router = useRouter();
 const store = viewUserStore();

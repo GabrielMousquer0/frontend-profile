@@ -1,8 +1,7 @@
 <script setup>
-import { ref, useQuasar, computed, useRouter } from '../../utils/';
+import { ref, useQuasar, computed, useRouter, runMutation } from '../../utils/';
 import Register from '../../schemas/mutation/register.gql';
 import { routerStore } from '../../store';
-import { runMutation } from '../../helpers/graphql';
 
 const routerDefine = routerStore();
 const pswVisibility = ref(false);
