@@ -5,6 +5,7 @@ import { storeToRefs } from 'pinia';
 import moment from 'moment';
 import ms from 'ms';
 import { runMutation, runQuery } from './functions';
+import { routes } from './routes';
 
 export {
   runMutation,
@@ -16,5 +17,6 @@ export {
   storeToRefs,
   moment,
   ms,
+  routes,
   onMounted,
 };
