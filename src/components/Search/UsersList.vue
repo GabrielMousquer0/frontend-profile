@@ -8,7 +8,7 @@ const user = useUserStore();
 const store = viewUserStore();
 const router = useRouter();
 
-const result = runQuery(Users);
+const result = runQuery(Users, {}, 'cache-and-network');
 
 function viewUser(id) {
   store.user_id = id;

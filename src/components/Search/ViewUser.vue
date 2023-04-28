@@ -6,7 +6,7 @@ import { viewUserStore } from '../../store';
 const router = useRouter();
 const store = viewUserStore();
 
-const result = runQuery(User, { id: store.getId });
+const result = runQuery(User, { id: store.getId }, 'cache-and-network');
 
 </script>
 
