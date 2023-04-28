@@ -1,7 +1,6 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
-import { moment, ms, useRouter, onMounted } from '../../utils';
-import { runQuery } from '../../helpers/graphql';
+import { moment, ms, useRouter, runQuery } from '../../utils';
 import Users from '../../schemas/query/users.gql';
 import { viewUserStore, useUserStore } from '../../store';
 
@@ -9,10 +8,7 @@ const user = useUserStore();
 const store = viewUserStore();
 const router = useRouter();
 
-onMounted(async () => {
-  const { users } = await runQuery(Users);
-  store.users = users;
-});
+const result = runQuery(Users);
 
 function viewUser(id) {
   store.user_id = id;
@@ -35,14 +31,14 @@ function viewUser(id) {
     />
   </div>
   <div
-    v-if="store.getUsers"
+    v-if="result"
     class="list-user"
   >
     <div class="row full-width justify-end">
       <input-search />
     </div>
     <q-list
-      v-for="todo in store.getUsers"
+      v-for="todo in result.users"
       :key="todo"
     >
       <q-separator
@@ -100,13 +96,11 @@ function viewUser(id) {
 </template>
 
 <style scoped>
-.separator {
-    width: 2690%;
-}
 
 .list-user {
     overflow-y: scroll;
     overflow-x: hidden;
     width: 100vw;
+    height: 30vw;
 }
 </style>
