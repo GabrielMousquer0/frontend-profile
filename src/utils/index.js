@@ -4,8 +4,11 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import moment from 'moment';
 import ms from 'ms';
+import { runMutation, runQuery } from './functions';
 
 export {
+  runMutation,
+  runQuery,
   ref,
   computed,
   useQuasar,
