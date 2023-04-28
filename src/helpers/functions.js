@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@vue/apollo-composable';
 
-export function runQuery(query, variables) {
-  const { result } = useQuery(query, variables, {fetchPolicy: 'cache-and-network'});
+export function runQuery(query, variables, fetchPolicy) {
+  const { result } = useQuery(query, variables, {fetchPolicy});
   return result;
 }
 
