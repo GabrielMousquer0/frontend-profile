@@ -4,8 +4,8 @@ import {
   useQuasar,
   computed,
   useRouter,
+  runMutation,
 } from '../../utils/';
-import { runMutation } from '../../helpers/graphql';
 import Auth from '../../schemas/mutation/auth.gql';
 import { useUserStore, routerStore } from '../../store';
 
@@ -42,14 +42,18 @@ async function submitLogin(email, password) {
         }),
     );
     store.$patch({
-      user_languages: newValue,
-      user_username: auth.username,
-      user_email: auth.email,
-      user_role: auth.infos.role,
-      user_id: auth.id,
-      user_avatar: auth.infos.avatar ? auth.infos.avatar : '/default_avatar.webp',
-      user_createdat: auth.infos.created_at,
-      user_description: auth.infos.description,
+      user: {
+        email: auth.email,
+        id: auth.id,
+        username: auth.username,
+        infos: {
+          avatar: auth.infos.avatar ? auth.infos.avatar : '/default_avatar.webp',
+          created_at: auth.infos.created_at,
+          description: auth.infos.description,
+          role: auth.infos.role,
+        },
+        languages: newValue
+      },
     });
     return router.push({
       name: 'ProfileUser',

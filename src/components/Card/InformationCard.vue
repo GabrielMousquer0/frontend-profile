@@ -1,8 +1,7 @@
 <script setup>
 import { useUserStore } from '../../store';
-import { ref, useQuasar } from '../../utils/';
-import { EditAvatar } from '../../schemas/mutation/EditAvatar.gql';
-import { runMutation } from '../../helpers/graphql';
+import { ref, useQuasar, runMutation } from '../../utils/';
+import EditUser from '../../schemas/mutation/EditUser.gql';
 
 const store = useUserStore();
 const avatarURL = ref('');
@@ -16,7 +15,10 @@ async function urlSend(avatar, id) {
       color: 'negative',
     });
   try {
-    await runMutation(EditAvatar, { avatar, id });
+    await runMutation(EditUser, { input: {
+      avatar
+    }, id });
+    store.user.infos.avatar = avatar;
     return notify({
       message: 'Foto de perfil alterada com sucesso',
       icon: 'check',
@@ -39,7 +41,7 @@ async function urlSend(avatar, id) {
       class="myIcon"
       size="200px"
     >
-      <img :src="store.getAvatar">
+      <img :src="store.getUser.infos.avatar">
     </q-avatar>
     <div class="column justify-end">
       <q-btn
@@ -62,7 +64,7 @@ async function urlSend(avatar, id) {
             <q-btn
               class="iconSend"
               flat
-              @click="urlSend(avatarURL, store.getId)"
+              @click="urlSend(avatarURL, store.getUser.id)"
               icon="add"
             />
           </q-input>

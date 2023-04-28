@@ -1,10 +1,8 @@
 <script setup>
 import { useUserStore } from '../../store';
-import EditEmail from '../../schemas/mutation/editEmail.gql';
-import EditUsername from '../../schemas/mutation/editUsername.gql';
-import EditPassword from '../../schemas/mutation/editPassword.gql';
-import { ref, useQuasar } from '../../utils/';
-import { runMutation } from '../../helpers/graphql';
+import EditUser from '../../schemas/mutation/EditUser.gql';
+import EditPassword from '../../schemas/mutation/EditPassword.gql';
+import { ref, useQuasar, runMutation } from '../../utils/';
 
 const store = useUserStore();
 const usernameEdit = ref('');
@@ -20,7 +18,10 @@ async function editName(username, id) {
       color: 'warning',
     });
   try {
-    await runMutation(EditUsername, { username, id });
+    await runMutation(EditUser, { input: {
+      username
+    }, id });
+    store.user.username = username;
     return notify({
       message: `User alterado para: ${username}, atualize a pagina!`,
       icon: 'check',
@@ -43,7 +44,10 @@ async function editEmail(email, id) {
       color: 'warning',
     });
   try {
-    await runMutation(EditEmail, { email, id });
+    await runMutation(EditUser, { input: {
+      email
+    }, id });
+    store.user.email = email;
     return notify({
       message: `Email alterado para: ${email}, atualize a pagina!`,
       icon: 'check',
@@ -66,7 +70,7 @@ async function editPassword(password, id) {
       color: 'warning',
     });
   try {
-    await runMutation(EditPassword, { password, id });
+    await runMutation(EditPassword, {password, id });
     return notify({
       message: `Senha alterada para: ${password}, atualize a pagina!`,
       icon: 'check',
@@ -95,7 +99,7 @@ async function editPassword(password, id) {
         label="Username"
       />
       <q-btn
-        @click="editName(usernameEdit, store.getId)"
+        @click="editName(usernameEdit, store.getUser.id)"
         class="button buttonEdit"
         round
         icon="edit"
@@ -112,7 +116,7 @@ async function editPassword(password, id) {
         label="E-mail"
       />
       <q-btn
-        @click="editEmail(emailEdit, store.getId)"
+        @click="editEmail(emailEdit, store.getUser.id)"
         round
         icon="edit"
         class="button buttonEdit"
@@ -129,7 +133,7 @@ async function editPassword(password, id) {
         label="Senha"
       />
       <q-btn
-        @click="editPassword(passwordEdit, store.getId)"
+        @click="editPassword(passwordEdit, store.getUser.id)"
         class="button buttonEdit"
         round
         icon="edit"

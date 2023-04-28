@@ -4,19 +4,19 @@ import { ms, moment, ref } from '../../utils';
 
 const store = useUserStore();
 const date = moment(
-  ms(store.getCreatedAt, {
+  ms(store.getUser.infos.created_at, {
     long: true,
   }),
 ).format('llll');
 const expanded = ref(['Informações']);
 const simple = [{
   label: 'Informações',
-  avatar: store.getAvatar,
+  avatar: store.getUser.infos.avatar,
   children: [{
     label: 'Nome do Usuario',
     icon: 'person',
     children: [{
-      label: store.getUsername,
+      label: store.getUser.username,
       icon: 'chevron_right',
     }, ],
   },
@@ -24,7 +24,7 @@ const simple = [{
     label: 'E-mail',
     icon: 'mail',
     children: [{
-      label: store.getEmail,
+      label: store.getUser.email,
       icon: 'chevron_right',
     }, ],
   },
@@ -40,7 +40,7 @@ const simple = [{
     label: 'Cargo do Usuario',
     icon: 'leaderboard',
     children: [{
-      label: store.getRole,
+      label: store.getUser.infos.role,
       icon: 'chevron_right',
     }, ],
   },
@@ -48,7 +48,7 @@ const simple = [{
     label: 'ID do Usuario',
     icon: 'numbers',
     children: [{
-      label: store.getId,
+      label: store.getUser.id,
       icon: 'chevron_right',
     }, ],
   },

@@ -1,16 +1,15 @@
 <script setup>
-import { ref, useQuasar } from '../../utils';
+import { ref, useQuasar, runMutation } from '../../utils';
 import { useUserStore } from '../../store';
 import LanguageUpdate from '../../schemas/mutation/languages.gql';
-import { runMutation } from '../../helpers/graphql';
 
 const store = useUserStore();
 const { notify } = useQuasar();
-const languages = store.getLanguages;
+const languages = store.getUser.languages;
 let js = ref(languages[languages.findIndex((a) => a.id == 1)] ? true : false);
 let py = ref(languages[languages.findIndex((a) => a.id == 2)] ? true : false);
 let ts = ref(languages[languages.findIndex((a) => a.id == 3)] ? true : false);
-const imgs = languages.map((a) => a.icon.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png'));
+const imgs = languages.map((a) => a.icon.replace('1', '/js.png').replace('3', '/typescript.png').replace('2', '/python.png'));
 
 async function languagesEdit(id) {
   const langs = [js.value ? 1 : 0, py.value ? 2 : 0, ts.value ? 3 : 0];
@@ -24,7 +23,7 @@ async function languagesEdit(id) {
           icon: value.id,
         }),
     );
-    store.user_languages = newLangs;
+    store.user.languages = newLangs;
     return notify({
       message: 'Suas linguagens foi atualizada, Atualize a pagina',
       icon: 'check',
@@ -83,7 +82,7 @@ async function languagesEdit(id) {
         </q-avatar>
       </q-card-section>
       <q-btn
-        @click="languagesEdit(store.getId)"
+        @click="languagesEdit(store.getUser.id)"
         color="primary"
         label="salvar"
         icon="save"

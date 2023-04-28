@@ -15,7 +15,7 @@ const router = useRouter();
 store.router_name = 'User';
 
 
-if (!userStore.getId) {
+if (!userStore.getUser.id) {
   router.push({
     path: '/'
   });
