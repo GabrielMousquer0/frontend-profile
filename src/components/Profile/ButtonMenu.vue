@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from '../../utils';
+import { useRouter } from '../../helpers';
 import { useUserStore, viewUserStore } from '../../store';
 
 const user = viewUserStore();

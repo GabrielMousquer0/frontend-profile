@@ -2,7 +2,7 @@
 import { useUserStore } from '../../store';
 import EditUser from '../../schemas/mutation/EditUser.gql';
 import EditPassword from '../../schemas/mutation/EditPassword.gql';
-import { ref, useQuasar, runMutation } from '../../utils/';
+import { ref, useQuasar, runMutation } from '../../helpers/';
 
 const store = useUserStore();
 const usernameEdit = ref('');

@@ -1,6 +1,6 @@
 <script setup>
 import InputSearch from './InputSearch.vue';
-import { moment, ms, useRouter, runQuery } from '../../utils';
+import { moment, ms, useRouter, runQuery } from '../../helpers';
 import Users from '../../schemas/query/users.gql';
 import { viewUserStore, useUserStore } from '../../store';
 

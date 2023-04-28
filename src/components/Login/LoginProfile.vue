@@ -5,7 +5,7 @@ import {
   computed,
   useRouter,
   runMutation,
-} from '../../utils/';
+} from '../../helpers/';
 import Auth from '../../schemas/mutation/auth.gql';
 import { useUserStore, routerStore } from '../../store';
 

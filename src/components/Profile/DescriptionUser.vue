@@ -1,5 +1,5 @@
 <script setup>
-import { ref, useQuasar, runMutation } from '../../utils';
+import { ref, useQuasar, runMutation } from '../../helpers';
 import { useUserStore } from '../../store';
 import Description from '../../schemas/mutation/description.gql';
 

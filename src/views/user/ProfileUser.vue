@@ -7,7 +7,7 @@ import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
 import ButtonMenu from '../../components/Profile/ButtonMenu.vue';
 import HeaderBar from '../../components/HeaderBar.vue';
 import { routerStore, useUserStore } from '../../store';
-import { useRouter } from '../../utils';
+import { useRouter } from '../../helpers';
 
 const userStore = useUserStore();
 const store = routerStore();

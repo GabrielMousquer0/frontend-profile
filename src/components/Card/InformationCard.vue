@@ -1,6 +1,6 @@
 <script setup>
 import { useUserStore } from '../../store';
-import { ref, useQuasar, runMutation } from '../../utils/';
+import { ref, useQuasar, runMutation } from '../../helpers/';
 import EditUser from '../../schemas/mutation/EditUser.gql';
 
 const store = useUserStore();

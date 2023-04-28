@@ -1,5 +1,5 @@
 <script setup>
-import { ref, useQuasar, useRouter, runMutation } from '../../utils';
+import { ref, useQuasar, useRouter, runMutation } from '../../helpers';
 import { viewUserStore } from '../../store';
 import SearchUsers from '../../schemas/mutation/searchUsers.gql';
 

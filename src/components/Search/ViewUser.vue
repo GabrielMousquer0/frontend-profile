@@ -1,5 +1,5 @@
 <script setup>
-import { moment, ms, useRouter, runQuery } from '../../utils';
+import { moment, ms, useRouter, runQuery } from '../../helpers';
 import User from '../../schemas/query/user.gql';
 import { viewUserStore } from '../../store';
 

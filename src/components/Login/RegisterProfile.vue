@@ -1,5 +1,5 @@
 <script setup>
-import { ref, useQuasar, computed, useRouter, runMutation } from '../../utils/';
+import { ref, useQuasar, computed, useRouter, runMutation } from '../../helpers/';
 import Register from '../../schemas/mutation/register.gql';
 import { routerStore } from '../../store';
 
