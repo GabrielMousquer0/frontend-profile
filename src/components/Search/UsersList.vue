@@ -27,7 +27,7 @@ function viewUser(id) {
       label="voltar"
       icon="chevron_left"
       color="primary"
-      @click="router.push({ name: 'ProfileUser', params: { id: user.getId } })"
+      @click="router.push({ name: 'ProfileUser', params: { id: user.getUser.id } })"
     />
   </div>
   <div
