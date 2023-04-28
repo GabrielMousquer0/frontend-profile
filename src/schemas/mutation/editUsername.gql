@@ -1,5 +1,0 @@
-  mutation EditUsername($username: String, $id: ID!) {
-    editUsername(username: $username, id: $id) {
-      username
-    }
-  }

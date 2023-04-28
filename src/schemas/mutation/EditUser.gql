@@ -1,0 +1,10 @@
+mutation Mutation($input: editUser, $id: ID!) {
+  editUser(input: $input, id: $id) {
+    id
+    username
+    email
+    infos {
+      avatar
+    }
+  }
+}
