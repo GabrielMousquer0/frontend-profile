@@ -33,28 +33,7 @@ const config = {
 async function submitLogin(email, password) {
   try {
     const { auth } = await runMutation(Auth, { email, password });
-    const newValue = auth.languages.map(
-      (value) =>
-        (value = {
-          name: value.name,
-          id: value.id,
-          icon: value.id,
-        }),
-    );
-    store.$patch({
-      user: {
-        email: auth.email,
-        id: auth.id,
-        username: auth.username,
-        infos: {
-          avatar: auth.infos.avatar ? auth.infos.avatar : '/default_avatar.webp',
-          created_at: auth.infos.created_at,
-          description: auth.infos.description,
-          role: auth.infos.role,
-        },
-        languages: newValue
-      },
-    });
+    store.user = auth;
     return router.push({
       name: 'ProfileUser',
       params: {
