@@ -1,8 +1,0 @@
-mutation LanguageUpdate($languages: [ID!], $id: ID!) {
-    insertLanguages(languages: $languages, id: $id) {
-    languages {
-        name
-        id
-      }
-    }
-  }

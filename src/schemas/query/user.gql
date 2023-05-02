@@ -4,6 +4,7 @@
       username
       languages {
         name
+        icon
         id
       }
       infos {

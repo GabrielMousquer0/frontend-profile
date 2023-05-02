@@ -1,0 +1,3 @@
+mutation LanguageDelete($language: ID!, $id: ID!) {
+    deleteLanguages(language: $language, id: $id)
+  }
