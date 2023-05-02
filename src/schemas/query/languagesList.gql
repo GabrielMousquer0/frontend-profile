@@ -1,7 +1,7 @@
-query LanguagesList {
-  languagesList {
-    name
-    id
-    icon
+query Query($id: ID) {
+  languagesList(id: $id) {
+      id
+      name
+      icon
   }
 }

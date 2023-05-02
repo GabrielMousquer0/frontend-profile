@@ -9,7 +9,7 @@ import User from '../../schemas/query/user.gql';
 const store = useUserStore();
 const { notify } = useQuasar();
 
-const result = runQuery(LanguagesList);
+const result = runQuery(LanguagesList, { id: store.getUser.id });
 const user = runQuery(User, { id: store.getUser.id });
 
 async function insertLanguageUser(id, languageId) {
