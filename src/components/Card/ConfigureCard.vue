@@ -89,7 +89,7 @@ async function editPassword(password, id) {
 <template>
   <div>
     <span class="text h1-text">Configs</span>
-    <div class="row q-pa-md">
+    <div class="row">
       <q-input
         v-model="usernameEdit"
         rounded
