@@ -46,7 +46,9 @@ async function deleteLanguageUser(id, languageId) {
         >
           <q-item-section>
             <q-btn @click="insertLanguageUser(store.getUser.id, lang.id)">
-              <q-icon><img :src="lang.icon"></q-icon>{{ lang.name }}
+              <q-icon>
+                <img :src="lang.icon">
+              </q-icon>{{ lang.name }}
             </q-btn> 
           </q-item-section>
         </q-list>
@@ -56,7 +58,13 @@ async function deleteLanguageUser(id, languageId) {
           v-for="listLanguagesUser in user.data.value?.user.languages"
           :key="listLanguagesUser"
         >
-          <q-btn><q-icon><img :src="listLanguagesUser.icon"></q-icon>{{ listLanguagesUser.name }}</q-btn> <q-icon
+          <q-btn>
+            <q-icon>
+              <img :src="listLanguagesUser.icon">
+            </q-icon>
+            {{ listLanguagesUser.name }}
+          </q-btn> 
+          <q-icon
             name="delete"
             @click="deleteLanguageUser(store.getUser.id, listLanguagesUser.id)"
           />
