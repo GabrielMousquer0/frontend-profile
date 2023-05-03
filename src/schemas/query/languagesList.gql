@@ -1,4 +1,4 @@
-query Query($id: ID) {
+query LanguagesList($id: ID) {
   languagesList(id: $id) {
       id
       name

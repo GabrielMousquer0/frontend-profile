@@ -9,23 +9,21 @@ import User from '../../schemas/query/user.gql';
 const store = useUserStore();
 const { notify } = useQuasar();
 
-const result = runQuery(LanguagesList, { id: store.getUser.id });
-const user = runQuery(User, { id: store.getUser.id });
+const result = runQuery(LanguagesList, { id: store.getUser.id }, 'cache-and-network');
+const user = runQuery(User, { id: store.getUser.id }, 'cache-and-network');
 
 async function insertLanguageUser(id, languageId) {
-  const { insertLanguages } = await runMutation(LanguageInsert, { id, language: languageId });
-  if(!insertLanguages) {
-    return notify({ message: 'Não podes incluir a mesma linguagem', color: 'negative', icon: 'error' });
-  }
-  return notify({ message: 'Linguagem Atualizada, atualize a pagina', color: 'positive', icon: 'check' });
+  await runMutation(LanguageInsert, { id, language: languageId }, ['user', 'languagesList']);
+  await user.refetch();
+  await result.refetch();
+  return notify({ message: 'Linguagem Atualizada', color: 'positive', icon: 'check' });
 }
 
 async function deleteLanguageUser(id, languageId) {
-  const { deleteLanguages } = await runMutation(LanguageDelete, { id, language: languageId });
-  if(!deleteLanguages) {
-    return notify({ message: 'Esta linguagem não existe, atualize a pagina', color: 'negative', icon: 'error' });
-  }
-  return notify({ message: 'Linguagem Excluida, atualize a pagina', color: 'positive', icon: 'check' });
+  await runMutation(LanguageDelete, { id, language: languageId }, ['user', 'languagesList']);
+  await user.refetch();
+  await result.refetch();
+  return notify({ message: 'Linguagem Excluida', color: 'positive', icon: 'check' });
 }
 </script>
 
@@ -43,7 +41,7 @@ async function deleteLanguageUser(id, languageId) {
         dropdown-icon="add"
       >
         <q-list
-          v-for="lang in result.languagesList"
+          v-for="lang in result.data.value?.languagesList"
           :key="lang"
         >
           <q-item-section>
@@ -55,7 +53,7 @@ async function deleteLanguageUser(id, languageId) {
       </q-btn-dropdown>
       <div v-if="user">
         <q-list
-          v-for="listLanguagesUser in user.user.languages"
+          v-for="listLanguagesUser in user.data.value?.user.languages"
           :key="listLanguagesUser"
         >
           <q-btn><q-icon><img :src="listLanguagesUser.icon"></q-icon>{{ listLanguagesUser.name }}</q-btn> <q-icon
