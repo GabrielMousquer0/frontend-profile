@@ -93,6 +93,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
 .desc {
     overflow-y: scroll;
     overflow-x: hidden;
+    overflow-wrap: break-word;
     width: 40vw;
     height: 14vw;
 }
