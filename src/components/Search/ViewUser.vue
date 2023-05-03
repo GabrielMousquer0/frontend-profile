@@ -1,5 +1,5 @@
 <script setup>
-import { moment, ms, useRouter, runQuery } from '../../helpers';
+import { useRouter, runQuery } from '../../helpers';
 import User from '../../schemas/query/user.gql';
 import { viewUserStore } from '../../store';
 
@@ -7,7 +7,6 @@ const router = useRouter();
 const store = viewUserStore();
 
 const result = runQuery(User, { id: store.getId }, 'cache-and-network');
-
 </script>
 
 <template>
@@ -25,7 +24,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
     <q-card class="card column fixed-center">
       <q-card-section class="information">
         <q-avatar size="130px">
-          <img :src="result.user.infos.avatar">
+          <img :src="result.data.value?.user.infos.avatar">
         </q-avatar><span class="text-h1">Informações</span>
       </q-card-section>
       <q-list>
@@ -33,7 +32,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
           <q-item-label class="information">
             <span class="text-h4"> <q-icon name="person" /> Username:</span>
             <q-item-label>
-              <span class="text-h5"> {{ result.user.username }} </span>
+              <span class="text-h5"> {{ result.data.value?.user.username }} </span>
             </q-item-label>
           </q-item-label>
         </q-item-section>
@@ -41,18 +40,11 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
           <q-item-label class="information">
             <span class="text-h4"><q-icon name="leaderboard" /> Cargo:</span>
             <q-item-label>
-              <span class="text-h5"> {{ result.user.infos.role }} </span>
+              <span class="text-h5"> {{ result.data.value?.user.infos.role }} </span>
             </q-item-label>
           </q-item-label>
         </q-item-section>
-        <q-item-section>
-          <q-item-label class="information">
-            <span class="text-h4"><q-icon name="calendar_month" /> Criado Em:</span>
-            <q-item-label>
-              <span class="text-h5"> {{ moment(ms(result.user.infos.created_at)).format('DD/MM/YYYY') }} </span>
-            </q-item-label>
-          </q-item-label>
-        </q-item-section>
+        <q-item-section />
         <q-item-section>
           <q-item-section>
             <q-item-label class="information">
@@ -63,7 +55,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
                   label="Ver"
                 >
                   <q-list
-                    v-for="lang in result.user.languages"
+                    v-for="lang in result.data.value?.user.languages"
                     :key="lang"
                   >
                     <q-item-section>
@@ -72,7 +64,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
                       </q-btn>
                     </q-item-section>
                   </q-list>
-                  <q-list v-show="result.user.languages.length == 0">
+                  <q-list v-show="result.data.value?.user.languages.length == 0">
                     <q-btn
                       color="grey"
                       icon="error"
@@ -86,11 +78,9 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
           <q-item-label class="information">
             <span class="text-h4"><q-icon name="description" /> Descrição:</span>
             <q-item-label>
-              <q-input
-                v-model="result.user.infos.description"
-                class="inputDesc"
-                type="textarea"
-              />
+              <q-card class="desc bg-white">
+                {{ result.data.value?.user.infos.description }}
+              </q-card>
             </q-item-label>
           </q-item-label>
         </q-item-section>
@@ -100,6 +90,12 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
 </template>
 
 <style scoped>
+.desc {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 40vw;
+    height: 14vw;
+}
 .inputDesc {
     background-color: white;
     width: 780px;

@@ -38,7 +38,7 @@ function viewUser(id) {
       <input-search />
     </div>
     <q-list
-      v-for="todo in result.users"
+      v-for="todo in result.data.value?.users"
       :key="todo"
     >
       <q-separator
