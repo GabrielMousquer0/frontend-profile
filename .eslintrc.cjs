@@ -18,9 +18,9 @@ module.exports = {
     'vue'
   ],
   'rules': {
-    semi: ['error', 'always'],
-    quotes: ['error', 'single'],
     indent: ['error', 2],
-    'comma-spacing': ['error', { before: false, after: true}],
-  }
+    'linebreak-style': ['error', 'unix'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+  },
 };
