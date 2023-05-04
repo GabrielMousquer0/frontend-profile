@@ -9,51 +9,65 @@ const date = moment(
   }),
 ).format('llll');
 const expanded = ref(['Informações']);
-const simple = [{
-  label: 'Informações',
-  avatar: store.getUser.infos.avatar,
-  children: [{
-    label: 'Nome do Usuario',
-    icon: 'person',
-    children: [{
-      label: store.getUser.username,
-      icon: 'chevron_right',
-    }, ],
-  },
+const simple = [
   {
-    label: 'E-mail',
-    icon: 'mail',
-    children: [{
-      label: store.getUser.email,
-      icon: 'chevron_right',
-    }, ],
+    label: 'Informações',
+    avatar: store.getUser.infos.avatar,
+    children: [
+      {
+        label: 'Nome do Usuario',
+        icon: 'person',
+        children: [
+          {
+            label: store.getUser.username,
+            icon: 'chevron_right',
+          },
+        ],
+      },
+      {
+        label: 'E-mail',
+        icon: 'mail',
+        children: [
+          {
+            label: store.getUser.email,
+            icon: 'chevron_right',
+          },
+        ],
+      },
+      {
+        label: 'Conta criada em',
+        icon: 'calendar_month',
+        children: [
+          {
+            label: date,
+            icon: 'chevron_right',
+          },
+        ],
+      },
+      {
+        label: 'Cargo do Usuario',
+        icon: 'leaderboard',
+        children: [
+          {
+            label: store.getUser.infos.role,
+            icon: 'chevron_right',
+          },
+        ],
+      },
+      {
+        label: 'ID do Usuario',
+        icon: 'numbers',
+        children: [
+          {
+            label: store.getUser.id,
+            icon: 'chevron_right',
+          }
+        ],
+      },
+    ],
   },
-  {
-    label: 'Conta criada em',
-    icon: 'calendar_month',
-    children: [{
-      label: date,
-      icon: 'chevron_right',
-    }, ],
-  },
-  {
-    label: 'Cargo do Usuario',
-    icon: 'leaderboard',
-    children: [{
-      label: store.getUser.infos.role,
-      icon: 'chevron_right',
-    }, ],
-  },
-  {
-    label: 'ID do Usuario',
-    icon: 'numbers',
-    children: [{
-      label: store.getUser.id,
-      icon: 'chevron_right',
-    }, ],
-  },
-  ],
-}, ];
+];
+
 </script>
 
 <template>
