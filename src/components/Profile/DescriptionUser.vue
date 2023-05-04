@@ -33,7 +33,7 @@ async function descriptionEdit(description, id) {
 </script>
 
 <template>
-  <div class="description column ">
+  <div class="description ">
     <span class="title-description text-h1">Descrição</span>
     <q-separator color="black" />
     <q-input
