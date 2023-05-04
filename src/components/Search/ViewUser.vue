@@ -7,6 +7,7 @@ const router = useRouter();
 const store = viewUserStore();
 
 const result = runQuery(User, { id: store.getId }, 'cache-and-network');
+
 </script>
 
 <template>
@@ -36,7 +37,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
             </q-item-label>
           </q-item-label>
         </q-item-section>
-        <q-item-section>
+        <q-item-section v-show="result.data.value?.user.options.role">
           <q-item-label class="information">
             <span class="text-h4"><q-icon name="leaderboard" /> Cargo:</span>
             <q-item-label>
@@ -44,7 +45,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
             </q-item-label>
           </q-item-label>
         </q-item-section>
-        <q-item-section>
+        <q-item-section v-show="result.data.value?.user.options.created_at">
           <q-item-label class="information">
             <span class="text-h4"><q-icon name="calendar_month" /> Criado Em: </span>
             <q-item-label>
@@ -54,7 +55,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
         </q-item-section>
         <q-item-section />
         <q-item-section>
-          <q-item-section>
+          <q-item-section v-show="result.data.value?.user.options.languages">
             <q-item-label class="information">
               <span class="text-h4">Linguagens: </span>
               <q-item-label>
@@ -83,7 +84,10 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
               </q-item-label>
             </q-item-label>
           </q-item-section>
-          <q-item-label class="information">
+          <q-item-label
+            class="information"
+            v-show="result.data.value?.user.options.description"
+          >
             <span class="text-h4"><q-icon name="description" /> Descrição:</span>
             <q-item-label>
               <q-card class="desc bg-white">

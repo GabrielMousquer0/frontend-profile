@@ -1,0 +1,8 @@
+mutation EditOptions($id: ID!, $input: OptionsInput) {
+  editOptions(id: $id, input: $input) {
+      created_at
+      description
+      role
+      languages
+  }
+}

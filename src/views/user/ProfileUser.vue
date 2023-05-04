@@ -5,6 +5,7 @@ import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
 import InfoUser from '../../components/Profile/InfoUser.vue';
 import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
 import ButtonMenu from '../../components/Profile/ButtonMenu.vue';
+import ConfigurationUser from '../../components/Profile/ConfigurationUser.vue';
 import HeaderBar from '../../components/HeaderBar.vue';
 import { routerStore, useUserStore } from '../../store';
 import { useRouter } from '../../helpers';
@@ -33,8 +34,11 @@ if (!userStore.getUser.id) {
       <InformationCard />
     </div>
     <div>
-      <div class="infoUser row fixed-start">
+      <div class="infoUser column fixed-start">
         <InfoUser />
+      </div>
+      <div class="optionsUser column fixed-top-left">
+        <ConfigurationUser />
       </div>
       <div class="description column fixed-top">
         <DescriptionUser />
@@ -47,15 +51,13 @@ if (!userStore.getUser.id) {
 </template>
 
 <style scoped>
-.container {
-    width: 100%;
-    height: 100%;
+
+.optionsUser {
+    margin-top: 35rem;
+    margin-left: 32rem;
 }
 
-.infoUser {
-    margin-top: 15rem;
-    margin-left: 5rem;
-}
+
 
 .description {
     width: 50rem;

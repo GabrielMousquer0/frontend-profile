@@ -13,5 +13,11 @@ mutation Auth($email: String!, $password: String!) {
         description
         role
       }
+      options {
+        created_at
+        description
+        role
+        languages
+      }
     }
   }

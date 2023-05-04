@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
@@ -11,6 +11,7 @@ export {
   runMutation,
   runQuery,
   ref,
+  reactive,
   computed,
   useQuasar,
   useRouter,
