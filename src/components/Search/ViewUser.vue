@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter, runQuery } from '../../helpers';
+import { useRouter, runQuery, moment } from '../../helpers';
 import User from '../../schemas/query/user.gql';
 import { viewUserStore } from '../../store';
 
@@ -41,6 +41,14 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
             <span class="text-h4"><q-icon name="leaderboard" /> Cargo:</span>
             <q-item-label>
               <span class="text-h5"> {{ result.data.value?.user.infos.role }} </span>
+            </q-item-label>
+          </q-item-label>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label class="information">
+            <span class="text-h4"><q-icon name="calendar_month" /> Criado Em: </span>
+            <q-item-label>
+              <span class="text-h5"> {{ moment(Math.round(result.data.value?.user.infos.created_at)).format('llll') }} </span>
             </q-item-label>
           </q-item-label>
         </q-item-section>
@@ -95,7 +103,7 @@ const result = runQuery(User, { id: store.getId }, 'cache-and-network');
     overflow-x: hidden;
     overflow-wrap: break-word;
     width: 40vw;
-    height: 14vw;
+    height: 10vw;
 }
 .inputDesc {
     background-color: white;
