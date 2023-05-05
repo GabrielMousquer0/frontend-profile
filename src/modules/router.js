@@ -31,13 +31,14 @@ export const routes = [
   },
   {
     path: '/list',
+    name: 'Users',
     components: {
       default: UsersList,
     },
   },
   {
     path: '/view/:id',
-    name: 'Users',
+    name: 'View User',
     components: {
       default: UserProfile,
     },
@@ -45,7 +46,7 @@ export const routes = [
   },
   {
     path: '/search/:username',
-    name: 'Users',
+    name: 'Users Username',
     components: {
       default: SearchUser,
     },
