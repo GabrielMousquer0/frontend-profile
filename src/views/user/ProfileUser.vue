@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { routerStore, useUserStore } from '../../store';
+import { useUserStore } from '../../store';
 import ProfileCard from '../../components/Card/InformationCard.vue';
 import InformationCard from '../../components/Card/ConfigureCard.vue';
 import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
@@ -12,10 +12,7 @@ import HeaderBar from '../../components/HeaderBar.vue';
 
 
 const userStore = useUserStore();
-const store = routerStore();
 const router = useRouter();
-store.router_name = 'User';
-
 
 if (!userStore.getUser.id) {
   router.push({
