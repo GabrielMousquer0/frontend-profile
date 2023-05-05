@@ -44,7 +44,6 @@ function viewUser(id) {
       <q-separator
         spaced
         color="black"
-        class="separator"
       />
       <q-item>
         <q-item-section>

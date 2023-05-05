@@ -3,7 +3,6 @@ import InputSearch from './InputSearch.vue';
 import { moment, ms, useRouter, onMounted, runMutation } from '../../helpers';
 import { viewUserStore } from '../../store';
 import SearchUsers from '../../schemas/mutation/searchUsers.gql';
-
 const router = useRouter();
 const store = viewUserStore();
 
@@ -25,7 +24,6 @@ async function viewUser(id) {
 
 <template>
   <div
-    v-if="store.getUsersUsername"
     class="list-user"
   >
     <div>
@@ -46,7 +44,6 @@ async function viewUser(id) {
       <q-separator
         spaced
         color="black"
-        class="separator"
       />
       <q-item>
         <q-item-section>
@@ -98,9 +95,7 @@ async function viewUser(id) {
 </template>
 
 <style scoped>
-.separator {
-    width: 2690%;
-}
+
 
 .list-user {
     overflow-y: scroll;
