@@ -15,7 +15,7 @@ const status = reactive({
 
 async function saveOptions(id, input) {
   const { editOptions } = await runMutation(EditOptions, { id, input });
-  store.user.options = editOptions;
+  store.setUserOptions(editOptions);
   return positiveNotify('Foi editado suas opções');
 }
 </script>

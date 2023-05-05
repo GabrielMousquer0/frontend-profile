@@ -28,7 +28,7 @@ const value = {
 async function submitLogin(email, password) {
   try {
     const { auth } = await runMutation(Auth, { email, password });
-    store.user = auth;
+    store.setUser(auth);
     return router.push({
       name: 'ProfileUser',
       params: {
