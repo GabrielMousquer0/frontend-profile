@@ -16,10 +16,10 @@ const result = runQuery(Users, {}, 'cache-and-network');
 function viewUser(id) {
   store.user_id = id;
   return router.push({
-    path: '/view/:id',
+    name: 'View User',
     params: {
-      id
-    }
+      id,
+    },
   });
 }
 </script>
@@ -30,7 +30,7 @@ function viewUser(id) {
       label="voltar"
       icon="chevron_left"
       color="primary"
-      @click="router.push({ path: '/user/:id', params: { id: user.getUser.id } })"
+      @click="router.push({ name: 'User', params: { id: user.getUser.id } })"
     />
   </div>
   <div

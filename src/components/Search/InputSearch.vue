@@ -20,7 +20,7 @@ async function searchBtn(username) {
 
   store.user_username = username;
   return router.push({
-    path: '/search/:username',
+    name: 'Users Username',
     params: { username }
   });
 }

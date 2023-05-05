@@ -28,7 +28,7 @@ async function submitLogin(email, password) {
     const { auth } = await runMutation(Auth, { email, password });
     store.user = auth;
     return router.push({
-      path: '/user/:id',
+      name: 'User',
       params: {
         id: auth.id,
       },

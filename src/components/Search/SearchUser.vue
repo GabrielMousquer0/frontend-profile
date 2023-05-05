@@ -16,9 +16,10 @@ onMounted(async () => {
 });
 
 async function viewUser(id) {
+  console.log(id);
   store.user_id = id;
   return router.push({
-    path: '/view/:id',
+    name: 'View User',
     params: {
       id
     }
