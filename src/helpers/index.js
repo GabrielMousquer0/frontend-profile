@@ -1,5 +1,5 @@
-
-import { runMutation, runQuery, negativeNotify, positiveNotify } from './functions';
+import { negativeNotify, positiveNotify } from './notify';
+import { runMutation, runQuery } from './query';
 
 export {
   runMutation,
