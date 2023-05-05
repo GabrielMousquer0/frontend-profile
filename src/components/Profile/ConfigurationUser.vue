@@ -29,30 +29,26 @@ async function saveOptions(id, input) {
     <q-card-section class="column">
       <q-toggle 
         v-model="status.languages"
-        color="green"
         label="Linguagens"
-        checked-icon="check"
+        checked-icon="terminal"
         unchecked-icon="clear"
       />
       <q-toggle 
         v-model="status.role"
-        color="green"
         label="Cargo"
-        checked-icon="check"
+        checked-icon="manage_accounts"
         unchecked-icon="clear"
       />
       <q-toggle 
         v-model="status.created_at"
-        color="green"
         label="Criado Em"
-        checked-icon="check"
+        checked-icon="calendar_month"
         unchecked-icon="clear"
       />
       <q-toggle 
         v-model="status.description"
-        color="green"
         label="Descrição"
-        checked-icon="check"
+        checked-icon="description"
         unchecked-icon="clear"
       />
     </q-card-section>
@@ -60,7 +56,7 @@ async function saveOptions(id, input) {
       label="Salvar"
       icon="save"
       color="primary"
-      @click="saveOptions(store.getUser.id ,status)"
+      @click="saveOptions(store.getUser.id, status)"
     />
   </q-card>
 </template>

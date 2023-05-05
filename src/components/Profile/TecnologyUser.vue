@@ -32,7 +32,7 @@ async function deleteLanguageUser(id, languageId) {
     class="tecs"
     v-if="result"
   >
-    <span class="title-tecs text-h1">Tecnologias</span>
+    <span class="title-tecs text-h1">Linguagens</span>
     <q-separator color="black" />
     <q-card
       class="tecCard"
