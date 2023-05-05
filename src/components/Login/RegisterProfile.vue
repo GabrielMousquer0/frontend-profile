@@ -17,13 +17,11 @@ const inputValue = reactive({
 });
 
 const verifyButtonRule = computed(() => {
-  if (!inputValue.email || !inputValue.username || !inputValue.password || !inputValue.confirmPassword || inputValue.password !== inputValue.confirmPassword) {
+  if (!inputValue.email.trim() || !inputValue.username.trim() || !inputValue.password.trim() || !inputValue.confirmPassword.trim() || inputValue.password.trim() !== inputValue.confirmPassword.trim()) {
     return !buttonDisabledValue.value;
   } 
   return buttonDisabledValue.value;
 });
-
-const confirmPasswordInput = ref('');
 routerDefine.router_name = 'Register';
 const value = {
   true: {
@@ -38,9 +36,9 @@ const value = {
 
 
 
-async function submitRegister(email, username, password, confirmPassword) {
+async function submitRegister(input) {
   try {
-    const { register } = await runMutation(Register, { email, username, password: confirmPassword });
+    const { register } = await runMutation(Register, { input });
     if (register) {
       return negativeNotify('Esse usuário ja existe');
     }
@@ -109,7 +107,7 @@ const config = computed(() => value[pswVisibility.value]);
         label="Registrar"
         icon="edit"
         :disable="verifyButtonRule"
-        @click="submitRegister(emailInput.trim(), usernameInput.trim(), passwordInput.trim(), confirmPasswordInput.trim())"
+        @click="submitRegister(inputValue)"
       >
         <q-tooltip
           v-model="verifyButtonRule"
