@@ -1,39 +1,34 @@
 <script setup>
-import {
-  ref,
-  useQuasar,
-  computed,
-  useRouter,
-  runMutation,
-} from '../../helpers/';
-import Auth from '../../schemas/mutation/auth.gql';
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUserStore, routerStore } from '../../store';
+import { runMutation, negativeNotify } from '../../helpers/';
+import Auth from '../../schemas/mutation/auth.gql';
 
 const routerDefine = routerStore();
 const store = useUserStore();
 const router = useRouter();
-const { notify } = useQuasar();
 
 const pswVisibility = ref(false);
 const passwordText = ref('');
 const userText = ref('');
 
 routerDefine.router_name = 'Login';
-const config = {
+const value = {
   true: {
-    v1: 'visibility',
-    v2: 'text',
+    icon: 'visibility',
+    type: 'text',
   },
   false: {
-    v1: 'visibility_off',
-    v2: 'password',
+    icon: 'visibility_off',
+    type: 'password',
   },
 };
 
 async function submitLogin(email, password) {
   try {
     const { auth } = await runMutation(Auth, { email, password });
-    store.user = auth;
+    store.setUser(auth);
     return router.push({
       name: 'ProfileUser',
       params: {
@@ -41,19 +36,14 @@ async function submitLogin(email, password) {
       },
     });
   } catch {
-    return notify({
-      message: 'Usuario não encontrado',
-      color: 'negative',
-      icon: 'warning',
-      timeout: 3000,
-    });
+    return negativeNotify('Usuario não encontrado');
   }
 }
 
-function iconEvent() {
+function iconValue() {
   pswVisibility.value = !pswVisibility.value;
 }
-const type = computed(() => config[pswVisibility.value]);
+const config = computed(() => value[pswVisibility.value]);
 </script>
 
 <template>
@@ -67,16 +57,16 @@ const type = computed(() => config[pswVisibility.value]);
     />
     <q-input
       class="inputLogin"
-      :type="type.v2"
+      :type="config.type"
       label="Senha"
       stack-label
       v-model="passwordText"
     >
       <template #append>
         <q-icon
-          :name="type.v1"
+          :name="config.icon"
           class="pointer"
-          @click="iconEvent()"
+          @click="iconValue()"
         />
       </template>
     </q-input>
