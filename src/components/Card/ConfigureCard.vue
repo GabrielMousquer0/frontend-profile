@@ -1,8 +1,10 @@
 <script setup>
+import { ref } from 'vue';
+import { useQuasar } from 'quasar';
 import { useUserStore } from '../../store';
+import { runMutation } from '../../helpers/';
 import EditUser from '../../schemas/mutation/EditUser.gql';
 import EditPassword from '../../schemas/mutation/EditPassword.gql';
-import { ref, useQuasar, runMutation } from '../../helpers/';
 
 const store = useUserStore();
 const usernameEdit = ref('');
@@ -11,25 +13,27 @@ const passwordEdit = ref('');
 const { notify } = useQuasar();
 
 async function editName(username, id) {
-  if (!username)
+  if (!username) {
     return notify({
       message: 'Preencha o campo',
       icon: 'warning',
       color: 'warning',
     });
+  }
+
   try {
     await runMutation(EditUser, { input: {
       username
     }, id });
     store.user.username = username;
     return notify({
-      message: `User alterado para: ${username}, atualize a pagina!`,
+      message: `Nome do usuario alterado para: ${username}`,
       icon: 'check',
       color: 'positive',
     });
   } catch {
     return notify({
-      message: 'Um erro ocorreu ao fazer a mudança de username',
+      message: 'Um erro ocorreu ao fazer a mudança do nome do usuario!',
       icon: 'error',
       color: 'negative',
     });
@@ -37,19 +41,21 @@ async function editName(username, id) {
 }
 
 async function editEmail(email, id) {
-  if (!email)
+  if (!email) {
     return notify({
       message: 'Preencha o campo',
       icon: 'warning',
       color: 'warning',
     });
+  }
+
   try {
     await runMutation(EditUser, { input: {
       email
     }, id });
     store.user.email = email;
     return notify({
-      message: `Email alterado para: ${email}, atualize a pagina!`,
+      message: `Email alterado para: ${email}`,
       icon: 'check',
       color: 'positive',
     });
@@ -72,7 +78,7 @@ async function editPassword(password, id) {
   try {
     await runMutation(EditPassword, {password, id });
     return notify({
-      message: `Senha alterada para: ${password}, atualize a pagina!`,
+      message: `Senha alterada para: ${password}`,
       icon: 'check',
       color: 'positive',
     });

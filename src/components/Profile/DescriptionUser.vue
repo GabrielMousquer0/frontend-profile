@@ -1,6 +1,8 @@
 <script setup>
-import { ref, useQuasar, runMutation } from '../../helpers';
+import { ref } from 'vue';
+import { useQuasar } from 'quasar';
 import { useUserStore } from '../../store';
+import { runMutation } from '../../helpers';
 import Description from '../../schemas/mutation/description.gql';
 
 const store = useUserStore();

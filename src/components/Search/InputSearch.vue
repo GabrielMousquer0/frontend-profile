@@ -1,6 +1,9 @@
 <script setup>
-import { ref, useQuasar, useRouter, runMutation } from '../../helpers';
+import { ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
 import { viewUserStore } from '../../store';
+import { runMutation } from '../../helpers';
 import SearchUsers from '../../schemas/mutation/searchUsers.gql';
 
 const searchInput = ref('');

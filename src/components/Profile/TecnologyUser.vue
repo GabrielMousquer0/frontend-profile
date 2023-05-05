@@ -1,6 +1,7 @@
 <script setup>
-import { useQuasar, runMutation, runQuery } from '../../helpers';
+import { useQuasar } from 'quasar';
 import { useUserStore } from '../../store';
+import { runMutation, runQuery } from '../../helpers';
 import LanguageInsert from '../../schemas/mutation/languagesInsert.gql';
 import LanguageDelete from '../../schemas/mutation/languagesDelete.gql';
 import LanguagesList from '../../schemas/query/languagesList.gql';

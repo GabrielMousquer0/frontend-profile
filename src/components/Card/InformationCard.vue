@@ -1,6 +1,8 @@
 <script setup>
+import { ref } from 'vue';
+import { useQuasar } from 'quasar';
 import { useUserStore } from '../../store';
-import { ref, useQuasar, runMutation } from '../../helpers/';
+import { runMutation } from '../../helpers/';
 import EditUser from '../../schemas/mutation/EditUser.gql';
 
 const store = useUserStore();
@@ -56,7 +58,7 @@ async function urlSend(avatar, id) {
         >
           <q-input
             v-model="avatarURL"
-            hint="Me dê uma URL de alguma imagem"
+            hint="Digite uma URL de alguma imagem"
             rounded
             dense
             @keyup.enter="scope.set"

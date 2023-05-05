@@ -1,6 +1,8 @@
 <script setup>
-import { reactive, runMutation, useQuasar } from '../../helpers';
+import { reactive } from 'vue';
+import { useQuasar } from 'quasar';
 import { useUserStore } from '../../store';
+import { runMutation } from '../../helpers';
 import EditOptions from '../../schemas/mutation/editOptions.gql';
 
 const store = useUserStore();

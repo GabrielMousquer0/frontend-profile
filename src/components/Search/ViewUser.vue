@@ -1,7 +1,9 @@
 <script setup>
-import { useRouter, runQuery, moment } from '../../helpers';
-import User from '../../schemas/query/user.gql';
+import { useRouter } from 'vue-router';
+import moment from 'moment';
 import { viewUserStore } from '../../store';
+import { runQuery } from '../../helpers';
+import User from '../../schemas/query/user.gql';
 
 const router = useRouter();
 const store = viewUserStore();

@@ -1,7 +1,10 @@
 <script setup>
-import { ref, useQuasar, computed, useRouter, runMutation } from '../../helpers/';
-import Register from '../../schemas/mutation/register.gql';
+import { ref, computed } from 'vue';
+import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
 import { routerStore } from '../../store';
+import { runMutation } from '../../helpers/';
+import Register from '../../schemas/mutation/register.gql';
 
 const routerDefine = routerStore();
 const pswVisibility = ref(false);
@@ -12,14 +15,14 @@ const confirmPasswordInput = ref('');
 const router = useRouter();
 const { notify } = useQuasar();
 routerDefine.router_name = 'Register';
-const config = {
+const value = {
   true: {
-    v1: 'visibility',
-    v2: 'text',
+    icon: 'visibility',
+    type: 'text',
   },
   false: {
-    v1: 'visibility_off',
-    v2: 'password',
+    icon: 'visibility_off',
+    type: 'password',
   },
 };
 
@@ -66,11 +69,11 @@ async function submitRegister(email, username, password, confirmPassword) {
   }
 }
 
-function iconEvent() {
+function iconValue() {
   pswVisibility.value = !pswVisibility.value;
 }
 
-const type = computed(() => config[pswVisibility.value]);
+const config = computed(() => value[pswVisibility.value]);
 </script>
 
 <template>
@@ -90,21 +93,21 @@ const type = computed(() => config[pswVisibility.value]);
     <q-card-section>
       <q-input
         v-model="usernameInput"
-        label="Nome do Usuario"
+        label="Nome do Usuário"
         stack-label
       />
     </q-card-section>
     <q-card-section>
       <q-input
         v-model="passwordInput"
-        :type="type.v2"
+        :type="config.type"
         label="Senha"
         stack-label
       />
       <q-icon
-        :name="type.v1"
+        :name="config.icon"
         class="cursor-pointer"
-        @click="iconEvent()"
+        @click="iconValue()"
       />
     </q-card-section>
     <q-card-section>
