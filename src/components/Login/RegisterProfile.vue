@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { routerStore } from '../../store';
 import { runMutation, negativeNotify, positiveNotify } from '../../helpers/';
@@ -8,9 +8,21 @@ import Register from '../../schemas/mutation/register.gql';
 const routerDefine = routerStore();
 const router = useRouter();
 const pswVisibility = ref(false);
-const emailInput = ref('');
-const usernameInput = ref('');
-const passwordInput = ref('');
+const buttonDisabledValue = ref(false);
+const inputValue = reactive({
+  email: '',
+  password: '',
+  confirmPassword: '',
+  username: '',
+});
+
+const verifyButtonRule = computed(() => {
+  if (!inputValue.email || !inputValue.username || !inputValue.password || !inputValue.confirmPassword || inputValue.password !== inputValue.confirmPassword) {
+    return !buttonDisabledValue.value;
+  } 
+  return buttonDisabledValue.value;
+});
+
 const confirmPasswordInput = ref('');
 routerDefine.router_name = 'Register';
 const value = {
@@ -24,13 +36,9 @@ const value = {
   },
 };
 
+
+
 async function submitRegister(email, username, password, confirmPassword) {
-  if (!email || !username || !password || !confirmPassword) {
-    return negativeNotify('Você deve preencher todos os campos');
-  }
-  if (password !== confirmPassword) {
-    return negativeNotify('Suas senhas não são iguais!');
-  }
   try {
     const { register } = await runMutation(Register, { email, username, password: confirmPassword });
     if (register) {
@@ -60,7 +68,7 @@ const config = computed(() => value[pswVisibility.value]);
     <q-separator color="black" />
     <q-card-section>
       <q-input
-        v-model="emailInput"
+        v-model="inputValue.email"
         type="email"
         label="E-mail"
         stack-label
@@ -68,14 +76,14 @@ const config = computed(() => value[pswVisibility.value]);
     </q-card-section>
     <q-card-section>
       <q-input
-        v-model="usernameInput"
+        v-model="inputValue.username"
         label="Nome do Usuário"
         stack-label
       />
     </q-card-section>
     <q-card-section>
       <q-input
-        v-model="passwordInput"
+        v-model="inputValue.password"
         :type="config.type"
         label="Senha"
         stack-label
@@ -88,7 +96,7 @@ const config = computed(() => value[pswVisibility.value]);
     </q-card-section>
     <q-card-section>
       <q-input
-        v-model="confirmPasswordInput"
+        v-model="inputValue.confirmPassword"
         type="password"
         label="Confirmar Senha"
         stack-label
@@ -100,8 +108,17 @@ const config = computed(() => value[pswVisibility.value]);
         color="primary"
         label="Registrar"
         icon="edit"
+        :disable="verifyButtonRule"
         @click="submitRegister(emailInput.trim(), usernameInput.trim(), passwordInput.trim(), confirmPasswordInput.trim())"
-      />
+      >
+        <q-tooltip
+          v-model="verifyButtonRule"
+          class="bg-red"
+          :offset="[10, 10]"
+        >
+          Preencha os campos corretamente!
+        </q-tooltip>
+      </q-btn>
       <span class="my-text text-subtitle1 row justify-end">Ja possui conta?<router-link :to="{ name: 'Login' }"> Clique Aqui</router-link></span>
     </q-card-section>
   </q-card>
