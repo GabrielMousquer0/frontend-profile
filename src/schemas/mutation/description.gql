@@ -1,0 +1,7 @@
+mutation Description($description: String, $id: ID!) {
+    description(description: $description, id: $id) {
+      infos {
+        description
+      }
+    }
+  }

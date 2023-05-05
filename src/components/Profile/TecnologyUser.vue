@@ -1,93 +1,75 @@
 <script setup>
-import { useMutation, useQuery, ref, useQuasar } from '../../utils';
+import { useQuasar, runMutation, runQuery } from '../../helpers';
 import { useUserStore } from '../../store';
-import { editLanguages, userLanguages } from '../../schemas'
+import LanguageInsert from '../../schemas/mutation/languagesInsert.gql';
+import LanguageDelete from '../../schemas/mutation/languagesDelete.gql';
+import LanguagesList from '../../schemas/query/languagesList.gql';
+import User from '../../schemas/query/user.gql';
 
-const store = useUserStore()
-const { notify } = useQuasar()
-const languages = store.getLanguages
-let js = ref(languages[languages.findIndex((a)=>  a.id == 1)] ? true:false)
-let py = ref(languages[languages.findIndex((a)=>  a.id == 2)] ? true:false)
-let ts = ref(languages[languages.findIndex((a)=>  a.id == 3)] ? true:false)
-const imgs = languages.map((a)=>  a.icon.replace('1', '/js.png').replace('2', '/python.png').replace('3', '/typescript.png').replace('0', '/transparent.webp') )
+const store = useUserStore();
+const { notify } = useQuasar();
 
-const { execute } = useMutation(editLanguages, {
-    refetchTags: ['all_languages']
-})
+const result = runQuery(LanguagesList, { id: store.getUser.id }, 'cache-and-network');
+const user = runQuery(User, { id: store.getUser.id }, 'cache-and-network');
 
-function languagesEdit(id) {
-const langs = [js.value ? 1 : 0, py.value ? 2 : 0, ts.value ? 3 : 0]
-execute({
-id,
-languages: langs
-}).then(async ({data}) => {
-    const queryLanguage = await useQuery({
-			query: userLanguages,
-			variables: { id },
-		})
-		const proxy = queryLanguage.data.value.languagesUser.languages
-        console.log(proxy)
-		const newValue = proxy.map((value) => value = {
-			name: value.name,
-			id: value.id,
-			icon: value.id,
-			status: true
-		})
-        store.user_languages = newValue;
-    return notify({message: 'Linguagens Atualizadas com sucesso, atualize a pagina para mostrar suas linguagens', color: 'positive', icon: 'check'})
-})
+async function insertLanguageUser(id, languageId) {
+  await runMutation(LanguageInsert, { id, language: languageId }, ['user', 'languagesList']);
+  await user.refetch();
+  await result.refetch();
+  return notify({ message: 'Linguagem Atualizada', color: 'positive', icon: 'check' });
+}
+
+async function deleteLanguageUser(id, languageId) {
+  await runMutation(LanguageDelete, { id, language: languageId }, ['user', 'languagesList']);
+  await user.refetch();
+  await result.refetch();
+  return notify({ message: 'Linguagem Excluida', color: 'positive', icon: 'check' });
 }
 </script>
 
 <template>
-
-<div class="tecs">
-    
-        <span class="title-tecs text-h1">Tecnologias</span>
-        <q-separator color="black" />
-        <q-card class="tecCard">
-            <q-card-section>
-                <q-checkbox color= "black" label="JavaScript" v-model="js" checked-icon="task_alt" unchecked-icon="highlight_off" />
-            </q-card-section>
-            <q-card-section>
-                <q-checkbox color="black" label="TypeScript" v-model="ts" checked-icon="task_alt" unchecked-icon="highlight_off" />
-            </q-card-section>
-            <q-card-section>
-                <q-checkbox color="black" label="Python" v-model="py" checked-icon="task_alt" unchecked-icon="highlight_off" />
-            </q-card-section>
-            <q-card-section>
-                <q-avatar v-for="n in imgs" :key="n" size="40px"> <img :src="n"> </q-avatar>
-            </q-card-section>
-            <q-btn @click="languagesEdit(store.getId)" color="primary" label="salvar" icon="save" />
-        </q-card>
-    </div>
-
+  <div
+    class="tecs"
+    v-if="result"
+  >
+    <span class="title-tecs text-h1">Linguagens</span>
+    <q-separator color="black" />
+    <q-card
+      class="tecCard"
+    >
+      <q-btn-dropdown
+        dropdown-icon="add"
+      >
+        <q-list
+          v-for="lang in result.data.value?.languagesList"
+          :key="lang"
+        >
+          <q-item-section>
+            <q-btn @click="insertLanguageUser(store.getUser.id, lang.id)">
+              <q-icon>
+                <img :src="lang.icon">
+              </q-icon>{{ lang.name }}
+            </q-btn> 
+          </q-item-section>
+        </q-list>
+      </q-btn-dropdown>
+      <div v-if="user">
+        <q-list
+          v-for="listLanguagesUser in user.data.value?.user.languages"
+          :key="listLanguagesUser"
+        >
+          <q-btn>
+            <q-icon>
+              <img :src="listLanguagesUser.icon">
+            </q-icon>
+            {{ listLanguagesUser.name }}
+          </q-btn> 
+          <q-icon
+            name="delete"
+            @click="deleteLanguageUser(store.getUser.id, listLanguagesUser.id)"
+          />
+        </q-list>
+      </div>
+    </q-card>
+  </div>
 </template>
-
-<style scoped>
-.text-info {
-    position: absolute;
-    top: 130px;
-    font-size: 50px;
-    right: 400px;
-}
-
-.tecCard {
-    position: absolute;
-    top: 150px;
-    width: 400px;
-}
-
-.tecs {
-    position: absolute;
-    top: 500px;
-    left: 400px;
-    margin: 0;
-    padding: 0;
-}
-
-.title-tecs {
-    font-size: 80px;
-}
-
-</style>

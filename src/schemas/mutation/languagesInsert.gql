@@ -1,0 +1,3 @@
+mutation LanguageInsert($language: ID!, $id: ID!) {
+    insertLanguages(language: $language, id: $id)
+  }

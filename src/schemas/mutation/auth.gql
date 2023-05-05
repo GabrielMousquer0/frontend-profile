@@ -1,0 +1,23 @@
+mutation Auth($email: String!, $password: String!) {
+    auth(email: $email, password: $password) {
+      id
+      username
+      email
+      languages {
+        name
+        id
+      }
+      infos {
+        avatar
+        created_at
+        description
+        role
+      }
+      options {
+        created_at
+        description
+        role
+        languages
+      }
+    }
+  }

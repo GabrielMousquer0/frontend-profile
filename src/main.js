@@ -4,7 +4,9 @@ import { Quasar, Notify } from 'quasar';
 import '@quasar/extras/material-icons/material-icons.css';
 import 'quasar/src/css/index.sass';
 import App from './App.vue';
-import { villus, router, pinia } from './modules/';
+import { router, pinia, apolloClient } from './modules/';
+import { provideApolloClient } from '@vue/apollo-composable';
+
 
 createApp(App)
   .use(Quasar, {
@@ -12,7 +14,7 @@ createApp(App)
       Notify,
     },
   })
-  .use(villus)
+  .provide(provideApolloClient(apolloClient))
   .use(router)
   .use(pinia)
   .mount('#app');

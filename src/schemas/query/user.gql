@@ -1,0 +1,24 @@
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      username
+      languages {
+        name
+        icon
+        id
+      }
+      infos {
+        avatar
+        created_at
+        description
+        role
+      }
+      options {
+        languages
+        created_at
+        description
+        role
+      }
+      email
+    }
+  }

@@ -1,7 +1,11 @@
 <script setup>
-import UserProfile from '../../components/Search/ViewUser.vue'
+import UserProfile from '../../components/Search/ViewUser.vue';
+import HeaderBar from '../../components/HeaderBar.vue';
 </script>
 
 <template>
-<UserProfile/>
+  <HeaderBar />
+  <div class="row">
+    <UserProfile />
+  </div>
 </template>

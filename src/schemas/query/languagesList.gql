@@ -1,0 +1,7 @@
+query LanguagesList($id: ID) {
+  languagesList(id: $id) {
+      id
+      name
+      icon
+  }
+}
