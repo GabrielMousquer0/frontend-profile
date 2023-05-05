@@ -1,6 +1,8 @@
 <script setup>
+import { ref } from 'vue';
+import moment from 'moment';
+import ms from 'ms';
 import { useUserStore } from '../../store';
-import { ms, moment, ref } from '../../helpers';
 
 const store = useUserStore();
 const date = moment(
@@ -9,7 +11,7 @@ const date = moment(
   }),
 ).format('llll');
 const expanded = ref(['Informações']);
-const simple = [
+const informations = [
   {
     label: 'Informações',
     avatar: store.getUser.infos.avatar,
@@ -73,7 +75,7 @@ const simple = [
 <template>
   <div class="tableColumn">
     <q-tree
-      :nodes="simple"
+      :nodes="informations"
       no-connectors
       node-key="label"
       v-model:expanded="expanded"

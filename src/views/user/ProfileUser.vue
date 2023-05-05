@@ -1,4 +1,6 @@
 <script setup>
+import { useRouter } from 'vue-router';
+import { routerStore, useUserStore } from '../../store';
 import ProfileCard from '../../components/Card/InformationCard.vue';
 import InformationCard from '../../components/Card/ConfigureCard.vue';
 import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
@@ -7,8 +9,7 @@ import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
 import ButtonMenu from '../../components/Profile/ButtonMenu.vue';
 import ConfigurationUser from '../../components/Profile/ConfigurationUser.vue';
 import HeaderBar from '../../components/HeaderBar.vue';
-import { routerStore, useUserStore } from '../../store';
-import { useRouter } from '../../helpers';
+
 
 const userStore = useUserStore();
 const store = routerStore();
