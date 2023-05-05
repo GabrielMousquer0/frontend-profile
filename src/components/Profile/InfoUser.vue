@@ -11,7 +11,7 @@ const date = moment(
   }),
 ).format('llll');
 const expanded = ref(['Informações']);
-const simple = [
+const informations = [
   {
     label: 'Informações',
     avatar: store.getUser.infos.avatar,
@@ -75,7 +75,7 @@ const simple = [
 <template>
   <div class="tableColumn">
     <q-tree
-      :nodes="simple"
+      :nodes="informations"
       no-connectors
       node-key="label"
       v-model:expanded="expanded"
