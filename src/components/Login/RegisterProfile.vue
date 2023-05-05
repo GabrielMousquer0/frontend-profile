@@ -42,7 +42,7 @@ async function submitRegister(email, username, password, confirmPassword) {
   try {
     const { register } = await runMutation(Register, { email, username, password: confirmPassword });
     if (register) {
-      return negativeNotify('Esse usuario ja existe');
+      return negativeNotify('Esse usuário ja existe');
     }
     positiveNotify('Conta criada, faça seu login');
     return router.push({
