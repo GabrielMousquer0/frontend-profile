@@ -1,76 +1,61 @@
 <script setup>
-import { ref, useQuasar, computed, useRouter, runMutation } from '../../helpers/';
-import Register from '../../schemas/mutation/register.gql';
+import { ref, reactive, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { routerStore } from '../../store';
+import { runMutation, negativeNotify, positiveNotify } from '../../helpers/';
+import Register from '../../schemas/mutation/register.gql';
 
 const routerDefine = routerStore();
-const pswVisibility = ref(false);
-const emailInput = ref('');
-const usernameInput = ref('');
-const passwordInput = ref('');
-const confirmPasswordInput = ref('');
 const router = useRouter();
-const { notify } = useQuasar();
+const pswVisibility = ref(false);
+const buttonDisabledValue = ref(false);
+const inputValue = reactive({
+  email: '',
+  password: '',
+  confirmPassword: '',
+  username: '',
+});
+
+const verifyButtonRule = computed(() => {
+  if (!inputValue.email.trim() || !inputValue.username.trim() || !inputValue.password.trim() || !inputValue.confirmPassword.trim() || inputValue.password.trim() !== inputValue.confirmPassword.trim()) {
+    return !buttonDisabledValue.value;
+  } 
+  return buttonDisabledValue.value;
+});
 routerDefine.router_name = 'Register';
-const config = {
+const value = {
   true: {
-    v1: 'visibility',
-    v2: 'text',
+    icon: 'visibility',
+    type: 'text',
   },
   false: {
-    v1: 'visibility_off',
-    v2: 'password',
+    icon: 'visibility_off',
+    type: 'password',
   },
 };
 
-async function submitRegister(email, username, password, confirmPassword) {
-  if (!email || !username || !password || !confirmPassword) {
-    return notify({
-      message: 'Você deve preencher todos os campos',
-      color: 'negative',
-      icon: 'warning',
-      timeout: 3000,
-    });
-  }
-  if (password !== confirmPassword) {
-    return notify({
-      message: 'Suas senhas não são iguais!',
-      color: 'negative',
-      icon: 'warning',
-      timeout: 3000,
-    });
-  }
+
+
+async function submitRegister(input) {
   try {
-    const { register } = await runMutation(Register, { email, username, password: confirmPassword });
+    const { register } = await runMutation(Register, { input });
     if (register) {
-      return notify({
-        message: 'Esse usuario ja existe',
-        color: 'negative',
-        icon: 'warning',
-      });
+      return negativeNotify('Esse usuário ja existe');
     }
-    notify({
-      message: 'Conta criada, faça seu login',
-      color: 'positive',
-      icon: 'check',
-    });
+    positiveNotify('Conta criada, faça seu login');
     return router.push({
       name: 'Login',
     });
   } catch {
-    return notify({
-      message: 'Aconteceu um erro ao registrar',
-      color: 'negative',
-      icon: 'warning',
-    });
+    return negativeNotify('Aconteceu um erro ao registrar');
   }
 }
 
-function iconEvent() {
+function iconValue() {
   pswVisibility.value = !pswVisibility.value;
 }
 
-const type = computed(() => config[pswVisibility.value]);
+const config = computed(() => value[pswVisibility.value]);
 </script>
 
 <template>
@@ -81,7 +66,7 @@ const type = computed(() => config[pswVisibility.value]);
     <q-separator color="black" />
     <q-card-section>
       <q-input
-        v-model="emailInput"
+        v-model="inputValue.email"
         type="email"
         label="E-mail"
         stack-label
@@ -89,27 +74,27 @@ const type = computed(() => config[pswVisibility.value]);
     </q-card-section>
     <q-card-section>
       <q-input
-        v-model="usernameInput"
-        label="Nome do Usuario"
+        v-model="inputValue.username"
+        label="Nome do Usuário"
         stack-label
       />
     </q-card-section>
     <q-card-section>
       <q-input
-        v-model="passwordInput"
-        :type="type.v2"
+        v-model="inputValue.password"
+        :type="config.type"
         label="Senha"
         stack-label
       />
       <q-icon
-        :name="type.v1"
+        :name="config.icon"
         class="cursor-pointer"
-        @click="iconEvent()"
+        @click="iconValue()"
       />
     </q-card-section>
     <q-card-section>
       <q-input
-        v-model="confirmPasswordInput"
+        v-model="inputValue.confirmPassword"
         type="password"
         label="Confirmar Senha"
         stack-label
@@ -121,8 +106,17 @@ const type = computed(() => config[pswVisibility.value]);
         color="primary"
         label="Registrar"
         icon="edit"
-        @click="submitRegister(emailInput.trim(), usernameInput.trim(), passwordInput.trim(), confirmPasswordInput.trim())"
-      />
+        :disable="verifyButtonRule"
+        @click="submitRegister(inputValue)"
+      >
+        <q-tooltip
+          v-model="verifyButtonRule"
+          class="bg-red"
+          :offset="[10, 10]"
+        >
+          Preencha os campos corretamente!
+        </q-tooltip>
+      </q-btn>
       <span class="my-text text-subtitle1 row justify-end">Ja possui conta?<router-link :to="{ name: 'Login' }"> Clique Aqui</router-link></span>
     </q-card-section>
   </q-card>
