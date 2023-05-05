@@ -1,11 +1,9 @@
 <script setup>
 import { ref, reactive, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { routerStore } from '../../store';
 import { runMutation, negativeNotify, positiveNotify } from '../../helpers/';
 import Register from '../../schemas/mutation/register.gql';
 
-const routerDefine = routerStore();
 const router = useRouter();
 const pswVisibility = ref(false);
 const buttonDisabledValue = ref(false);
@@ -22,7 +20,6 @@ const verifyButtonRule = computed(() => {
   } 
   return buttonDisabledValue.value;
 });
-routerDefine.router_name = 'Register';
 const value = {
   true: {
     icon: 'visibility',
@@ -44,7 +41,7 @@ async function submitRegister(input) {
     }
     positiveNotify('Conta criada, faça seu login');
     return router.push({
-      name: 'Login',
+      path: '/',
     });
   } catch {
     return negativeNotify('Aconteceu um erro ao registrar');
@@ -117,7 +114,7 @@ const config = computed(() => value[pswVisibility.value]);
           Preencha os campos corretamente!
         </q-tooltip>
       </q-btn>
-      <span class="my-text text-subtitle1 row justify-end">Ja possui conta?<router-link :to="{ name: 'Login' }"> Clique Aqui</router-link></span>
+      <span class="my-text text-subtitle1 row justify-end">Ja possui conta?<router-link :to="{ path: '/' }"> Clique Aqui</router-link></span>
     </q-card-section>
   </q-card>
 </template>
