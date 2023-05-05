@@ -1,19 +1,17 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import { routerStore } from '../../store';
-import { runMutation } from '../../helpers/';
+import { runMutation, negativeNotify, positiveNotify } from '../../helpers/';
 import Register from '../../schemas/mutation/register.gql';
 
 const routerDefine = routerStore();
+const router = useRouter();
 const pswVisibility = ref(false);
 const emailInput = ref('');
 const usernameInput = ref('');
 const passwordInput = ref('');
 const confirmPasswordInput = ref('');
-const router = useRouter();
-const { notify } = useQuasar();
 routerDefine.router_name = 'Register';
 const value = {
   true: {
@@ -28,44 +26,22 @@ const value = {
 
 async function submitRegister(email, username, password, confirmPassword) {
   if (!email || !username || !password || !confirmPassword) {
-    return notify({
-      message: 'Você deve preencher todos os campos',
-      color: 'negative',
-      icon: 'warning',
-      timeout: 3000,
-    });
+    return negativeNotify('Você deve preencher todos os campos');
   }
   if (password !== confirmPassword) {
-    return notify({
-      message: 'Suas senhas não são iguais!',
-      color: 'negative',
-      icon: 'warning',
-      timeout: 3000,
-    });
+    return negativeNotify('Suas senhas não são iguais!');
   }
   try {
     const { register } = await runMutation(Register, { email, username, password: confirmPassword });
     if (register) {
-      return notify({
-        message: 'Esse usuario ja existe',
-        color: 'negative',
-        icon: 'warning',
-      });
+      return negativeNotify('Esse usuario ja existe');
     }
-    notify({
-      message: 'Conta criada, faça seu login',
-      color: 'positive',
-      icon: 'check',
-    });
+    positiveNotify('Conta criada, faça seu login');
     return router.push({
       name: 'Login',
     });
   } catch {
-    return notify({
-      message: 'Aconteceu um erro ao registrar',
-      color: 'negative',
-      icon: 'warning',
-    });
+    return negativeNotify('Aconteceu um erro ao registrar');
   }
 }
 

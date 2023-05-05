@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useQuasar } from 'quasar';
 import { useUserStore } from '../../store';
-import { runMutation } from '../../helpers/';
+import { runMutation, positiveNotify, negativeNotify } from '../../helpers/';
 import EditUser from '../../schemas/mutation/EditUser.gql';
 import EditPassword from '../../schemas/mutation/EditPassword.gql';
 
@@ -10,15 +9,10 @@ const store = useUserStore();
 const usernameEdit = ref('');
 const emailEdit = ref('');
 const passwordEdit = ref('');
-const { notify } = useQuasar();
 
 async function editName(username, id) {
   if (!username) {
-    return notify({
-      message: 'Preencha o campo',
-      icon: 'warning',
-      color: 'warning',
-    });
+    return negativeNotify('Preencha o campo');
   }
 
   try {
@@ -26,27 +20,15 @@ async function editName(username, id) {
       username
     }, id });
     store.user.username = username;
-    return notify({
-      message: `Nome do usuario alterado para: ${username}`,
-      icon: 'check',
-      color: 'positive',
-    });
+    return positiveNotify(`Nome do usuario alterado para: ${username}`);
   } catch {
-    return notify({
-      message: 'Um erro ocorreu ao fazer a mudança do nome do usuario!',
-      icon: 'error',
-      color: 'negative',
-    });
+    return negativeNotify('Um erro ocorreu ao fazer a mudança do nome do usuario!');
   }
 }
 
 async function editEmail(email, id) {
   if (!email) {
-    return notify({
-      message: 'Preencha o campo',
-      icon: 'warning',
-      color: 'warning',
-    });
+    return negativeNotify('Preencha o campo');
   }
 
   try {
@@ -54,40 +36,20 @@ async function editEmail(email, id) {
       email
     }, id });
     store.user.email = email;
-    return notify({
-      message: `Email alterado para: ${email}`,
-      icon: 'check',
-      color: 'positive',
-    });
+    return positiveNotify(`Email alterado para: ${email}`);
   } catch {
-    return notify({
-      message: 'Um erro ocorreu ao fazer a mudança de email',
-      icon: 'error',
-      color: 'negative',
-    });
+    return negativeNotify('Um erro ocorreu ao fazer a mudança de email');
   }
 }
 
 async function editPassword(password, id) {
   if (!password)
-    return notify({
-      message: 'Preencha o campo',
-      icon: 'warning',
-      color: 'warning',
-    });
+    return negativeNotify('Preencha o campo');
   try {
     await runMutation(EditPassword, {password, id });
-    return notify({
-      message: `Senha alterada para: ${password}`,
-      icon: 'check',
-      color: 'positive',
-    });
+    return positiveNotify(`Senha alterada para: ${password}`);
   } catch {
-    return notify({
-      message: 'Um erro ocorreu ao fazer a mudança de senha',
-      icon: 'error',
-      color: 'negative',
-    });
+    return negativeNotify('Um erro ocorreu ao fazer a mudança de senha');
   }
 }
 </script>

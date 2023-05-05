@@ -1,15 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import { useUserStore, routerStore } from '../../store';
-import { runMutation } from '../../helpers/';
+import { runMutation, negativeNotify } from '../../helpers/';
 import Auth from '../../schemas/mutation/auth.gql';
 
 const routerDefine = routerStore();
 const store = useUserStore();
 const router = useRouter();
-const { notify } = useQuasar();
 
 const pswVisibility = ref(false);
 const passwordText = ref('');
@@ -38,12 +36,7 @@ async function submitLogin(email, password) {
       },
     });
   } catch {
-    return notify({
-      message: 'Usuario não encontrado',
-      color: 'negative',
-      icon: 'warning',
-      timeout: 3000,
-    });
+    return negativeNotify('Usuario não encontrado');
   }
 }
 
