@@ -8,7 +8,7 @@ import User from '../../schemas/query/user.gql';
 const router = useRouter();
 const store = viewUserStore();
 
-const result = runQuery(User, { id: store.getId }, 'cache-and-network');
+const result = runQuery(User, { id: store.getId });
 
 </script>
 

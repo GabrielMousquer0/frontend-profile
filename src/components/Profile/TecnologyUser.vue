@@ -8,8 +8,8 @@ import User from '../../schemas/query/user.gql';
 
 const store = useUserStore();
 
-const result = runQuery(LanguagesList, { id: store.getUser.id }, 'cache-and-network');
-const user = runQuery(User, { id: store.getUser.id }, 'cache-and-network');
+const result = runQuery(LanguagesList, { id: store.getUser.id });
+const user = runQuery(User, { id: store.getUser.id });
 
 async function insertLanguageUser(id, languageId) {
   await runMutation(LanguageInsert, { id, language: languageId }, ['user', 'languagesList']);
