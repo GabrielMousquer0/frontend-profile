@@ -1,33 +1,21 @@
 <script setup>
-import { ref, useQuasar, runMutation } from '../../helpers';
+import { ref } from 'vue';
 import { useUserStore } from '../../store';
+import { runMutation, positiveNotify, negativeNotify } from '../../helpers';
 import Description from '../../schemas/mutation/description.gql';
 
 const store = useUserStore();
 const descriptionRef = ref(store.getUser.infos.description);
-const { notify } = useQuasar();
 
 async function descriptionEdit(description, id) {
   if (!description)
-    return notify({
-      message: 'Deve digitar algo',
-      icon: 'warning',
-      color: 'orange',
-    });
+    return negativeNotify('Deve digitar algo');
   try {
     await runMutation(Description, { description, id });
-    store.user.infos.description = description;
-    return notify({
-      message: 'Sua descrição foi atualizada',
-      icon: 'check',
-      color: 'positive',
-    });
+    store.setUserDescription(description);
+    return positiveNotify('Sua descrição foi atualizada');
   } catch (e) {
-    return notify({
-      message: 'Não foi possivel alterar sua descrição',
-      icon: 'error',
-      color: 'negative',
-    });
+    return negativeNotify('Não foi possivel alterar sua descrição');
   }
 }
 </script>
