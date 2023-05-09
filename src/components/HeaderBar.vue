@@ -1,7 +1,8 @@
 <script setup>
-import { routerStore } from '../store';
+import { useRouter } from 'vue-router';
 
-const store = routerStore();
+const router = useRouter();
+
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const store = routerStore();
           size="100px"
           icon="person"
         />
-        <span class="textStyle text-h1">{{ store.getName }} Profile</span>
+        <span class="textStyle text-h1">{{ router.currentRoute.value.name }} Profile</span>
       </q-toolbar>
     </q-header>
   </q-layout>

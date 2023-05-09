@@ -1,10 +1,10 @@
 <script setup>
-import { reactive, runMutation, useQuasar } from '../../helpers';
+import { reactive } from 'vue';
 import { useUserStore } from '../../store';
+import { runMutation, positiveNotify } from '../../helpers';
 import EditOptions from '../../schemas/mutation/editOptions.gql';
 
 const store = useUserStore();
-const { notify } = useQuasar();
 
 const status = reactive({
   role: store.getUser.options.role,
@@ -16,7 +16,7 @@ const status = reactive({
 async function saveOptions(id, input) {
   const { editOptions } = await runMutation(EditOptions, { id, input });
   store.user.options = editOptions;
-  return notify({ message: 'Foi editado suas opções', color: 'positive', icon: 'check' });
+  return positiveNotify('Foi editado suas opções');
 }
 </script>
 

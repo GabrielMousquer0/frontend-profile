@@ -1,35 +1,23 @@
 <script setup>
+import { ref } from 'vue';
 import { useUserStore } from '../../store';
-import { ref, useQuasar, runMutation } from '../../helpers/';
+import { runMutation, negativeNotify, positiveNotify } from '../../helpers/';
 import EditUser from '../../schemas/mutation/EditUser.gql';
 
 const store = useUserStore();
 const avatarURL = ref('');
-const { notify } = useQuasar();
 
 async function urlSend(avatar, id) {
   if (!avatar)
-    return notify({
-      message: 'Você deve me dar uma url',
-      icon: 'warning',
-      color: 'negative',
-    });
+    return negativeNotify('Digite uma URL');
   try {
     await runMutation(EditUser, { input: {
       avatar
     }, id });
     store.user.infos.avatar = avatar;
-    return notify({
-      message: 'Foto de perfil alterada com sucesso',
-      icon: 'check',
-      color: 'positive',
-    });
+    return positiveNotify('Foto de perfil alterada com sucesso');
   } catch {
-    return notify({
-      message: 'Me dê uma url valida!',
-      icon: 'warning',
-      color: 'orange',
-    });
+    return negativeNotify('Digite url válida!');
   }
 }
 </script>
@@ -56,7 +44,7 @@ async function urlSend(avatar, id) {
         >
           <q-input
             v-model="avatarURL"
-            hint="Me dê uma URL de alguma imagem"
+            hint="Digite uma URL de alguma imagem"
             rounded
             dense
             @keyup.enter="scope.set"
