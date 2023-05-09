@@ -9,7 +9,7 @@ const avatarURL = ref('');
 
 async function urlSend(avatar, id) {
   if (!avatar)
-    return negativeNotify('Você deve me dar uma url');
+    return negativeNotify('Digite uma URL');
   try {
     await runMutation(EditUser, { input: {
       avatar
@@ -17,7 +17,7 @@ async function urlSend(avatar, id) {
     store.user.infos.avatar = avatar;
     return positiveNotify('Foto de perfil alterada com sucesso');
   } catch {
-    return negativeNotify('Me dê uma url valida!');
+    return negativeNotify('Digite url válida!');
   }
 }
 </script>
