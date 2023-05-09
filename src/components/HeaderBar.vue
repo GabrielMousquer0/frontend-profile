@@ -5,7 +5,7 @@ import { routerStore, useUserStore } from '../store';
 const store = routerStore();
 const userStore = useUserStore();
 
-const iconStatus = ref(false);
+const iconStatus = ref(true);
 const statusMode = {
   true: {
     type: 'dark_mode'
