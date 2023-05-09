@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { routerStore, useUserStore } from '../../store';
-import ProfileCard from '../../components/Card/InformationCard.vue';
+import ProfileCard from '../../components/Profile/AvatarUser.vue';
 import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
 import InfoUser from '../../components/Profile/InfoUser.vue';
 import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
