@@ -12,6 +12,12 @@ function viewUsers() {
   });
 }
 
+function configs() {
+  return router.push({
+    name: 'configsUser'
+  });
+}
+
 function logout() {
   user.$reset();
   store.$reset();
@@ -32,8 +38,13 @@ function logout() {
       <q-item-section>
         <q-btn
           @click="viewUsers"
-          label="Usuarios"
+          label="Usuários"
           icon="person_search"
+        />
+        <q-btn 
+          @click="configs"
+          label="Configurações"
+          icon="manage_accounts"
         />
         <q-btn
           @click="logout"

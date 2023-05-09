@@ -5,6 +5,7 @@ import RegisterUser from '../views/login/RegisterUser.vue';
 import UsersList from '../views/user/ListUser.vue';
 import UserProfile from '../views/user/ViewProfile.vue';
 import SearchUser from '../views/user/SearchUser.vue';
+import ConfigsUser from '../views/user/ConfigsUser.vue';
 
 export const routes = [
   {
@@ -47,6 +48,14 @@ export const routes = [
     name: 'searchUser',
     components: {
       default: SearchUser,
+    },
+    props: true,
+  },
+  {
+    path: '/configs/:id',
+    name: 'configsUser',
+    components: {
+      default: ConfigsUser,
     },
     props: true,
   },
