@@ -65,7 +65,7 @@ async function urlSend(avatar, id) {
 <style scoped>
 .avatar {
     margin-top: 4rem;
-    margin-bottom: 8.7rem;
+    margin-bottom: 8.6rem;
 }
 
 .button {

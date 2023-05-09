@@ -31,7 +31,7 @@ if (!userStore.getUser.id) {
         <ButtonMenu />
       </div>
       <ProfileCard />
-      <div class="infoUser column fixed-start">
+      <div class="infoUser">
         <InfoUser />
       </div>
     </div>
