@@ -8,6 +8,7 @@ import EditPassword from '../../schemas/mutation/EditPassword.gql';
 
 const store = useUserStore();
 const router = useRouter();
+const pswVisibility = ref(false);
 const usernameEdit = ref(store.getUser.username);
 const emailEdit = ref(store.getUser.email);
 const status = reactive({
@@ -20,7 +21,22 @@ const password = reactive({
   new: '',
   confirm: '',
 });
+const value = {
+  true: {
+    icon: 'visibility',
+    type: 'text',
+  },
+  false: {
+    icon: 'visibility_off',
+    type: 'password',
+  },
+};
 
+function iconValue() {
+  pswVisibility.value = !pswVisibility.value;
+}
+
+const config = computed(() => value[pswVisibility.value]);
 async function saveUsername(id, username) {
   try {
     await runMutation(EditUser, {
@@ -175,18 +191,29 @@ const verifyButtonPassword = computed(() => {
               class="input-size"
               outlined
               label="Senha Atual"
+              type="password"
               v-model="password.current"
             />
             <q-input
               class="input-size"
               outlined
               label="Nova Senha"
+              :type="config.type"
               v-model="password.new"
-            />
+            >    
+              <template #append>
+                <q-icon
+                  :name="config.icon"
+                  class="pointer"
+                  @click="iconValue()"
+                />
+              </template>
+            </q-input>
             <q-input
               class="input-size"
               outlined
               label="Confirmar Senha"
+              type="password"
               v-model="password.confirm"
             />
           </q-card-section>
