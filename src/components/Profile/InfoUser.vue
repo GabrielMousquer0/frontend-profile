@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import moment from 'moment';
 import ms from 'ms';
 import { useUserStore } from '../../store';
@@ -10,7 +9,6 @@ const date = moment(
     long: true,
   }),
 ).format('llll');
-const expanded = ref(['Informações']);
 const informations = [
   {
     label: 'Informações',
@@ -78,8 +76,6 @@ const informations = [
       :nodes="informations"
       no-connectors
       node-key="label"
-      v-model:expanded="expanded"
-      class="tree-column"
       default-expand-all
     />
   </div>
