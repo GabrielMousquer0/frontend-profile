@@ -1,0 +1,223 @@
+<script setup>
+import { ref, reactive, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../../store';
+import { runMutation, negativeNotify, positiveNotify } from '../../helpers';
+import EditUser from '../../schemas/mutation/EditUser.gql';
+import EditPassword from '../../schemas/mutation/EditPassword.gql';
+
+const store = useUserStore();
+const router = useRouter();
+const usernameEdit = ref(store.getUser.username);
+const emailEdit = ref(store.getUser.email);
+const status = reactive({
+  username: false,
+  email: false,
+  password: false,
+});
+const password = reactive({
+  current: '',
+  new: '',
+  confirm: '',
+});
+
+async function saveUsername(id, username) {
+  try {
+    await runMutation(EditUser, {
+      id,
+      input: {
+        username
+      }
+    });
+    return positiveNotify(`Nome do usuario alterado para: ${username}`);
+  } catch {
+    return negativeNotify('Um erro ocorreu ao fazer a mudança do nome do usuario!');
+  }
+}
+async function saveEmail(id, email) {
+  try {
+    await runMutation(EditUser, {
+      id,
+      input: {
+        email
+      }
+    });
+    return positiveNotify(`E-mail alterado para: ${email}`);
+  } catch {
+    return negativeNotify('Um erro ocorreu ao fazer a mudança do E-mail!');
+  }
+}
+async function savePassword(id, password) {
+  if (!password)
+    return negativeNotify('Preencha o campo');
+  try {
+    await runMutation(EditPassword, {password, id });
+    return positiveNotify(`Senha alterada para: ${password}`);
+  } catch {
+    return negativeNotify('Um erro ocorreu ao fazer a mudança de senha');
+  }
+}
+
+
+const verifyButtonUsername = computed(() => {
+  if(!usernameEdit.value.trim() || usernameEdit.value.trim() == store.getUser.username.trim()) {
+    return !status.username;
+  }
+  return status.username;
+});
+const verifyButtonEmail = computed(() => {
+  if(!emailEdit.value.trim() || emailEdit.value.trim() === store.getUser.email.trim()) {
+    return !status.email;
+  }
+  return status.email;
+});
+const verifyButtonPassword = computed(() => {
+  if(!password.current.trim() || !password.new.trim() || password.new.trim() !== password.confirm.trim()) {
+    return !status.password;
+  } 
+  return status.password;
+});
+</script>
+
+<template>
+  <div class="q-pa-md">
+    <q-btn 
+      label="voltar"
+      icon="chevron_left"
+      color="primary"
+      @click="router.push({ name: 'ProfileUser', params: { id: store.getUser.id } })"
+    />
+  </div>
+  <div class="row justify-center">
+    <q-card class=" no-box-shadow self-center q-pa-md">
+      <span class="text-h4">Gerenciamento<br>de conta</span>
+      <q-card-section>
+        <span class="text-subtitle1">Aqui você pode configurar as informações<br> pessoais da sua conta!</span>
+      </q-card-section>
+    </q-card>
+    <div class="configs q-pt-lg">
+      <div class="card-config row q-mb-xl">
+        <q-card
+          class="no-border-radius no-box-shadow bg-info col-4 col-md-6"
+        >
+          <q-card-section>
+            <span class="text-h4">Nome do Usuário</span>
+          </q-card-section>
+          <q-card-section>
+            <span class="text-subtitle1">O nome de usuário serve para você ser identificado por outros usuarios, sem necessariamente ser chamado pelo id ou seu e-mail</span>
+          </q-card-section>
+        </q-card>
+        <q-card class="no-border-radius no-box-shadow bg-dark col-4 col-md-6">
+          <q-card-section class="row q-mb-xl">
+            <q-input
+              class="input-size"
+              outlined
+              counter
+              maxlength="20"
+              label="Nome do usuário"
+              v-model="usernameEdit"
+            />
+          </q-card-section>
+          <q-card-section class="row justify-end">
+            <q-btn 
+              label="Salvar"
+              icon="save"
+              color="primary"
+              @click="saveUsername(store.getUser.id, usernameEdit)"
+              :disable="verifyButtonUsername"
+            />
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="card-config row q-mb-xl">
+        <q-card class="no-border-radius no-box-shadow bg-info col-4 col-md-6">
+          <q-card-section>
+            <span class="text-h4">E-mail</span>
+          </q-card-section>
+          <q-card-section>
+            <span class="text-subtitle1">Essa informação é particular e não será compartilhada com outras pessoas.</span>
+          </q-card-section>
+        </q-card>
+        <q-card class="no-border-radius no-box-shadow bg-dark col-4 col-md-6">
+          <q-card-section class="row q-mb-xl">
+            <q-input
+              class="input-size"
+              outlined
+              counter
+              maxlength="20"
+              label="E-mail"
+              v-model="emailEdit"
+            />
+          </q-card-section>
+          <q-card-section class="row justify-end">
+            <q-btn 
+              label="Salvar"
+              icon="save"
+              color="primary"
+              @click="saveEmail(store.getUser.id, emailEdit)"
+              :disable="verifyButtonEmail"
+            />
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="card-config row">
+        <q-card class="no-border-radius no-box-shadow bg-info col-4 col-md-6">
+          <q-card-section>
+            <span class="text-h4">Senha</span>
+          </q-card-section>
+          <q-card-section>
+            <span class="text-subtitle1">Recomendamos que atualize sua senha periodicamente para ajudar a evitar qualquer acesso não autorizado à sua conta.</span>
+          </q-card-section>
+        </q-card>
+        <q-card class="no-border-radius no-box-shadow bg-dark col-4 col-md-6">
+          <q-card-section class="column q-mb-xl">
+            <q-input
+              class="input-size"
+              outlined
+              label="Senha Atual"
+              v-model="password.current"
+            />
+            <q-input
+              class="input-size"
+              outlined
+              label="Nova Senha"
+              v-model="password.new"
+            />
+            <q-input
+              class="input-size"
+              outlined
+              label="Confirmar Senha"
+              v-model="password.confirm"
+            />
+          </q-card-section>
+          <q-card-section class="row justify-end">
+            <q-btn 
+              label="Salvar"
+              icon="save"
+              color="primary"
+              @click="savePassword(store.getUser.id, password.confirm)"
+              :disable="verifyButtonPassword"
+            />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+.card-config {
+    height: 20rem;
+    width: 70rem;
+}
+
+.input-size {
+    width: 20rem;
+    margin-bottom: 15px;
+}
+
+.configs {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 70vh;
+}
+</style>
