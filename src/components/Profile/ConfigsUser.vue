@@ -101,7 +101,7 @@ const verifyButtonPassword = computed(() => {
           class="no-border-radius no-box-shadow bg-info col-4 col-md-6"
         >
           <q-card-section>
-            <span class="text-h4">Nome do Usuário</span>
+            <span class="text-h4"><q-icon name="badge" /> Nome do Usuário</span>
           </q-card-section>
           <q-card-section>
             <span class="text-subtitle1">O nome de usuário serve para você ser identificado por outros usuarios, sem necessariamente ser chamado pelo id ou seu e-mail</span>
@@ -132,7 +132,7 @@ const verifyButtonPassword = computed(() => {
       <div class="card-config row q-mb-xl">
         <q-card class="no-border-radius no-box-shadow bg-info col-4 col-md-6">
           <q-card-section>
-            <span class="text-h4">E-mail</span>
+            <span class="text-h4"><q-icon name="mail" /> E-mail</span>
           </q-card-section>
           <q-card-section>
             <span class="text-subtitle1">Essa informação é particular e não será compartilhada com outras pessoas.</span>
@@ -163,7 +163,7 @@ const verifyButtonPassword = computed(() => {
       <div class="card-config row">
         <q-card class="no-border-radius no-box-shadow bg-info col-4 col-md-6">
           <q-card-section>
-            <span class="text-h4">Senha</span>
+            <span class="text-h4"><q-icon name="lock" /> Senha</span>
           </q-card-section>
           <q-card-section>
             <span class="text-subtitle1">Recomendamos que atualize sua senha periodicamente para ajudar a evitar qualquer acesso não autorizado à sua conta.</span>
