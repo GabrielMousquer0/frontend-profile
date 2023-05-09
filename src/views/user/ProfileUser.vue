@@ -2,12 +2,11 @@
 import { useRouter } from 'vue-router';
 import { routerStore, useUserStore } from '../../store';
 import ProfileCard from '../../components/Card/InformationCard.vue';
-import InformationCard from '../../components/Card/ConfigureCard.vue';
 import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
 import InfoUser from '../../components/Profile/InfoUser.vue';
 import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
 import ButtonMenu from '../../components/Profile/ButtonMenu.vue';
-import ConfigurationUser from '../../components/Profile/ConfigurationUser.vue';
+import OptionsUser from '../../components/Profile/OptionsUser.vue';
 import HeaderBar from '../../components/HeaderBar.vue';
 
 
@@ -32,14 +31,13 @@ if (!userStore.getUser.id) {
         <ButtonMenu />
       </div>
       <ProfileCard />
-      <InformationCard />
-    </div>
-    <div>
       <div class="infoUser column fixed-start">
         <InfoUser />
       </div>
+    </div>
+    <div>
       <div class="optionsUser column fixed-top-left">
-        <ConfigurationUser />
+        <OptionsUser />
       </div>
       <div class="description column fixed-top">
         <DescriptionUser />
