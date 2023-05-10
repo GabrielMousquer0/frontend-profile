@@ -1,20 +1,17 @@
 <script setup>
-import ProfileCard from '../../components/Card/InformationCard.vue';
-import InformationCard from '../../components/Card/ConfigureCard.vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../../store';
+import ProfileCard from '../../components/Profile/AvatarUser.vue';
 import TecnologyUser from '../../components/Profile/TecnologyUser.vue';
 import InfoUser from '../../components/Profile/InfoUser.vue';
 import DescriptionUser from '../../components/Profile/DescriptionUser.vue';
 import ButtonMenu from '../../components/Profile/ButtonMenu.vue';
-import ConfigurationUser from '../../components/Profile/ConfigurationUser.vue';
+import OptionsUser from '../../components/Profile/OptionsUser.vue';
 import HeaderBar from '../../components/HeaderBar.vue';
-import { routerStore, useUserStore } from '../../store';
-import { useRouter } from '../../helpers';
+
 
 const userStore = useUserStore();
-const store = routerStore();
 const router = useRouter();
-store.router_name = 'User';
-
 
 if (!userStore.getUser.id) {
   router.push({
@@ -31,14 +28,13 @@ if (!userStore.getUser.id) {
         <ButtonMenu />
       </div>
       <ProfileCard />
-      <InformationCard />
-    </div>
-    <div>
-      <div class="infoUser column fixed-start">
+      <div class="infoUser">
         <InfoUser />
       </div>
+    </div>
+    <div>
       <div class="optionsUser column fixed-top-left">
-        <ConfigurationUser />
+        <OptionsUser />
       </div>
       <div class="description column fixed-top">
         <DescriptionUser />

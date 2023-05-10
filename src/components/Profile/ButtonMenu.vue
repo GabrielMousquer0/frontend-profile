@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from '../../helpers';
+import { useRouter } from 'vue-router';
 import { useUserStore, viewUserStore } from '../../store';
 
 const user = viewUserStore();
@@ -9,6 +9,15 @@ const router = useRouter();
 function viewUsers() {
   return router.push({
     path: '/list',
+  });
+}
+
+function configs() {
+  return router.push({
+    name: 'Configs',
+    params: {
+      id: store.getUser.id,
+    } 
   });
 }
 
@@ -32,8 +41,13 @@ function logout() {
       <q-item-section>
         <q-btn
           @click="viewUsers"
-          label="Usuarios"
+          label="Usuários"
           icon="person_search"
+        />
+        <q-btn 
+          @click="configs"
+          label="Configurações"
+          icon="manage_accounts"
         />
         <q-btn
           @click="logout"

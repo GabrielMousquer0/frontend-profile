@@ -1,7 +1,26 @@
 <script setup>
-import { routerStore } from '../store';
+import { computed, ref } from 'vue';
+import { useUserStore } from '../store';
+import { useRouter } from 'vue-router';
 
-const store = routerStore();
+const router = useRouter();
+const userStore = useUserStore();
+
+const iconStatus = ref(true);
+const statusMode = {
+  true: {
+    type: 'dark_mode'
+  },
+  false: {
+    type: 'light_mode'
+  },
+};
+
+function tradeMode() {
+  iconStatus.value = !iconStatus.value;
+  userStore.tradeMode(iconStatus.value);
+}
+const mode = computed(() => statusMode[iconStatus.value]);
 </script>
 
 <template>
@@ -11,12 +30,21 @@ const store = routerStore();
     class="layout"
   >
     <q-header elevated>
-      <q-toolbar class="q-ma-md justify-center">
-        <q-avatar
-          size="100px"
-          icon="person"
+      <q-toolbar class="q-ma-md">
+        <q-toolbar-title class="row justify-center">
+          <q-avatar
+            size="100px"
+            icon="person"
+          />
+          <span class="textStyle text-h1">{{ router.currentRoute.value.name }} Profile</span>
+        </q-toolbar-title>
+
+        <q-btn
+          flat
+          round
+          @click="tradeMode"
+          :icon="mode.type"
         />
-        <span class="textStyle text-h1">{{ store.getName }} Profile</span>
       </q-toolbar>
     </q-header>
   </q-layout>

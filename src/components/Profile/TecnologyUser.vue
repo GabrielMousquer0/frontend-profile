@@ -1,13 +1,12 @@
 <script setup>
-import { useQuasar, runMutation, runQuery } from '../../helpers';
 import { useUserStore } from '../../store';
+import { runMutation, runQuery, positiveNotify } from '../../helpers';
 import LanguageInsert from '../../schemas/mutation/languagesInsert.gql';
 import LanguageDelete from '../../schemas/mutation/languagesDelete.gql';
 import LanguagesList from '../../schemas/query/languagesList.gql';
 import User from '../../schemas/query/user.gql';
 
 const store = useUserStore();
-const { notify } = useQuasar();
 
 const result = runQuery(LanguagesList, { id: store.getUser.id }, 'cache-and-network');
 const user = runQuery(User, { id: store.getUser.id }, 'cache-and-network');
@@ -16,14 +15,14 @@ async function insertLanguageUser(id, languageId) {
   await runMutation(LanguageInsert, { id, language: languageId }, ['user', 'languagesList']);
   await user.refetch();
   await result.refetch();
-  return notify({ message: 'Linguagem Atualizada', color: 'positive', icon: 'check' });
+  return positiveNotify('Linguagem Atualizada');
 }
 
 async function deleteLanguageUser(id, languageId) {
   await runMutation(LanguageDelete, { id, language: languageId }, ['user', 'languagesList']);
   await user.refetch();
   await result.refetch();
-  return notify({ message: 'Linguagem Excluida', color: 'positive', icon: 'check' });
+  return positiveNotify('Linguagem Excluida');
 }
 </script>
 
