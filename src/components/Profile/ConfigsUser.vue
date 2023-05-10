@@ -64,14 +64,12 @@ async function saveEmail(id, email) {
     return negativeNotify('Um erro ocorreu ao fazer a mudança do E-mail!');
   }
 }
-async function savePassword(id, password) {
-  if (!password)
-    return negativeNotify('Preencha o campo');
+async function savePassword(id, input) {
   try {
-    await runMutation(EditPassword, {password, id });
-    return positiveNotify(`Senha alterada para: ${password}`);
+    await runMutation(EditPassword, { id, input });
+    return positiveNotify('Senha alterada com sucesso!');
   } catch {
-    return negativeNotify('Um erro ocorreu ao fazer a mudança de senha');
+    return negativeNotify('Senha atual incorreta!');
   }
 }
 
@@ -255,7 +253,7 @@ function scroll(position) {
               label="Salvar"
               icon="save"
               color="primary"
-              @click="savePassword(store.getUser.id, password.confirm)"
+              @click="savePassword(store.getUser.id, password)"
               :disable="verifyButtonPassword"
             />
           </q-card-section>
