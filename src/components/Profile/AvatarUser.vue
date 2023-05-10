@@ -17,7 +17,7 @@ async function urlSend(avatar, id) {
     store.user.infos.avatar = avatar;
     return positiveNotify('Foto de perfil alterada com sucesso');
   } catch {
-    return negativeNotify('Digite url valida!');
+    return negativeNotify('Digite uma url valida!');
   }
 }
 </script>
