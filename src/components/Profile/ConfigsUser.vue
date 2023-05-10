@@ -9,6 +9,7 @@ import EditPassword from '../../schemas/mutation/EditPassword.gql';
 const store = useUserStore();
 const router = useRouter();
 const pswVisibility = ref(false);
+const scrollAreaRef = ref(false);
 const usernameEdit = ref(store.getUser.username);
 const emailEdit = ref(store.getUser.email);
 const status = reactive({
@@ -93,6 +94,9 @@ const verifyButtonPassword = computed(() => {
   } 
   return status.password;
 });
+function scroll(position) {
+  scrollAreaRef.value.setScrollPosition('vertical', position, 200);
+}
 </script>
 
 <template>
@@ -104,17 +108,46 @@ const verifyButtonPassword = computed(() => {
       @click="router.push({ name: 'ProfileUser', params: { id: store.getUser.id } })"
     />
   </div>
-  <div class="row justify-center">
-    <q-card class=" no-box-shadow self-center q-pa-md">
+  <div class="q-pa-md">
+    <q-card class=" no-box-shadow self-center q-pa-md q-mb-md">
       <span class="text-h4">Gerenciamento<br>de conta</span>
-      <q-card-section>
+      <q-card-section class="row">
         <span class="text-subtitle1">Aqui você pode configurar as informações<br> pessoais da sua conta!</span>
+        <q-card-section class="row">
+          <q-card-section>
+            <q-btn 
+              color="primary" 
+              icon="badge"
+              label="Usuário"
+              @click="scroll(0)"
+            />
+          </q-card-section>
+          <q-card-section>
+            <q-btn 
+              color="primary" 
+              icon="mail"
+              label="e-mail"
+              @click="scroll(300)"
+            />
+          </q-card-section>
+          <q-card-section>
+            <q-btn 
+              color="primary" 
+              icon="lock"
+              label="Senha"
+              @click="scroll(600)"
+            />
+          </q-card-section>
+        </q-card-section>
       </q-card-section>
     </q-card>
-    <div class="configs q-pt-lg">
+    <q-scroll-area 
+      ref="scrollAreaRef" 
+      class="scroll-area full-width"
+    >
       <div class="card-config row q-mb-xl">
         <q-card
-          class="no-border-radius no-box-shadow bg-info col-4 col-md-6"
+          class="user no-border-radius no-box-shadow bg-info col-4 col-md-6"
         >
           <q-card-section>
             <span class="text-h4"><q-icon name="badge" /> Nome do Usuário</span>
@@ -146,7 +179,7 @@ const verifyButtonPassword = computed(() => {
         </q-card>
       </div>
       <div class="card-config row q-mb-xl">
-        <q-card class="no-border-radius no-box-shadow bg-info col-4 col-md-6">
+        <q-card class="email no-border-radius no-box-shadow bg-info col-4 col-md-6">
           <q-card-section>
             <span class="text-h4"><q-icon name="mail" /> E-mail</span>
           </q-card-section>
@@ -177,7 +210,7 @@ const verifyButtonPassword = computed(() => {
         </q-card>
       </div>
       <div class="card-config row">
-        <q-card class="no-border-radius no-box-shadow bg-info col-4 col-md-6">
+        <q-card class="senha no-border-radius no-box-shadow bg-info col-4 col-md-6">
           <q-card-section>
             <span class="text-h4"><q-icon name="lock" /> Senha</span>
           </q-card-section>
@@ -228,10 +261,15 @@ const verifyButtonPassword = computed(() => {
           </q-card-section>
         </q-card>
       </div>
-    </div>
+    </q-scroll-area>
   </div>
 </template>
 <style scoped>
+
+.scroll-area { 
+  height: 30rem;
+  max-width: 115vh;
+}
 .card-config {
     height: 20rem;
     width: 70rem;
@@ -240,11 +278,5 @@ const verifyButtonPassword = computed(() => {
 .input-size {
     width: 20rem;
     margin-bottom: 15px;
-}
-
-.configs {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 70vh;
 }
 </style>
