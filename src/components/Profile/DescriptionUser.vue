@@ -12,7 +12,7 @@ async function descriptionEdit(description, id) {
     return negativeNotify('Deve digitar algo');
   try {
     await runMutation(Description, { description, id });
-    store.user.infos.description = description;
+    store.setUserDescription(description);
     return positiveNotify('Sua descrição foi atualizada');
   } catch (e) {
     return negativeNotify('Não foi possivel alterar sua descrição');

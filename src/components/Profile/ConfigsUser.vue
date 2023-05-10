@@ -105,7 +105,7 @@ function scroll(position) {
       label="voltar"
       icon="chevron_left"
       color="primary"
-      @click="router.push({ name: 'ProfileUser', params: { id: store.getUser.id } })"
+      @click="router.push({ name: 'User', params: { id: store.getUser.id } })"
     />
   </div>
   <div class="q-pa-md">

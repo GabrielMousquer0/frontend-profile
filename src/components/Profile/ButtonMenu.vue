@@ -14,7 +14,10 @@ function viewUsers() {
 
 function configs() {
   return router.push({
-    name: 'configsUser'
+    name: 'Configs',
+    params: {
+      id: store.getUser.id,
+    } 
   });
 }
 

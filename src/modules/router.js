@@ -7,7 +7,7 @@ import UserProfile from '../views/user/ViewProfile.vue';
 import SearchUser from '../views/user/SearchUser.vue';
 import ConfigsUser from '../views/user/ConfigsUser.vue';
 
-export const routes = [
+const routes = [
   {
     path: '/',
     name: 'Login',
@@ -17,7 +17,7 @@ export const routes = [
   },
   {
     path: '/user/:id',
-    name: 'ProfileUser',
+    name: 'User',
     components: {
       default: ProfileUser,
     },
@@ -25,19 +25,21 @@ export const routes = [
   },
   {
     path: '/register',
+    name: 'Register',
     components: {
       default: RegisterUser,
     },
   },
   {
     path: '/list',
+    name: 'List',
     components: {
       default: UsersList,
     },
   },
   {
     path: '/view/:id',
-    name: 'viewUser',
+    name: 'View',
     components: {
       default: UserProfile,
     },
@@ -45,7 +47,7 @@ export const routes = [
   },
   {
     path: '/search/:username',
-    name: 'searchUser',
+    name: 'Search',
     components: {
       default: SearchUser,
     },
@@ -53,14 +55,13 @@ export const routes = [
   },
   {
     path: '/configs/:id',
-    name: 'configsUser',
+    name: 'Configs',
     components: {
       default: ConfigsUser,
     },
     props: true,
   },
 ];
-
 
 const history = createWebHashHistory();
 

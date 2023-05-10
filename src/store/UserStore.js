@@ -17,6 +17,15 @@ export const useUserStore = defineStore('useUserStore', {
     tradeMode(value) {
       return this.$state.mode = value;
     },
+    setUser(value) {
+      this.$state.user = value;
+    },
+    setUserOptions(value) {
+      this.$state.user.options = value;
+    },
+    setUserDescription(value) {
+      this.$state.user.infos.description = value;
+    },
   },
   persist: true,
 });

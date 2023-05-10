@@ -1,8 +1,9 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { routerStore, useUserStore } from '../store';
+import { useUserStore } from '../store';
+import { useRouter } from 'vue-router';
 
-const store = routerStore();
+const router = useRouter();
 const userStore = useUserStore();
 
 const iconStatus = ref(true);
@@ -35,7 +36,7 @@ const mode = computed(() => statusMode[iconStatus.value]);
             size="100px"
             icon="person"
           />
-          <span class="textStyle text-h1">{{ store.getName }} Profile</span>
+          <span class="textStyle text-h1">{{ router.currentRoute.value.name }} Profile</span>
         </q-toolbar-title>
 
         <q-btn

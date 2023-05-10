@@ -1,11 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore, routerStore } from '../../store';
+import { useUserStore } from '../../store';
 import { runMutation, negativeNotify } from '../../helpers/';
 import Auth from '../../schemas/mutation/auth.gql';
 
-const routerDefine = routerStore();
 const store = useUserStore();
 const router = useRouter();
 
@@ -13,7 +12,6 @@ const pswVisibility = ref(false);
 const passwordText = ref('');
 const userText = ref('');
 
-routerDefine.router_name = 'Login';
 const value = {
   true: {
     icon: 'visibility',
@@ -30,7 +28,7 @@ async function submitLogin(email, password) {
     const { auth } = await runMutation(Auth, { email, password });
     store.user = auth;
     return router.push({
-      name: 'ProfileUser',
+      name: 'User',
       params: {
         id: auth.id,
       },
